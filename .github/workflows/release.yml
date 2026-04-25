@@ -1,0 +1,94 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
+
+      - name: Get version
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Install zip
+        run: sudo apt-get install -y zip
+
+      - name: Build packages
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
+        run: bash scripts/package.sh
+
+      - name: Generate checksums
+        run: |
+          cd dist
+          sha256sum *.tar.gz *.zip > checksums.txt
+          cat checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "tradingview-mcp-go ${{ steps.version.outputs.VERSION }}"
+          body: |
+            ## tradingview-mcp-go ${{ steps.version.outputs.VERSION }}
+
+            Go port of [tradesdontlie/tradingview-mcp](https://github.com/tradesdontlie/tradingview-mcp).
+
+            ### One-line install
+
+            **Linux / macOS**
+            ```bash
+            curl -fsSL https://raw.githubusercontent.com/jhonroun/tradingview-mcp-go/main/scripts/bootstrap.sh | bash
+            ```
+
+            **Windows (PowerShell)**
+            ```powershell
+            iwr -useb https://raw.githubusercontent.com/jhonroun/tradingview-mcp-go/main/scripts/bootstrap.ps1 | iex
+            ```
+
+            ### Install with client configuration
+
+            ```bash
+            # Linux / macOS — configure Claude Code automatically
+            curl -fsSL https://raw.githubusercontent.com/jhonroun/tradingview-mcp-go/main/scripts/bootstrap.sh | CLIENT=claude bash
+
+            # Windows — configure Cursor automatically
+            iwr -useb https://raw.githubusercontent.com/jhonroun/tradingview-mcp-go/main/scripts/bootstrap.ps1 | iex; .\bootstrap.ps1 -Client cursor
+            ```
+
+            ### Manual download
+
+            Pick the archive for your platform from the assets below and extract it.
+            Each archive contains the binaries, agents, skills, prompts, and installer scripts.
+
+            | Platform        | Archive |
+            |-----------------|---------|
+            | Linux amd64     | `tradingview-mcp-go_${{ steps.version.outputs.VERSION }}_linux-amd64.tar.gz` |
+            | Linux arm64     | `tradingview-mcp-go_${{ steps.version.outputs.VERSION }}_linux-arm64.tar.gz` |
+            | macOS amd64     | `tradingview-mcp-go_${{ steps.version.outputs.VERSION }}_darwin-amd64.tar.gz` |
+            | macOS arm64     | `tradingview-mcp-go_${{ steps.version.outputs.VERSION }}_darwin-arm64.tar.gz` |
+            | Windows amd64   | `tradingview-mcp-go_${{ steps.version.outputs.VERSION }}_windows-amd64.zip` |
+            | Windows arm64   | `tradingview-mcp-go_${{ steps.version.outputs.VERSION }}_windows-arm64.zip` |
+
+            See `checksums.txt` to verify downloads.
+          files: |
+            dist/*.tar.gz
+            dist/*.zip
+            dist/checksums.txt
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.VERSION, '-') }}
