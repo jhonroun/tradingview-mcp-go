@@ -1,7 +1,6 @@
 package mcp
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -30,18 +29,18 @@ func NewServer(registry *Registry, instructions string) *Server {
 
 // Run starts the JSON-RPC read loop over stdin/stdout.
 func (s *Server) Run() error {
-	scanner := bufio.NewScanner(s.in)
-	scanner.Buffer(make([]byte, 4*1024*1024), 4*1024*1024)
+	dec := json.NewDecoder(s.in)
 	enc := json.NewEncoder(s.out)
 
-	for scanner.Scan() {
-		line := scanner.Bytes()
-		if len(line) == 0 {
-			continue
-		}
+	for {
 		var req Request
-		if err := json.Unmarshal(line, &req); err != nil {
+		if err := dec.Decode(&req); err != nil {
+			if err == io.EOF {
+				return nil
+			}
 			_ = enc.Encode(s.errResp(nil, ErrParseError, "parse error"))
+			// Drain the bad token so the decoder can continue.
+			dec.Token() //nolint:errcheck
 			continue
 		}
 		resp := s.handle(&req)
@@ -51,7 +50,6 @@ func (s *Server) Run() error {
 			}
 		}
 	}
-	return scanner.Err()
 }
 
 func (s *Server) handle(req *Request) *Response {
