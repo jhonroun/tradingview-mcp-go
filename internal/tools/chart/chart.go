@@ -25,6 +25,10 @@ func GetState() (map[string]interface{}, error) {
 
 	const expr = `(function() {
 		var chart = ` + tv.ChartAPI + `;
+		var symbol = chart.symbol();
+		var parts = symbol ? symbol.split(':') : [];
+		var exchange = parts.length > 1 ? parts[0] : '';
+		var ticker   = parts.length > 1 ? parts[1] : symbol;
 		var studies = [];
 		try {
 			var allStudies = chart.getAllStudies();
@@ -32,11 +36,18 @@ func GetState() (map[string]interface{}, error) {
 				return { id: s.id, name: s.name || s.title || 'unknown' };
 			});
 		} catch(e) {}
+		var paneCount = 0;
+		try {
+			paneCount = chart._chartWidget.model().panes().length;
+		} catch(e) {}
 		return {
-			symbol: chart.symbol(),
+			symbol:     symbol,
+			exchange:   exchange,
+			ticker:     ticker,
 			resolution: chart.resolution(),
-			chartType: chart.chartType(),
-			studies: studies,
+			chartType:  chart.chartType(),
+			studies:    studies,
+			pane_count: paneCount,
 		};
 	})()`
 
@@ -52,19 +63,32 @@ func GetState() (map[string]interface{}, error) {
 
 	var state struct {
 		Symbol     string      `json:"symbol"`
+		Exchange   string      `json:"exchange"`
+		Ticker     string      `json:"ticker"`
 		Resolution string      `json:"resolution"`
 		ChartType  interface{} `json:"chartType"`
 		Studies    []StudyInfo `json:"studies"`
+		PaneCount  int         `json:"pane_count"`
 	}
 	if err := json.Unmarshal(raw, &state); err != nil {
 		return nil, fmt.Errorf("parse chart state: %w", err)
 	}
+	chartTypeStr := fmt.Sprintf("%v", state.ChartType)
+	if state.Studies == nil {
+		state.Studies = []StudyInfo{}
+	}
 	return map[string]interface{}{
 		"success":    true,
 		"symbol":     state.Symbol,
-		"resolution": state.Resolution,
-		"chartType":  state.ChartType,
-		"studies":    state.Studies,
+		"exchange":   state.Exchange,
+		"ticker":     state.Ticker,
+		"timeframe":  state.Resolution, // canonical name
+		"resolution": state.Resolution, // alias kept for back-compat
+		"type":       chartTypeStr,     // canonical name, always a string
+		"chartType":  state.ChartType,  // alias kept for back-compat (raw value)
+		"indicators": state.Studies,    // canonical name per JSON contract
+		"studies":    state.Studies,    // alias kept for back-compat
+		"pane_count": state.PaneCount,
 	}, nil
 }
 

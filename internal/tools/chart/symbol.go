@@ -37,6 +37,12 @@ func SymbolInfo() (map[string]interface{}, error) {
 	if err := json.Unmarshal(raw, &info); err != nil {
 		return nil, fmt.Errorf("parse symbol info: %w", err)
 	}
+	// Ensure required contract fields are always present (empty string sentinel).
+	for _, key := range []string{"symbol", "exchange", "description", "type"} {
+		if _, ok := info[key]; !ok {
+			info[key] = ""
+		}
+	}
 	info["success"] = true
 	return info, nil
 }

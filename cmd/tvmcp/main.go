@@ -13,6 +13,7 @@ import (
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/data"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/drawing"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/health"
+	"github.com/jhonroun/tradingview-mcp-go/internal/tools/hts"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/indicators"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/pane"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/pine"
@@ -86,6 +87,9 @@ func main() {
 
 	// P14 — Batch
 	batch.RegisterTools(reg)
+
+	// Phase 4 — HTS-ready composite tools
+	hts.RegisterTools(reg)
 
 	srv := mcp.NewServer(reg, serverInstructions)
 	if err := srv.Run(); err != nil {

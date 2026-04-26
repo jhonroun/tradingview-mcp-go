@@ -199,20 +199,33 @@ func GetQuote(symbol string) (map[string]interface{}, error) {
 		var ext = {};
 		try { ext = api.symbolExt() || {}; } catch(e) {}
 		var bars = `+tv.BarsPath+`;
-		var quote = { symbol: sym };
+		var quote = { symbol: sym, bid: 0, ask: 0, change: 0, change_pct: 0 };
 		if (bars && typeof bars.lastIndex === 'function') {
-			var last = bars.valueAt(bars.lastIndex());
+			var lastIdx = bars.lastIndex();
+			var last = bars.valueAt(lastIdx);
 			if (last) {
-				quote.time = last[0]; quote.open = last[1]; quote.high = last[2];
-				quote.low = last[3]; quote.close = last[4]; quote.last = last[4];
+				quote.time   = last[0];
+				quote.open   = last[1];
+				quote.high   = last[2];
+				quote.low    = last[3];
+				quote.close  = last[4];
+				quote.last   = last[4];
 				quote.volume = last[5] || 0;
+				// change vs previous bar
+				var prev = bars.valueAt(lastIdx - 1);
+				if (prev && prev[4]) {
+					quote.change     = +((last[4] - prev[4]).toFixed(8));
+					quote.change_pct = prev[4] !== 0
+						? +((last[4] - prev[4]) / prev[4] * 100).toFixed(4)
+						: 0;
+				}
 			}
 		}
 		try {
 			var bidEl = document.querySelector('[class*="bid"] [class*="price"], [class*="dom-"] [class*="bid"]');
 			var askEl = document.querySelector('[class*="ask"] [class*="price"], [class*="dom-"] [class*="ask"]');
-			if (bidEl) quote.bid = parseFloat(bidEl.textContent.replace(/[^0-9.\-]/g, ''));
-			if (askEl) quote.ask = parseFloat(askEl.textContent.replace(/[^0-9.\-]/g, ''));
+			if (bidEl) { var b = parseFloat(bidEl.textContent.replace(/[^0-9.\-]/g, '')); if (!isNaN(b)) quote.bid = b; }
+			if (askEl) { var a = parseFloat(askEl.textContent.replace(/[^0-9.\-]/g, '')); if (!isNaN(a)) quote.ask = a; }
 		} catch(e) {}
 		try {
 			var hdr = document.querySelector('[class*="headerRow"] [class*="last-"]');
@@ -238,11 +251,33 @@ func GetQuote(symbol string) (map[string]interface{}, error) {
 	if q["last"] == nil && q["close"] == nil {
 		return nil, fmt.Errorf("could not retrieve quote; the chart may still be loading")
 	}
+	// Sentinel guarantees: bid/ask/change/change_pct are always numeric.
+	for _, key := range []string{"bid", "ask", "change", "change_pct"} {
+		if q[key] == nil {
+			q[key] = float64(0)
+		}
+	}
 	q["success"] = true
 	return q, nil
 }
 
 // ---------- Study values ----------
+
+// StudyPlot is one output line of an indicator (e.g. "RSI", "Signal", "Histogram").
+// values[0] is the current bar; the array holds only what dataWindowView exposes.
+type StudyPlot struct {
+	Name    string    `json:"name"`
+	Current *float64  `json:"current"`
+	Values  []float64 `json:"values"`
+}
+
+// StudyResult is one indicator entry in data_get_study_values.
+type StudyResult struct {
+	Name      string      `json:"name"`
+	EntityID  string      `json:"entity_id"`
+	PlotCount int         `json:"plot_count"`
+	Plots     []StudyPlot `json:"plots"`
+}
 
 func GetStudyValues() (map[string]interface{}, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
@@ -260,7 +295,9 @@ func GetStudyValues() (map[string]interface{}, error) {
 				var meta = s.metaInfo();
 				var name = meta.description || meta.shortDescription || '';
 				if (!name) continue;
-				var values = {};
+				var entityId = '';
+				try { entityId = String(typeof s.id === 'function' ? s.id() : (s.id || '')); } catch(e) {}
+				var plots = [];
 				try {
 					var dwv = s.dataWindowView();
 					if (dwv) {
@@ -268,12 +305,28 @@ func GetStudyValues() (map[string]interface{}, error) {
 						if (items) {
 							for (var i = 0; i < items.length; i++) {
 								var item = items[i];
-								if (item._value && item._value !== '∅' && item._title) values[item._title] = item._value;
+								if (item._value && item._value !== '∅' && item._title) {
+									var numStr = String(item._value).replace(/,/g, '');
+									var numVal = parseFloat(numStr);
+									var current = isFinite(numVal) ? numVal : null;
+									plots.push({
+										name: item._title,
+										current: current,
+										values: current !== null ? [current] : []
+									});
+								}
 							}
 						}
 					}
 				} catch(e) {}
-				if (Object.keys(values).length > 0) results.push({ name: name, values: values });
+				if (plots.length > 0) {
+					results.push({
+						name: name,
+						entity_id: entityId,
+						plot_count: plots.length,
+						plots: plots
+					});
+				}
 			} catch(e) {}
 		}
 		return results;
@@ -285,14 +338,17 @@ func GetStudyValues() (map[string]interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	var studies []interface{}
+	var studies []StudyResult
 	if err := json.Unmarshal(raw, &studies); err != nil {
 		return nil, fmt.Errorf("parse study values: %w", err)
 	}
+	if studies == nil {
+		studies = []StudyResult{}
+	}
 	return map[string]interface{}{
-		"success":      true,
-		"study_count":  len(studies),
-		"studies":      studies,
+		"success":     true,
+		"study_count": len(studies),
+		"studies":     studies,
 	}, nil
 }
 
@@ -622,14 +678,63 @@ func GetIndicator(entityID string) (map[string]interface{}, error) {
 	defer cancel()
 
 	expr := fmt.Sprintf(`(function() {
+		var sid = %s;
 		var api = `+tv.ChartAPI+`;
-		var study = api.getStudyById(%s);
-		if (!study) return { error: 'Study not found: ' + %s };
-		var result = { name: null, inputs: null, visible: null };
+		var study = api.getStudyById(sid);
+		if (!study) return { error: 'Study not found: ' + sid };
+		var result = { entity_id: sid, name: '', visible: null, inputs: {}, plots: [] };
 		try { result.visible = study.isVisible(); } catch(e) {}
-		try { result.inputs = study.getInputValues(); } catch(e) { result.inputs_error = e.message; }
+		// Name from metaInfo
+		try {
+			var meta = study.metaInfo ? study.metaInfo() : null;
+			if (meta) result.name = meta.description || meta.shortDescription || '';
+		} catch(e) {}
+		// Inputs: convert array of {id, value} → key→value map, filter oversized strings
+		try {
+			var rawInputs = study.getInputValues();
+			var inputs = {};
+			if (rawInputs && rawInputs.length) {
+				for (var i = 0; i < rawInputs.length; i++) {
+					var inp = rawInputs[i];
+					if (!inp || !inp.id || inp.value === undefined) continue;
+					var val = inp.value;
+					if (typeof val === 'string' && val.length > 500) continue;
+					if (typeof val === 'string' && inp.id === 'text' && val.length > 200) continue;
+					if (typeof val === 'string' && val.length > 200) val = val.substring(0, 200) + '...(truncated)';
+					inputs[inp.id] = val;
+				}
+			}
+			result.inputs = inputs;
+		} catch(e) { result.inputs = {}; }
+		// Plots: read current values from dataWindowView of this source
+		try {
+			var chart = window.TradingViewApi._activeChartWidgetWV.value()._chartWidget;
+			var sources = chart.model().model().dataSources();
+			for (var si = 0; si < sources.length; si++) {
+				var s = sources[si];
+				var sId = String(typeof s.id === 'function' ? s.id() : (s.id || ''));
+				if (sId !== sid) continue;
+				var plots = [];
+				var dwv = s.dataWindowView ? s.dataWindowView() : null;
+				if (dwv) {
+					var items = dwv.items ? dwv.items() : null;
+					if (items) {
+						for (var pi = 0; pi < items.length; pi++) {
+							var item = items[pi];
+							if (item._value && item._value !== '∅' && item._title) {
+								var numVal = parseFloat(String(item._value).replace(/,/g, ''));
+								var cur = isFinite(numVal) ? numVal : null;
+								plots.push({ name: item._title, current: cur, values: cur !== null ? [cur] : [] });
+							}
+						}
+					}
+				}
+				result.plots = plots;
+				break;
+			}
+		} catch(e) {}
 		return result;
-	})()`, tv.SafeString(entityID), tv.SafeString(entityID))
+	})()`, tv.SafeString(entityID))
 
 	raw, err := withSession(ctx, func(c *cdp.Client) (json.RawMessage, error) {
 		return c.Evaluate(ctx, expr, false)
@@ -646,23 +751,15 @@ func GetIndicator(entityID string) (map[string]interface{}, error) {
 		return nil, fmt.Errorf("%s", errMsg)
 	}
 
-	// Filter out oversized text inputs (mirrors Node.js behaviour)
-	if inputs, ok := data["inputs"].([]interface{}); ok {
-		filtered := inputs[:0]
-		for _, inp := range inputs {
-			if m, ok := inp.(map[string]interface{}); ok {
-				val, _ := m["value"].(string)
-				id, _ := m["id"].(string)
-				if id == "text" && len(val) > 200 {
-					continue
-				}
-				if len(val) > 500 {
-					continue
-				}
-			}
-			filtered = append(filtered, inp)
-		}
-		data["inputs"] = filtered
+	// Ensure contract fields always present even if JS didn't set them.
+	if _, ok := data["inputs"]; !ok {
+		data["inputs"] = map[string]interface{}{}
+	}
+	if _, ok := data["plots"]; !ok {
+		data["plots"] = []interface{}{}
+	}
+	if _, ok := data["name"]; !ok {
+		data["name"] = ""
 	}
 
 	data["success"] = true

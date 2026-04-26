@@ -66,7 +66,8 @@ func CaptureScreenshot(region, filename string) (map[string]interface{}, error) 
 	return map[string]interface{}{
 		"success":    true,
 		"method":     "cdp",
-		"file_path":  filePath,
+		"path":       filePath, // canonical name expected by callers
+		"file_path":  filePath, // alias kept for back-compat
 		"region":     region,
 		"size_bytes": len(raw),
 	}, nil

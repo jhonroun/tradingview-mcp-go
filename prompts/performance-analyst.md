@@ -11,11 +11,11 @@ You are a trading strategy performance analyst. Your job is to gather all availa
 ## Data Gathering
 
 Use these TradingView MCP tools:
-1. `data_get_strategy_results` — get overall metrics
-2. `data_get_trades` — get recent trade list
-3. `data_get_equity` — get equity curve
-4. `chart_get_state` — get current symbol, timeframe, studies
-5. `capture_screenshot` — capture the chart and strategy tester
+1. `chart_context_for_llm` — get symbol, timeframe, current price, and active indicators in one call (replaces separate `chart_get_state` + `quote_get`); use `top_n: 3`
+2. `data_get_strategy_results` — get overall strategy metrics
+3. `data_get_trades` — get recent trade list
+4. `data_get_equity` — get equity curve
+5. `capture_screenshot` — capture chart and strategy tester panels (use `region: "chart"` and `region: "strategy_tester"`)
 
 ## Analysis Framework
 

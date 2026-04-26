@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"time"
 
@@ -14,53 +15,72 @@ import (
 )
 
 // Launch finds and starts TradingView with --remote-debugging-port=<port>.
+// TradingView.exe must be run from its own installation directory; cmd.Dir is
+// set to filepath.Dir(execPath) so the flag is accepted.
 // If tvPath is non-empty it is used directly, skipping auto-discovery.
 // If killExisting is true, any running TradingView processes are killed first.
 func Launch(port int, killExisting bool, tvPath string) (map[string]interface{}, error) {
-	if killExisting {
-		killRunning()
+	if !killExisting {
+		// Return immediately if TradingView is already running with CDP.
+		ctx0, cancel0 := context.WithTimeout(context.Background(), 2*time.Second)
+		targets, err := cdp.ListTargets(ctx0, "localhost", port)
+		cancel0()
+		if err == nil {
+			if _, err := cdp.FindChartTarget(targets); err == nil {
+				return map[string]interface{}{
+					"success":         true,
+					"connected":       true,
+					"already_running": true,
+					"port":            port,
+				}, nil
+			}
+		}
 	}
 
-	execPath := tvPath
-	var source string
-	if execPath == "" {
-		found, err := discovery.Find()
-		if err != nil {
-			return map[string]interface{}{"success": false, "error": err.Error()}, nil
-		}
-		execPath = found.Path
-		source = found.Source
-	} else {
-		source = "cli-flag"
-		if _, err := os.Stat(execPath); err != nil {
+	if killExisting {
+		killRunning()
+		time.Sleep(2 * time.Second)
+	}
+
+	var found *discovery.Result
+	if tvPath != "" {
+		if _, err := os.Stat(tvPath); err != nil {
 			return map[string]interface{}{
 				"success": false,
 				"error":   fmt.Sprintf("--tv-path not found: %v", err),
 			}, nil
 		}
+		found = &discovery.Result{Path: tvPath, Source: "cli-flag", Platform: runtime.GOOS}
+	} else {
+		var err error
+		found, err = discovery.Find()
+		if err != nil {
+			return map[string]interface{}{"success": false, "error": err.Error()}, nil
+		}
 	}
 
-	cmd := exec.Command(execPath, fmt.Sprintf("--remote-debugging-port=%d", port))
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	if err := cmd.Start(); err != nil {
+	pid, err := launchDirect(found.Path, port)
+	if err != nil {
 		return map[string]interface{}{
 			"success": false,
 			"error":   fmt.Sprintf("failed to start TradingView: %v", err),
 		}, nil
 	}
 
-	// Wait up to 15 s for CDP to become available.
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	// Wait up to 30 s for CDP to become available.
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	base := map[string]interface{}{
 		"success":  true,
-		"pid":      cmd.Process.Pid,
+		"pid":      pid,
 		"port":     port,
 		"platform": runtime.GOOS,
-		"path":     execPath,
-		"source":   source,
+		"path":     found.Path,
+		"source":   found.Source,
+	}
+	if found.IsMSIX {
+		base["msix"] = true
 	}
 
 	for {
@@ -77,6 +97,18 @@ func Launch(port int, killExisting bool, tvPath string) (map[string]interface{},
 		case <-time.After(500 * time.Millisecond):
 		}
 	}
+}
+
+// launchDirect starts TradingView.exe with --remote-debugging-port=<port>.
+// cmd.Dir is set to the installation directory — required for the CDP flag
+// to be accepted by TradingView. Run tv launch from an interactive terminal.
+func launchDirect(execPath string, port int) (int, error) {
+	cmd := exec.Command(execPath, fmt.Sprintf("--remote-debugging-port=%d", port))
+	cmd.Dir = filepath.Dir(execPath)
+	if err := cmd.Start(); err != nil {
+		return 0, err
+	}
+	return cmd.Process.Pid, nil
 }
 
 func killRunning() {

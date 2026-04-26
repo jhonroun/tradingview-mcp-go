@@ -9,12 +9,10 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
-	"time"
 
-	"github.com/jhonroun/tradingview-mcp-go/internal/cdp"
 	"github.com/jhonroun/tradingview-mcp-go/internal/cli"
-	"github.com/jhonroun/tradingview-mcp-go/internal/discovery"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/alerts"
+	"github.com/jhonroun/tradingview-mcp-go/internal/tools/doctor"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/capture"
 	charttools "github.com/jhonroun/tradingview-mcp-go/internal/tools/chart"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/data"
@@ -27,6 +25,7 @@ import (
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/tab"
 	uitools "github.com/jhonroun/tradingview-mcp-go/internal/tools/ui"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/batch"
+	"github.com/jhonroun/tradingview-mcp-go/internal/tools/hts"
 	"github.com/jhonroun/tradingview-mcp-go/internal/stream"
 )
 
@@ -81,48 +80,7 @@ func init() {
 		Name:        "doctor",
 		Description: "Diagnose TradingView installation and CDP connectivity",
 		Handler: func(args []string, opts map[string]string) (interface{}, error) {
-			result := map[string]interface{}{"success": true}
-
-			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-			defer cancel()
-
-			targets, err := cdp.ListTargets(ctx, "localhost", 9222)
-			if err != nil {
-				result["cdp"] = map[string]interface{}{
-					"ok":    false,
-					"error": err.Error(),
-					"hint":  "Start TradingView with --remote-debugging-port=9222, or run: tv launch",
-				}
-			} else {
-				chartTarget, ferr := cdp.FindChartTarget(targets)
-				if ferr != nil {
-					result["cdp"] = map[string]interface{}{
-						"ok":      true,
-						"targets": len(targets),
-						"chart":   false,
-						"hint":    "CDP is available but no chart target found — open a chart in TradingView",
-					}
-				} else {
-					result["cdp"] = map[string]interface{}{
-						"ok":       true,
-						"targets":  len(targets),
-						"chart":    true,
-						"targetId": chartTarget.ID,
-						"url":      chartTarget.URL,
-					}
-				}
-			}
-
-			found, err := discovery.Find()
-			if err != nil {
-				result["install"] = map[string]interface{}{"ok": false, "error": err.Error()}
-			} else {
-				result["install"] = map[string]interface{}{
-					"ok": true, "path": found.Path,
-					"source": found.Source, "platform": found.Platform,
-				}
-			}
-			return result, nil
+			return doctor.Run(), nil
 		},
 	})
 
@@ -568,6 +526,48 @@ func init() {
 			default:
 				return nil, fmt.Errorf("unknown layout subcommand %q", args[0])
 			}
+		},
+	})
+
+	// ── HTS composite tools (Phase 4) ────────────────────────────────────────
+	cli.Register(cli.Command{
+		Name:        "context",
+		Description: "LLM-ready aggregate: chart state + price + top-N indicators — tv context [--top-n N]",
+		Handler: func(args []string, opts map[string]string) (interface{}, error) {
+			topN := 5
+			if v, ok := opts["top-n"]; ok {
+				if n, err := strconv.Atoi(v); err == nil {
+					topN = n
+				}
+			}
+			return hts.ChartContextForLLM(topN)
+		},
+	})
+
+	cli.Register(cli.Command{
+		Name:        "indicator",
+		Description: "Current value + signal for a named indicator — tv indicator NAME",
+		Handler: func(args []string, opts map[string]string) (interface{}, error) {
+			if len(args) == 0 {
+				return nil, fmt.Errorf("usage: tv indicator NAME")
+			}
+			return hts.IndicatorState(strings.Join(args, " "))
+		},
+	})
+
+	cli.Register(cli.Command{
+		Name:        "market",
+		Description: "Full market summary: symbol, last bar, change%, volume vs avg, indicators",
+		Handler: func(args []string, opts map[string]string) (interface{}, error) {
+			return hts.MarketSummary()
+		},
+	})
+
+	cli.Register(cli.Command{
+		Name:        "futures-context",
+		Description: "Continuous futures contract info (symbol, base, roll, exchange) — tv futures-context",
+		Handler: func(args []string, opts map[string]string) (interface{}, error) {
+			return hts.ContinuousContractContext()
 		},
 	})
 

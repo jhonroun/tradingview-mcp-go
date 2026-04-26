@@ -16,32 +16,48 @@ critical blockers: none
 
 Tests that do NOT require TradingView running. Pure protocol coverage.
 
-- [ ] `initialize` → correct protocolVersion, serverInfo, capabilities
-- [ ] `tools/list` → returns exactly 78 tools, each has name/description/inputSchema
-- [ ] `tools/call` known tool → `{"content":[{"type":"text","text":"..."}],"isError":false}`
-- [ ] `tools/call` unknown tool → `{"content":[...],"isError":true}`
-- [ ] `tools/call` with bad JSON args → `{"content":[...],"isError":true}`
-- [ ] `ping` → `{}`
-- [ ] unknown method → JSON-RPC error -32601
-- [ ] parse error (malformed JSON) → JSON-RPC error -32700
-- [ ] multiline JSON input (json.Decoder regression test)
-- [ ] large response (>64KB) — regression for old Scanner limit
+- [x] `initialize` → correct protocolVersion, serverInfo, capabilities
+- [x] `tools/list` → returns exactly 78 tools, each has name/description/inputSchema
+- [x] `tools/call` known tool → `{"content":[{"type":"text","text":"..."}],"isError":false}`
+- [x] `tools/call` unknown tool → `{"content":[...],"isError":true}`
+- [x] `tools/call` with bad JSON args → `{"content":[...],"isError":true}`
+- [x] `ping` → `{}`
+- [x] unknown method → JSON-RPC error -32601
+- [x] parse error (malformed JSON) → JSON-RPC error -32700
+- [x] multiline JSON input → each partial line produces -32700 (NDJSON protocol violation)
+- [x] large response (>64KB) — regression for old Scanner limit
+- [x] notifications/initialized → no response emitted
+- [x] sequential requests → 3 in, 3 out, all succeed
 
 ---
 
 ## Phase 2 — Smoke tests (TradingView live)
 
 Require: TradingView Desktop running with `--remote-debugging-port=9222`.
-Run manually or in a dedicated CI environment with TradingView.
+Run manually: `go test ./tests/smoke/... -v -timeout 60s`
 
-- [ ] CDP connect → `tv status` returns connected=true
-- [ ] `chart_get_state` → returns symbol, timeframe, type
-- [ ] `quote_get` → returns bid/ask/last, numeric values
-- [ ] `data_get_ohlcv` → returns ≥1 bar with time/open/high/low/close/volume
-- [ ] `data_get_study_values` → returns study list (may be empty if no indicators)
-- [ ] `capture_screenshot` → returns base64 or file path, non-empty
-- [ ] `pine_get_source` → returns string (may be empty)
-- [ ] `tv_launch` → starts TradingView process, returns success=true
+> **Windows MSIX note**: TradingView v3.1.0 (after auto-update from 3.0.0)
+> accepts `--remote-debugging-port=9222` when launched directly from its
+> installation directory (`cmd.Dir = filepath.Dir(execPath)`). The launcher
+> now uses this approach for all installs including MSIX.
+> Use `tv launch` (or `tv launch --kill` to restart) to enable CDP.
+
+- [x] Smoke test suite created in `tests/smoke/smoke_test.go` with skip logic
+- [x] `TestHealthCheckShape` passes without CDP (shape validation only)
+- [x] Launcher: `cmd.Dir` set to TradingView install dir — CDP accepted by MSIX v3.1.0
+- [x] Launcher: already-running check before attempting new launch (2s probe on port)
+- [x] `launchDirect` used for all installs — clean, minimal implementation
+- [x] **MSIX launch limitation documented**: `tv launch` works from an interactive user
+  terminal (TTY present). MSIX GUI apps cannot be started from a non-interactive
+  subprocess (MCP server context) — Windows/Electron exits cleanly with code 0.
+  Workaround: user runs `tv launch` or starts TradingView manually, then uses MCP.
+- [x] `TestCDPConnect` — connected=true, targetUrl present
+- [x] `TestChartGetState` — symbol=RUS:NG1! timeframe=1D type=1 (fixed: added `timeframe`/`type` aliases, stringify chartType)
+- [x] `TestQuoteGet` — symbol/last/close present
+- [x] `TestDataGetOHLCV` — 5 bars returned with OHLCV fields
+- [x] `TestDataGetStudyValues` — 3 studies returned
+- [x] `TestCaptureScreenshot` — saved to screenshots/ (fixed: added `path` alias for `file_path`)
+- [x] `TestPineGetSource` — Pine source returned (33 KB)
 
 ---
 
@@ -49,13 +65,13 @@ Run manually or in a dedicated CI environment with TradingView.
 
 `tv doctor` should provide actionable diagnostics on Windows.
 
-- [ ] Check `localhost:9222` reachable — clear message if not
-- [ ] List running processes, detect TradingView.exe without `--remote-debugging-port`
-- [ ] Probe WindowsApps/MSIX path (`Get-AppxPackage *TradingView*`)
-- [ ] Probe `%LOCALAPPDATA%\TradingView\` and `%APPDATA%\TradingView\`
-- [ ] Output exact command to restart with CDP flag
-- [ ] Detect if port 9222 is used by a different process (Chrome, etc.)
-- [ ] Structured JSON output + human-readable hint block
+- [x] Check `localhost:9222` reachable — clear message if not
+- [x] List running processes, detect TradingView.exe without `--remote-debugging-port`
+- [x] Probe WindowsApps/MSIX path (`Get-AppxPackage *TradingView*`)
+- [x] Probe `%LOCALAPPDATA%\TradingView\` and `%APPDATA%\TradingView\`
+- [x] Output exact command to restart with CDP flag
+- [x] Detect if port 9222 is used by a different process (Chrome, etc.)
+- [x] Structured JSON output + human-readable hint block
 
 ---
 
@@ -63,10 +79,10 @@ Run manually or in a dedicated CI environment with TradingView.
 
 New tools to support the HTS integration layer.
 
-- [ ] `chart_context_for_llm` — combines chart_get_state + quote_get + top-N study values into one call; returns a single structured object ready for LLM prompt injection
-- [ ] `indicator_state` — current value + signal direction (above/below zero, crossing) for a named indicator; reduces LLM need to interpret raw arrays
-- [ ] `market_summary` — symbol, timeframe, last bar OHLCV, change%, volume vs avg, current indicators summary; one call for full context
-- [ ] `continuous_contract_context` — for futures: nearest expiry, roll date, front/back spread (read from TradingView visible data)
+- [x] `chart_context_for_llm` — combines chart_get_state + quote_get + top-N study values into one call; returns a single structured object ready for LLM prompt injection
+- [x] `indicator_state` — current value + signal direction (above/below zero, overbought/oversold) for a named indicator; partial name match; RSI/Stoch/CCI-aware thresholds
+- [x] `market_summary` — symbol, timeframe, last bar OHLCV, change%, volume vs 20-bar avg, all active indicators; one call for full context
+- [x] `continuous_contract_context` — for futures: detect continuous contract (NG1!, ES1!, CL2!), parse base symbol + roll number, enrich with symbolExt() description/exchange/type
 
 ---
 
@@ -77,19 +93,19 @@ See: [JSON_CONTRACTS.md](JSON_CONTRACTS.md)
 
 Priority tools:
 
-- [ ] `data_get_study_values` — finalize field names, handle empty/null study arrays
-- [ ] `data_get_indicator` — clarify `values` array shape, index 0 = current bar
-- [ ] `chart_get_state` — confirm `indicators` array structure
-- [ ] `quote_get` — confirm all numeric fields present even when bid/ask unavailable
-- [ ] `symbol_search` / `symbol_info` — confirm `type`, `exchange`, `description` always present
-- [ ] Define which errors are **retryable** (CDP disconnect) vs **permanent** (unknown tool)
+- [x] `data_get_study_values` — `entity_id`, `plot_count`, `plots` array (numeric values); `studies` always `[]`
+- [x] `data_get_indicator` — `inputs` now a key→value map; `plots` array; `name` from metaInfo
+- [x] `chart_get_state` — added `exchange`, `ticker`, `pane_count`; `indicators` canonical alias for `studies`
+- [x] `quote_get` — `bid`, `ask`, `change`, `change_pct` always present (0 sentinel)
+- [x] `symbol_search` / `symbol_info` — `type`, `exchange`, `description` always present (empty string)
+- [x] Define retryable errors (`CDP`/`connect`/`timeout`/`websocket`) vs permanent (`unknown tool`/`unmarshal`/`is required`) — `mcp.IsRetryable()` + `mcp.ClassifyError()`
 
 ---
 
 ## Technical debt
 
-- [x] Replace `bufio.Scanner` with `json.Decoder` in mcp/server.go (done 2026-04-25)
-- [ ] MCP server: add max message size guard (`io.LimitedReader`, e.g. 16 MB)
+- [x] Replace `bufio.Scanner` with `bufio.Reader.ReadBytes` in mcp/server.go (done 2026-04-25)
+- [x] MCP server: add max message size guard (16 MB per-line check, done 2026-04-25)
+- [x] `.github/workflows/test.yml` — run `go test ./...` on every push (done 2026-04-25)
 - [ ] CDP client: configurable reconnect backoff (currently hardcoded)
-- [ ] `go test ./...` in CI (add to release.yml before package step)
-- [ ] `.github/workflows/test.yml` — run tests on every push to master
+- [ ] `go test ./...` in CI release.yml (add before package step)

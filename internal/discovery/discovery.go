@@ -12,9 +12,12 @@ import (
 
 // Result holds the discovered TradingView executable path.
 type Result struct {
-	Path     string
-	Source   string
-	Platform string
+	Path            string
+	Source          string
+	Platform        string
+	IsMSIX          bool   // true when installed via Microsoft Store (WindowsApps)
+	MSIXFamilyName  string // e.g. "TradingView.Desktop_n534cwy3pjxzj", set when IsMSIX=true
+	MSIXAppID       string // e.g. "TradingView.Desktop", the Application Id from AppxManifest
 }
 
 // Find searches for TradingView Desktop. Checks TRADINGVIEW_PATH env first,
@@ -50,32 +53,47 @@ func findWindows() (*Result, error) {
 			return &Result{Path: c.path, Source: c.source, Platform: "windows"}, nil
 		}
 	}
-	if p := findWindowsStore(); p != "" {
-		return &Result{Path: p, Source: "Microsoft Store (WindowsApps)", Platform: "windows"}, nil
+	if r := findWindowsStore(); r != nil {
+		return r, nil
 	}
 	return nil, fmt.Errorf("TradingView Desktop not found on Windows; set TRADINGVIEW_PATH or install from tradingview.com")
 }
 
 // findWindowsStore queries PowerShell for the Microsoft Store package location.
-// Returns empty string on any error (Access Denied, not installed, etc.).
-func findWindowsStore() string {
+// Returns nil on any error (Access Denied, not installed, etc.).
+func findWindowsStore() *Result {
 	out, err := exec.Command(
 		"powershell", "-NoProfile", "-NonInteractive",
-		"-Command", `(Get-AppxPackage -Name 'TradingView.Desktop' -ErrorAction SilentlyContinue).InstallLocation`,
+		"-Command",
+		`$pkg = Get-AppxPackage -Name 'TradingView.Desktop' -ErrorAction SilentlyContinue; if ($pkg) { $pkg.InstallLocation + '|' + $pkg.PackageFamilyName }`,
 	).Output()
 	if err != nil {
-		return ""
+		return nil
 	}
-	loc := strings.TrimSpace(string(out))
-	if loc == "" {
-		return ""
+	line := strings.TrimSpace(string(out))
+	if line == "" {
+		return nil
+	}
+	parts := strings.SplitN(line, "|", 2)
+	loc := parts[0]
+	family := ""
+	if len(parts) == 2 {
+		family = parts[1]
 	}
 	for _, rel := range []string{"TradingView.exe", filepath.Join("app", "TradingView.exe")} {
-		if p := filepath.Join(loc, rel); fileExists(p) {
-			return p
+		p := filepath.Join(loc, rel)
+		if fileExists(p) {
+			return &Result{
+				Path:           p,
+				Source:         "Microsoft Store (WindowsApps)",
+				Platform:       "windows",
+				IsMSIX:         true,
+				MSIXFamilyName: family,
+				MSIXAppID:      "TradingView.Desktop",
+			}
 		}
 	}
-	return ""
+	return nil
 }
 
 func findMacOS() (*Result, error) {

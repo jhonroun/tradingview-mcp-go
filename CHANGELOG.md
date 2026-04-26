@@ -6,6 +6,272 @@
 
 ---
 
+## 2026-04-26 (Phase 5)
+
+### Added
+
+- `internal/mcp/errors.go` — new file: `IsRetryable(err) bool` and `ClassifyError(err) ErrorKind`.
+  Retryable: `CDP`, `connect`, `no TradingView`, `timeout`, `websocket`.
+  Permanent: `unknown tool`, `unmarshal`, `invalid`, `is required`.
+  `ErrorKind` constants: `ErrKindCDPDisconnect`, `ErrKindTabNotFound`, `ErrKindJSTimeout`,
+  `ErrKindUnknownTool`, `ErrKindBadArgs`, `ErrKindUnknown`.
+- `internal/mcp/errors_test.go` — tests for `IsRetryable` (11 cases) and `ClassifyError` (9 cases).
+
+### Added — Skills (Phase 5)
+
+- `skills/json-contracts/SKILL.md` — contract verification guide: field presence, type, and
+  sentinel-value checks for all 6 priority tools; array safety patterns; multi-output indicator access.
+- `skills/error-handling/SKILL.md` — error classification and recovery guide: retryable vs
+  permanent decision tree; retry pattern with exponential wait; CDP disconnect diagnosis flow;
+  Windows MSIX note; common error message table.
+
+### Changed — `data_get_study_values`
+
+- JS expression updated: each study entry now includes `entity_id` (string-coerced from
+  `s.id` observable), `plot_count` (integer), and `plots` array.
+- Each `plots` entry: `{name: string, current: float64|null, values: [float64]}`.
+  `values[0]` === `current` (current bar); `values` is `[]` when `current` is null.
+- Go type `StudyResult` and `StudyPlot` exported for use by the HTS package.
+- `studies` always `[]` (never null) — nil slice guard added.
+- `internal/tools/data/data_contracts_test.go` — new tests: JSON shape, nil current, empty
+  array guard, `quote_get` sentinel fields, `symbol_info` sentinel fields.
+
+### Changed — `data_get_indicator`
+
+- JS expression updated: `name` now read from `meta.description`/`shortDescription`.
+- `inputs` converted from raw `getInputValues()` array to key→value `{}` object.
+  Oversized strings still omitted (>500 chars) or truncated (>200 chars for `text` input).
+- Added `plots` array from `dataWindowView` of the matching source (same format as
+  `data_get_study_values`); `plots` always `[]` if no visible outputs.
+- Go-side sentinel: `inputs`, `plots`, `name` always present in response even if JS partial.
+
+### Changed — `chart_get_state`
+
+- JS expression updated: now returns `exchange` (prefix of `symbol` before `:`),
+  `ticker` (suffix after `:`), `pane_count` (from `chart._chartWidget.model().panes().length`).
+- Go response map: added `exchange`, `ticker`, `pane_count`; added `indicators` as
+  canonical alias for `studies` (both present; `studies` kept for backward compat).
+- `studies` nil guard — always `[]`.
+- `internal/tools/chart/chart_contracts_test.go` — new tests: exchange/ticker parsing,
+  contract field presence, `StudyInfo` JSON shape, `symbol_info` sentinels,
+  `SymbolSearchResult` empty-field guarantee.
+
+### Changed — `quote_get`
+
+- JS expression updated: calculates `change` = `last[4] - prev[4]` and `change_pct` =
+  `(last[4] - prev[4]) / prev[4] * 100` from `bars.valueAt(lastIdx - 1)`.
+- `bid` and `ask` DOM scraping now uses `isNaN` guard; both initialised to `0`.
+- Go-side sentinel: `bid`, `ask`, `change`, `change_pct` always set to `0.0` if nil.
+
+### Changed — `symbol_info`
+
+- After JSON unmarshal, sentinel loop ensures `symbol`, `exchange`, `description`, `type`
+  are always present (empty string default).
+
+### Changed — `hts.go` (internal)
+
+- `ChartContextForLLM`: reads `sv["studies"].([]data.StudyResult)` (typed slice);
+  builds `context_text` from `sr.Plots[0].Current` instead of `values` map.
+- `IndicatorState`: reads typed `[]data.StudyResult`; `primary_value` / `direction` /
+  `signal` from `matched.Plots[0].Current`; response field `plots` replaces `values`.
+- `MarketSummary`: reads typed `[]data.StudyResult` for indicators.
+
+### Changed — Documentation
+
+- `docs/en/cli.md` — new section `## JSON Contracts and Error Handling (Phase 5)`:
+  contract tables for all 6 tools; retryable vs permanent error classification table.
+- `docs/ru/cli.md` — same section in Russian (`## JSON-контракты и обработка ошибок`).
+- `prompts/market-analyst.md` — added `## Phase 5 — JSON contract awareness` section.
+- `agents/market-analyst.md` + all 6 client variants — appended Phase 5 contract notes.
+- `agents/futures-analyst.md` + all 6 client variants — appended Phase 5 contract notes.
+- `agents/performance-analyst.md` + all 6 client variants — appended Phase 5 contract notes.
+- `agents/README.md` — added `## Skills` table with all 11 skills including 2 new Phase 5 skills.
+
+### Verified
+
+- `go test ./...` — all packages pass (including new tests in `data`, `chart`, `mcp`, `hts`).
+- `go build ./...` — clean.
+
+---
+
+## 2026-04-26 (Phase 4)
+
+### Added
+
+- `internal/tools/hts`: new package with 4 HTS-ready composite tools:
+  - `chart_context_for_llm` — aggregates `chart_get_state` + `quote_get` +
+    top-N `data_get_study_values` into one call; returns `symbol`, `timeframe`,
+    `chart_type`, `price` object, `indicators` array, `indicator_count`, and
+    `context_text` (compact pipe-separated string for LLM prompt injection).
+    `top_n` argument (default 5); study values are best-effort (absent indicators
+    do not fail the call).
+  - `indicator_state` — finds a study by partial, case-insensitive name match
+    against live `data_get_study_values`; returns `matched_name`, `values`,
+    `primary_value`, `primary_key`, `direction` (`above_zero`/`below_zero`/`at_zero`),
+    `signal` (`bullish`/`bearish`/`neutral`/`overbought`/`oversold`), `near_zero`.
+    Signal rules: RSI/Stochastic/Relative Strength Index ≥70=overbought ≤30=oversold;
+    CCI ≥100/≤−100; all others positive=bullish/negative=bearish.
+  - `market_summary` — one-call full context: symbol, timeframe, chart type,
+    last bar OHLCV (`data_get_ohlcv` 21 bars), `change` (close − prev close),
+    `change_pct`, `volume_vs_avg` (last ÷ 20-bar prior average), all active
+    indicators (best-effort).
+  - `continuous_contract_context` — detects `!`-suffixed continuous contract symbols
+    (e.g. `NG1!`, `ES1!`, `CL2!`); parses `base_symbol` and `roll_number`; enriches
+    with `description`, `exchange`, `type`, `currency_code`, `root_description`
+    from `chart.SymbolInfo()` (best-effort). Includes explanatory `note` about
+    JS API limitation re: expiry/roll dates.
+- `cmd/tvmcp/main.go` — registers `hts.RegisterTools(reg)` (total **82 MCP tools**).
+- `cmd/tv/main.go` — CLI commands: `tv context [--top-n N]`, `tv indicator NAME`,
+  `tv market`, `tv futures-context`.
+- `docs/en/cli.md` — HTS section with argument tables, response field tables,
+  signal classification rules, and CLI examples (under `## HTS-ready composite tools`).
+- `docs/ru/cli.md` — same section in Russian (under `## HTS-инструменты для LLM`).
+
+### Added — Skills (Phase 4)
+
+- `skills/llm-context/SKILL.md` — LLM Context Builder: one-call chart snapshot via
+  `chart_context_for_llm`; validates completeness, embeds `context_text` into prompt chains,
+  covers refresh-after-symbol-change pattern.
+- `skills/indicator-scan/SKILL.md` — Indicator Signal Scanner: reads all active indicator
+  signals by name via `indicator_state`; builds signal table with confluence assessment
+  (bullish/bearish/overbought/oversold/mixed); explains `near_zero` as crossover alert.
+- `skills/market-brief/SKILL.md` — Market Brief: structured briefing via `market_summary`;
+  covers price action, volume classification (`volume_vs_avg`), indicator snapshot,
+  multi-symbol iteration pattern, and standard brief format.
+- `skills/futures-roll/SKILL.md` — Futures Contract Context: detects continuous contracts via
+  `continuous_contract_context`; interprets `base_symbol`/`roll_number`; uses volume drop
+  as roll-period proxy; covers front/back spread via dual-pane comparison; includes
+  typical roll window notes for energy, equity index, and metals.
+
+### Added — Agents (Phase 4)
+
+Two new agent definitions (`market-analyst`, `futures-analyst`) deployed across all 7 client platforms:
+
+- `agents/market-analyst.md` — Claude Code (Claude Agents SDK, YAML frontmatter)
+- `agents/futures-analyst.md` — Claude Code (Claude Agents SDK, YAML frontmatter)
+- `agents/cursor/market-analyst.mdc` — Cursor Rules (`.mdc` with YAML frontmatter)
+- `agents/cursor/futures-analyst.mdc` — Cursor Rules
+- `agents/cline/market-analyst.md` — Cline (`.clinerules/`, plain markdown)
+- `agents/cline/futures-analyst.md` — Cline
+- `agents/windsurf/market-analyst.md` — Windsurf (`.windsurfrules`, plain markdown)
+- `agents/windsurf/futures-analyst.md` — Windsurf
+- `agents/continue/market-analyst.prompt` — Continue (`.continue/prompts/`, `name:/description:/---` format)
+- `agents/continue/futures-analyst.prompt` — Continue
+- `agents/codex/market-analyst.md` — OpenAI Codex CLI (`# name\n\n` + body)
+- `agents/codex/futures-analyst.md` — OpenAI Codex CLI
+- `agents/gemini/market-analyst.md` — Gemini CLI (`# name\n\n` + body)
+- `agents/gemini/futures-analyst.md` — Gemini CLI
+- `prompts/market-analyst.md` — canonical source of truth for market-analyst body
+- `prompts/futures-analyst.md` — canonical source of truth for futures-analyst body
+
+### Changed — Agents (Phase 4)
+
+- `performance-analyst` Data Gathering step 1 updated in all 7 client formats:
+  `chart_get_state` (Phase 3) → `chart_context_for_llm` with `top_n: 3` (Phase 4).
+  Step 5 now specifies `region: "chart"` and `region: "strategy_tester"` explicitly.
+  Affected files: `agents/performance-analyst.md`, `agents/cursor/performance-analyst.mdc`,
+  `agents/cline/performance-analyst.md`, `agents/windsurf/performance-analyst.md`,
+  `agents/continue/performance-analyst.prompt`, `agents/codex/performance-analyst.md`,
+  `agents/gemini/performance-analyst.md`.
+- `agents/README.md` — expanded from 1 agent (performance-analyst) to all 3 agents;
+  added agent comparison table; reorganised install instructions by client (all 3 agents
+  per section); fixed MD031/MD040 markdown lint warnings.
+
+### Changed
+
+- `internal/mcp/server_test.go` — `TestToolsListExact78` renamed to
+  `TestToolsListExact82`; 4 HTS tool names added to `newFullRegistry()`.
+
+### Verified
+
+- `go build ./...` — успешно.
+- `go test ./...` — **87/87 тестов PASS** (78 предыдущих + 9 новых в `tools/hts`):
+  `TestRegisterHTSToolNames`, `TestParseFirstNumericFloat`,
+  `TestParseFirstNumericString`, `TestParseFirstNumericStringWithComma`,
+  `TestParseFirstNumericNonNumericString`, `TestParseFirstNumericEmpty`,
+  `TestValueDirection`, `TestStudySignalRSI`, `TestStudySignalCCI`,
+  `TestStudySignalGeneric`, `TestStrVal`, `TestNumVal`,
+  `TestContinuousContractSymbolParsing`, `TestContinuousContractWithExchangePrefix`,
+  `TestRound2`, `TestIndicatorStateMissingName`.
+
+---
+
+## 2026-04-26 (Phase 3)
+
+### Added
+
+- `internal/tools/doctor`: new package implementing `Run() *Report` with full
+  Windows-aware diagnostics:
+  - `PortCheck` — probes `localhost:9222/json/list`; reports reachability,
+    whether the response is valid CDP, and the name of any process that owns
+    the port via `netstat -ano` + `tasklist`.
+  - `ProcessCheck` — detects `TradingView.exe` via `tasklist`; fetches its
+    full command line with `Get-CimInstance Win32_Process` to check for
+    `--remote-debugging-port`.
+  - `InstallCheck` — probes `%LOCALAPPDATA%\TradingView\`,
+    `%APPDATA%\TradingView\`, standard install dirs, and MSIX via
+    `Get-AppxPackage *TradingView*` (broad wildcard per spec).
+  - `LaunchCmd` — exact shell command to restart TradingView with CDP flag.
+  - `Hints` — ordered, actionable English strings covering every failure mode
+    (not running, wrong port owner, missing install, CDP-less process, etc.).
+- `cmd/tv doctor` handler replaced with `doctor.Run()` call; imports cleaned
+  up (`cdp` and `discovery` removed from `cmd/tv/main.go`).
+
+---
+
+## 2026-04-26
+
+### Added
+
+- Phase 2 smoke test suite in `tests/smoke/smoke_test.go`:
+  `TestCDPConnect`, `TestChartGetState`, `TestQuoteGet`, `TestDataGetOHLCV`,
+  `TestDataGetStudyValues`, `TestCaptureScreenshot`, `TestPineGetSource`,
+  `TestHealthCheckShape`. All CDP-dependent tests skip gracefully when
+  TradingView is not running with `--remote-debugging-port=9222`.
+
+### Fixed
+
+- `internal/discovery`: `findWindowsStore()` now returns `*Result` with
+  `IsMSIX`, `MSIXFamilyName`, and `MSIXAppID` fields instead of a plain
+  `string`, enabling the launcher to choose the correct activation path.
+- `internal/launcher`: MSIX installs on Windows now launch via
+  `explorer.exe shell:AppsFolder\<AUMID>` (correct MSIX activation) and
+  write `electron-flags.conf` to the app userData directory before launch.
+  Direct-installer builds continue to use `--remote-debugging-port=<port>`
+  via `exec.Command`.
+
+### Notes
+
+- Microsoft Store (MSIX) version of TradingView Desktop rejects
+  `--remote-debugging-port` at the JS argument-parser level and exits.
+  CDP is only available when TradingView relaunches itself via
+  `app.relaunch()` (e.g. after an auto-update), which preserves the flag
+  from the originating process. Use the direct-installer build from
+  tradingview.com for reliable CDP access. Phase 3 (tv doctor) will
+  detect this and show a clear remediation hint.
+
+---
+
+## 2026-04-25
+
+### Added
+
+- Phase 1 golden tests: 12 protocol-level tests in `internal/mcp/server_test.go`, no TradingView required.
+  - `TestInitialize`, `TestToolsListExact78`, `TestToolsCallKnown`, `TestToolsCallUnknown`, `TestToolsCallBadArgs`, `TestPing`, `TestUnknownMethod`, `TestParseError`, `TestNotificationNoResponse`, `TestMultilineJSON`, `TestLargeResponse`, `TestSequentialRequests`.
+- `newFullRegistry()` helper with all 78 canonical tool names as stubs — used by `TestToolsListExact78`.
+- `.github/workflows/test.yml` — runs `go test ./...` on every push and on pull requests.
+
+### Fixed
+
+- `internal/mcp/server.go`: replaced `json.Decoder` with `bufio.Reader.ReadBytes('\n')` + `json.Unmarshal` per-line. The `json.Decoder` approach caused `TestParseError` to hang (30s timeout) due to state corruption after a failed decode.
+- Added 16 MB per-message size guard: lines exceeding `maxMessageBytes` are rejected with `-32700` instead of being unmarshalled.
+
+### Changed
+
+- `TestMultilineJSON` semantics: multiline JSON is a protocol violation in NDJSON. Test now asserts each partial line produces a `-32700` parse error.
+
+---
+
 ## 2026-04-24
 
 ### Added

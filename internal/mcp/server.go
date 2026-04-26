@@ -1,11 +1,15 @@
 package mcp
 
 import (
+	"bufio"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"os"
 )
+
+const maxMessageBytes = 16 * 1024 * 1024 // 16 MB per MCP message
 
 const serverVersion = "2.0.0"
 
@@ -28,26 +32,42 @@ func NewServer(registry *Registry, instructions string) *Server {
 }
 
 // Run starts the JSON-RPC read loop over stdin/stdout.
+//
+// Messages are newline-delimited JSON (one JSON object per line).
+// bufio.Reader.ReadBytes grows dynamically — no hard size limit on input lines,
+// unlike bufio.Scanner which has a fixed max token size.
 func (s *Server) Run() error {
-	dec := json.NewDecoder(s.in)
+	r := bufio.NewReader(s.in)
 	enc := json.NewEncoder(s.out)
 
 	for {
-		var req Request
-		if err := dec.Decode(&req); err != nil {
+		line, err := r.ReadBytes('\n')
+
+		// Process whatever we read, even on EOF.
+		line = bytes.TrimSpace(line)
+		if len(line) > 0 {
+			if len(line) > maxMessageBytes {
+				_ = enc.Encode(s.errResp(nil, ErrParseError, "message too large"))
+			} else {
+				var req Request
+				if jsonErr := json.Unmarshal(line, &req); jsonErr != nil {
+					_ = enc.Encode(s.errResp(nil, ErrParseError, "parse error"))
+				} else {
+					resp := s.handle(&req)
+					if resp != nil {
+						if encErr := enc.Encode(resp); encErr != nil {
+							fmt.Fprintf(os.Stderr, "encode error: %v\n", encErr)
+						}
+					}
+				}
+			}
+		}
+
+		if err != nil {
 			if err == io.EOF {
 				return nil
 			}
-			_ = enc.Encode(s.errResp(nil, ErrParseError, "parse error"))
-			// Drain the bad token so the decoder can continue.
-			dec.Token() //nolint:errcheck
-			continue
-		}
-		resp := s.handle(&req)
-		if resp != nil {
-			if err := enc.Encode(resp); err != nil {
-				fmt.Fprintf(os.Stderr, "encode error: %v\n", err)
-			}
+			return err
 		}
 	}
 }
