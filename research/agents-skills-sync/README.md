@@ -84,11 +84,12 @@ Machine-readable summary:
 - Native full Strategy Tester bar-by-bar equity was not found in verified report paths; explicit Pine `Strategy Equity` plot remains required.
 - Live TradingView study limit cap was not reproduced in this session, though detection and tests are implemented.
 
-## Release 1.2 Hardening Notes
+## Release v1.2.0 Hardening Notes
 
 - `tv_discover` now exposes structured `compatibility_probes` so agents/skills can check unstable internal paths before relying on study model, backtesting API, or strategy equity plot workflows.
-- All agent variants and all EN/RU skills now include release `1.2` data guards:
+- All agent variants and all EN/RU skills now include release `v1.2.0` data guards:
   - `coverage: loaded_chart_bars` is chart-loaded coverage only;
   - optional history loading is best-effort and must compare `loaded_bar_count` / `data_points`;
   - derived equity remains conditional and is not native Strategy Tester equity;
   - full native bar-by-bar Strategy Tester equity is not a target until TradingView exposes a stable report field.
+

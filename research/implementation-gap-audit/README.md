@@ -40,7 +40,7 @@ Current registry facts:
 - Full native Strategy Tester bar-by-bar equity was not found in the verified report path.
 - Study-limit live cap was not reproduced in the current account/session, though parser/tests and structured status handling are implemented.
 
-## Release 1.2 Resolution
+## Release v1.2.0 Resolution
 
 - Unstable internal paths are handled by `tv_discover.compatibility_probes`; this is a compatibility/risk-control mechanism, not a guarantee that TradingView internals are stable.
 - Equity remains loaded-bars-only and documented across docs, agents, and skills.
@@ -52,3 +52,4 @@ Current registry facts:
 
 - `research-to-code-matrix.json`
 - `agents-skills-gap.json`
+

@@ -193,7 +193,7 @@ Agents:
 - update `CHANGELOG.md`
 - update `TODO_codex.md`
 
-## Этап 8. Release hardening before tag 1.2
+## Этап 8. Release hardening before tag v1.2.0
 
 Перед коммитом/пушем/тегом явно закрыть оставшиеся архитектурные решения:
 
@@ -217,5 +217,6 @@ Agents:
 6. Release:
    - финальные `go test ./...`, `go vet ./...`, MCP smoke;
    - commit;
-   - tag `1.2`;
+   - tag `v1.2.0`;
    - push ветки и tag.
+

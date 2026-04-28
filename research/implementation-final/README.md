@@ -165,7 +165,7 @@ The following paths are verified but undocumented and may break after TradingVie
 - MOEX futures bid/ask may remain unavailable from TradingView; returned `0`/missing bid or ask is not treated as a valid quote.
 - Replay trade workflows remain UI-state dependent and should be live-tested separately when replay mode is intentionally active.
 
-## Release 1.2 Follow-up
+## Release v1.2.0 Follow-up
 
 - `tv_discover` now includes structured `compatibility_probes` for unstable TradingView internals.
 - Equity remains explicitly loaded-bars-only with `coverage: loaded_chart_bars`.
@@ -189,3 +189,4 @@ The following paths are verified but undocumented and may break after TradingVie
 - `live-pine-restore-original.json`
 - `live-pine-after-restore.json`
 - `regression-summary.json`
+

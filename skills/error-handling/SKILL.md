@@ -120,11 +120,12 @@ Or start TradingView manually. Once it's running, the tools will connect automat
 - Equity-specific unavailable status can be `needs_equity_plot`.
 - Study-limit status is `study_limit_reached`; automatic deletion is forbidden unless `allow_remove_any=true` is explicit.
 - `bidAskAvailable:false` means bid/ask are unavailable, even if compatibility fields contain `0`.
-## Release 1.2 Data Guards
+## Release v1.2.0 Data Guards
 
 - Run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path-dependent tool returns unavailable statuses.
 - Treat `coverage: loaded_chart_bars` as chart-loaded coverage only, including strategy equity from `data_get_equity`.
 - Use the optional history-load workflow only as best effort: expand/scroll the chart range, wait for bars to load, repeat the data call, and compare `loaded_bar_count` / `data_points`.
 - Keep derived equity conditional; do not present it as native Strategy Tester equity or as unqualified `reliableForTradingLogic:true` data.
 - Do not pursue full native bar-by-bar Strategy Tester equity until TradingView exposes a stable report field.
+
 

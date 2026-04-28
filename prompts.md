@@ -226,10 +226,10 @@ Done criteria:
 
 ---
 
-## PROMPT 09 — Release hardening: unstable paths, equity coverage, tag 1.2
+## PROMPT 09 — Release hardening: unstable paths, equity coverage, tag v1.2.0
 
 ```md
-Задача: перед релизом 1.2 явно провести и зафиксировать compatibility/risk pass.
+Задача: перед релизом v1.2.0 явно провести и зафиксировать compatibility/risk pass.
 
 Сделать:
 1. Добавить compatibility probes для TradingView unstable internal paths в `tv_discover`.
@@ -249,22 +249,22 @@ Done criteria:
    - оставить best-effort статус.
 5. Обновить `TODO_codex.md`, `CHANGELOG.md`, research notes.
 6. Запустить `go test ./...`, `go vet ./...`, MCP smoke.
-7. Сделать commit, tag `1.2`, push branch и tag.
+7. Сделать commit, tag `v1.2.0`, push branch и tag.
 
 Done criteria:
 - compatibility probes есть в `tv_discover` и сохранены в research;
 - docs/agents/skills не обещают full equity;
 - derived equity не выдана за reliable native equity;
 - финальные проверки прошли;
-- tag `1.2` опубликован.
+- tag `v1.2.0` опубликован.
 ```
 
 ---
 
-## PROMPT 09 — Release hardening: unstable paths, equity coverage, tag 1.2
+## PROMPT 09 — Release hardening: unstable paths, equity coverage, tag v1.2.0
 
 ```md
-Задача: перед релизом 1.2 явно провести и зафиксировать compatibility/risk pass.
+Задача: перед релизом v1.2.0 явно провести и зафиксировать compatibility/risk pass.
 
 Сделать:
 1. Добавить compatibility probes для TradingView unstable internal paths в `tv_discover`.
@@ -284,12 +284,14 @@ Done criteria:
    - оставить best-effort статус.
 5. Обновить `TODO_codex.md`, `CHANGELOG.md`, research notes.
 6. Запустить `go test ./...`, `go vet ./...`, MCP smoke.
-7. Сделать commit, tag `1.2`, push branch и tag.
+7. Сделать commit, tag `v1.2.0`, push branch и tag.
 
 Done criteria:
 - compatibility probes есть в `tv_discover` и сохранены в research;
 - docs/agents/skills не обещают full equity;
 - derived equity не выдана за reliable native equity;
 - финальные проверки прошли;
-- tag `1.2` опубликован.
+- tag `v1.2.0` опубликован.
 ```
+
+

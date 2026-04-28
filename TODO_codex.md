@@ -192,7 +192,7 @@ Agents:
 
 ---
 
-## 9. Release hardening for tag 1.2
+## 9. Release hardening for tag v1.2.0
 
 - [x] Добавить structured compatibility probes в `tv_discover` без удаления legacy `paths`.
 - [x] Покрыть compatibility probe JS unit tests.
@@ -218,5 +218,6 @@ Agents:
 - [x] Финально запустить `go vet ./...`.
 - [x] Финально запустить MCP initialize/tools-list/unknown-tool smoke.
 - [x] Сделать commit.
-- [x] Создать tag `1.2`.
+- [x] Создать tag `v1.2.0`.
 - [x] Push branch и tag.
+

@@ -71,7 +71,7 @@
       "notes": "Undocumented TradingView internals cannot be made stable from this repo; tv_discover compatibility_probes now record compatible/available/status/stability/reliability."
     },
     {
-      "area": "equity-policy-release-1.2",
+      "area": "equity-policy-release-v1.2.0",
       "status": "documented_limitation",
       "evidence": "research/compatibility-probes/README.md",
       "notes": "Equity remains loaded-bars-only; optional history-load workflow is best-effort; derived equity is conditional; full native bar-by-bar Strategy Tester equity is out of scope until TradingView exposes a stable report field."
@@ -84,3 +84,4 @@
     }
   ]
 }
+

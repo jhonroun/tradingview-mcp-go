@@ -6,7 +6,7 @@
 
 ---
 
-## 2026-04-28 (`Release 1.2 hardening: compatibility probes and equity policy`)
+## 2026-04-28 (`Release v1.2.0 hardening: compatibility probes and equity policy`)
 
 ### Added
 
@@ -1495,3 +1495,4 @@ Two new agent definitions (`market-analyst`, `futures-analyst`) deployed across 
 - `go build ./...` — успешно.
 - `go test ./...` — **78/78 тестов PASS** (все предыдущие; новые файлы не имеют тестируемого Go-кода).
 - `bash scripts/build.sh` — `bin/tvmcp.exe` + `bin/tv.exe` — успешно.
+

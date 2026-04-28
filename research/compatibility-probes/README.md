@@ -1,11 +1,11 @@
 # TradingView Internal Compatibility Probes
 
 Date: 2026-04-28  
-Scope: `tradingview-mcp-go` release hardening for tag `1.2`
+Scope: `tradingview-mcp-go` release hardening for tag `v1.2.0`
 
 ## Purpose
 
-TradingView internal paths are useful but undocumented. They cannot be made stable from this repository, so release `1.2` treats them as a compatibility surface that must be probed and recorded.
+TradingView internal paths are useful but undocumented. They cannot be made stable from this repository, so release `v1.2.0` treats them as a compatibility surface that must be probed and recorded.
 
 `tv_discover` keeps its legacy `paths` object and now adds `compatibility_probes`.
 
@@ -87,3 +87,4 @@ Probe summary:
 The no-strategy statuses are state-dependent, not a compatibility failure:
 the paths are `compatible:true`, but `available:false` because the active chart
 did not have a loaded strategy during this probe.
+
