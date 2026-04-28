@@ -60,3 +60,19 @@ Provide the analysis:
 If you added indicators the user didn't ask for, remove them:
 - `chart_manage_indicator` with action "remove" and the entity_id
 - `draw_clear` to remove all drawings if they were temporary
+
+## Current MCP Contract Notes
+
+- Current Go registry: 85 MCP tools; original Node parity baseline: 78 tools.
+- Prefer `data_get_indicator` / `data_get_indicator_history` when a trading-logic conclusion depends on numeric indicator values.
+- Treat values as trading-reliable only when `source: tradingview_study_model` and `reliableForTradingLogic: true`.
+- UI screenshots and canvas observations are visual context only; never infer indicator values from pixels.
+- `quote_get` may return `bidAskAvailable:false`; do not treat `bid`/`ask` of `0` as real bid/ask.
+## Release 1.2 Data Guards
+
+- Run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path-dependent tool returns unavailable statuses.
+- Treat `coverage: loaded_chart_bars` as chart-loaded coverage only, including strategy equity from `data_get_equity`.
+- Use the optional history-load workflow only as best effort: expand/scroll the chart range, wait for bars to load, repeat the data call, and compare `loaded_bar_count` / `data_points`.
+- Keep derived equity conditional; do not present it as native Strategy Tester equity or as unqualified `reliableForTradingLogic:true` data.
+- Do not pursue full native bar-by-bar Strategy Tester equity until TradingView exposes a stable report field.
+

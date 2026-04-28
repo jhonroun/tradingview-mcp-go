@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-04-27T15:22:14.5946533Z",
+  "reason": "before_pine_restore_source",
+  "source_sha256": "452f9c737b65e26def37009f6e754a10511887b089fa8ef5fe4ad67ffc43474e",
+  "script_name": "MCP Test SMA Strategy",
+  "script_type": "strategy",
+  "pine_version": "5",
+  "line_count": 19,
+  "char_count": 418,
+  "source_file": "MCP_Test_SMA_Strategy.pine"
+}

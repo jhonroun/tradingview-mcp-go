@@ -2,45 +2,72 @@
 
 > [← Back to docs](README.md)
 
----
+The repository ships English and Russian workflow files for all agents and skills.
+
+Current Go MCP registry: `85` tools. Original Node parity baseline: `78` tools.
 
 ## Skills
 
-The `skills/` directory contains ready-to-use workflow scenarios for AI assistants.
+Each skill has:
 
-| Skill | Description |
+- English: `skills/<name>/SKILL.md`
+- Russian: `skills/<name>/SKILL.ru.md`
+
+| Skill | Use for |
 | --- | --- |
-| `chart-analysis` | Technical analysis: symbol, indicators, markup, screenshot |
-| `multi-symbol-scan` | Multi-symbol scan, batch comparison |
-| `pine-develop` | Pine Script development: write → compile → fix errors |
-| `replay-practice` | Manual trading practice in Replay mode |
+| `chart-analysis` | Full chart analysis with screenshot context |
+| `data-quality` | Source/reliability/coverage checks |
+| `error-handling` | Retryability and structured statuses |
+| `futures-roll` | Continuous futures and roll context |
+| `indicator-scan` | Indicator signal tables |
+| `json-contracts` | MCP JSON response validation |
+| `llm-context` | Compact LLM-ready context |
+| `market-brief` | Market brief |
+| `multi-symbol-scan` | Multiple-symbol scans |
+| `pine-develop` | Pine development loop |
+| `pine-safe-edit` | Backup/hash/restore-safe Pine edits |
+| `regression-smoke` | Regression and live smoke workflow |
+| `replay-practice` | Replay practice |
+| `strategy-backtesting-api` | Strategy report/trades/orders |
+| `strategy-equity-plot` | Explicit Strategy Equity plot workflow |
 | `strategy-report` | Strategy performance report |
-
-To use a skill, open `skills/<name>/SKILL.md` in your AI client's context.
-
----
+| `study-model-values` | Reliable study model values/history |
+| `tradingview-limit-handling` | Study-limit handling |
 
 ## Agents
 
-The `agents/` directory contains **native-format files** for each AI client — no conversion needed.
+Each agent has English and Russian variants for every client wrapper.
 
-### `performance-analyst`
+| Agent | Use for |
+| --- | --- |
+| `market-analyst` | Live chart reads and indicator-aware market briefs |
+| `futures-analyst` | Continuous futures, roll context, bid/ask caveats |
+| `performance-analyst` | Strategy Tester metrics, trades, orders, equity |
 
-Gathers strategy performance data and produces a structured analysis report.
+Root Claude agent files:
 
-Automatically calls: `data_get_strategy_results`, `data_get_trades`, `data_get_equity`,
-`chart_get_state`, `capture_screenshot`.
+- `agents/market-analyst.md`, `agents/market-analyst.ru.md`
+- `agents/futures-analyst.md`, `agents/futures-analyst.ru.md`
+- `agents/performance-analyst.md`, `agents/performance-analyst.ru.md`
 
-| Client | File | Install |
-| --- | --- | --- |
-| **Claude Code** | `agents/performance-analyst.md` | `claude --agent agents/performance-analyst.md` |
-| **Cursor** | `agents/cursor/performance-analyst.mdc` | copy to `.cursor/rules/` |
-| **Cline** | `agents/cline/performance-analyst.md` | copy to `.clinerules/` |
-| **Windsurf** | `agents/windsurf/performance-analyst.md` | append to `.windsurfrules` |
-| **Continue** | `agents/continue/performance-analyst.prompt` | copy to `.continue/prompts/` |
-| **OpenAI Codex CLI** | `agents/codex/performance-analyst.md` | copy to `AGENTS.md` or use `--instructions` |
-| **Gemini CLI** | `agents/gemini/performance-analyst.md` | copy to `GEMINI.md` or use `--system` |
+Client variants:
 
-Full install instructions for each client: [agents/README.md](../../agents/README.md)
+- Cursor: `agents/cursor/*.mdc`, `agents/cursor/*.ru.mdc`
+- Cline: `agents/cline/*.md`, `agents/cline/*.ru.md`
+- Windsurf: `agents/windsurf/*.md`, `agents/windsurf/*.ru.md`
+- Continue: `agents/continue/*.prompt`, `agents/continue/*.ru.prompt`
+- Codex: `agents/codex/*.md`, `agents/codex/*.ru.md`
+- Gemini: `agents/gemini/*.md`, `agents/gemini/*.ru.md`
 
-Universal system prompt (source of truth): [prompts/performance-analyst.md](../../prompts/performance-analyst.md)
+## Reliability Rules
+
+Agents and skills must verify `source`, `reliability`, `status`, `coverage`, and `reliableForTradingLogic` before making trading-logic claims.
+
+- Compatibility: run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path tool returns unavailable statuses.
+- Indicator values: prefer `tradingview_study_model`.
+- Strategy metrics/trades/orders: require `source: tradingview_backtesting_api` and `status: ok`.
+- Equity: require explicit `Strategy Equity` Pine plot; `coverage: loaded_chart_bars` is partial and not full Strategy Tester history.
+- Optional history loading: expand/scroll the chart range, wait for TradingView to load bars, repeat the data call, then compare `loaded_bar_count` and `data_points`.
+- Derived equity: conditional only; do not call it native TradingView equity.
+- Full native bar-by-bar Strategy Tester equity: do not implement or promise it until TradingView exposes a stable report field.
+- Bid/ask: use only when `bidAskAvailable:true`.

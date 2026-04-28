@@ -1,0 +1,173 @@
+{
+  "result": [
+    {
+      "aria": "Интервал графика",
+      "className": "menuBtn-S_1OCXUK button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": null,
+      "i": 11,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Расположение графиков",
+      "className": "button-aGeQPIIx button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": null,
+      "i": 20,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Все изменения сохранены",
+      "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-common-tooltip accessible-GwQQdU8S",
+      "dataName": null,
+      "i": 21,
+      "text": "Без названияСохранить",
+      "visible": true
+    },
+    {
+      "aria": "Управление графиками",
+      "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": null,
+      "i": 22,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Интервал графика",
+      "className": "menuBtn-S_1OCXUK button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": null,
+      "i": 40,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Расположение графиков",
+      "className": "button-aGeQPIIx button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": null,
+      "i": 49,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Все изменения сохранены",
+      "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-common-tooltip accessible-GwQQdU8S",
+      "dataName": null,
+      "i": 50,
+      "text": "Без названияСохранить",
+      "visible": true
+    },
+    {
+      "aria": "Управление графиками",
+      "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": null,
+      "i": 51,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Интервал графика",
+      "className": "menuBtn-S_1OCXUK button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": null,
+      "i": 69,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Расположение графиков",
+      "className": "button-aGeQPIIx button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": null,
+      "i": 78,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Все изменения сохранены",
+      "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-common-tooltip accessible-GwQQdU8S",
+      "dataName": null,
+      "i": 79,
+      "text": "Без названияСохранить",
+      "visible": true
+    },
+    {
+      "aria": "Управление графиками",
+      "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": "save-load-menu",
+      "i": 80,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN withEndSlot-FujgyDpN",
+      "dataName": "toast-group-expand-button-chart_warning",
+      "i": 203,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN iconOnly-FujgyDpN withEndSlot-FujgyDpN apply-common-tooltip",
+      "dataName": "toast-group-close-button-chart_warning",
+      "i": 204,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN withEndSlot-FujgyDpN",
+      "dataName": "toast-group-expand-button-chart_info",
+      "i": 205,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN iconOnly-FujgyDpN withEndSlot-FujgyDpN apply-common-tooltip",
+      "dataName": "toast-group-close-button-chart_info",
+      "i": 206,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN withEndSlot-FujgyDpN",
+      "dataName": "toast-group-expand-button-charting-ad",
+      "i": 214,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN iconOnly-FujgyDpN withEndSlot-FujgyDpN apply-common-tooltip",
+      "dataName": "toast-group-close-button-charting-ad",
+      "i": 215,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "apply-common-tooltip lightButton-bYDQcOkp withStartSlot-bYDQcOkp secondary-PVWoXu5j gray-PVWoXu5j small-bYDQcOkp typography-regular16px-bYDQcOkp",
+      "dataName": null,
+      "i": 218,
+      "text": "Добавить на графикДобавить на график",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "saveButton-fF7iXGw2 unsaved-fF7iXGw2 apply-common-tooltip hidden-fF7iXGw2 lightButton-bYDQcOkp withStartSlot-bYDQcOkp ghost-PVWoXu5j gray-PVWoXu5j small-bYDQcOkp typography-regular16px-bYDQcOkp",
+      "dataName": null,
+      "i": 219,
+      "text": "СохранитьСохранить",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "className": "button-vjBbghdv apply-common-tooltip button-vjBbghdv",
+      "dataName": null,
+      "i": 223,
+      "text": "Несохранённая версия",
+      "visible": true
+    }
+  ],
+  "success": true
+}

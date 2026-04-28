@@ -123,3 +123,18 @@ To compare front vs second month:
   which contract is actually displayed before pulling other data.
 - For single-expiry contracts (e.g. `ESH2025`), `is_continuous: false`; use `symbol_info`
   instead for contract details.
+
+## Current MCP Contract Notes
+
+- Current Go registry: 85 MCP tools; original Node parity baseline: 78 tools.
+- `continuous_contract_context` is a local TradingView context helper, not an exchange-calendar API.
+- For MOEX futures and other feeds, `quote_get` can return `bidAskAvailable:false`; do not use `bid=0` or `ask=0` as a tradable spread.
+- Indicator values used in roll or momentum analysis should come from `tradingview_study_model` with `reliableForTradingLogic:true`.
+## Release 1.2 Data Guards
+
+- Run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path-dependent tool returns unavailable statuses.
+- Treat `coverage: loaded_chart_bars` as chart-loaded coverage only, including strategy equity from `data_get_equity`.
+- Use the optional history-load workflow only as best effort: expand/scroll the chart range, wait for bars to load, repeat the data call, and compare `loaded_bar_count` / `data_points`.
+- Keep derived equity conditional; do not present it as native Strategy Tester equity or as unqualified `reliableForTradingLogic:true` data.
+- Do not pursue full native bar-by-bar Strategy Tester equity until TradingView exposes a stable report field.
+

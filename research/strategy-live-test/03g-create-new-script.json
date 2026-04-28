@@ -1,0 +1,290 @@
+{
+  "result": {
+    "clickedCreateNew": true,
+    "clickedNo": false,
+    "dialogs": [],
+    "visiblePine": [
+      {
+        "aria": "Индикаторы, показатели и стратегии",
+        "className": "button-OhqNVIYA button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+        "dataName": "open-indicators-dialog",
+        "i": 13,
+        "role": null,
+        "tag": "button",
+        "text": "Индикаторы",
+        "title": null
+      },
+      {
+        "aria": "Избранные индикаторы",
+        "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+        "dataName": "show-favorite-indicators",
+        "i": 14,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Шаблоны индикаторов",
+        "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+        "dataName": null,
+        "i": 15,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Все изменения сохранены",
+        "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-common-tooltip accessible-GwQQdU8S",
+        "dataName": null,
+        "i": 21,
+        "role": null,
+        "tag": "button",
+        "text": "Без названияСохранить",
+        "title": null
+      },
+      {
+        "aria": "Индикаторы, показатели и стратегии",
+        "className": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+        "dataName": "open-indicators-dialog",
+        "i": 40,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Избранные индикаторы",
+        "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+        "dataName": "show-favorite-indicators",
+        "i": 41,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Шаблоны индикаторов",
+        "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+        "dataName": null,
+        "i": 42,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Все изменения сохранены",
+        "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-common-tooltip accessible-GwQQdU8S",
+        "dataName": null,
+        "i": 48,
+        "role": null,
+        "tag": "button",
+        "text": "Без названияСохранить",
+        "title": null
+      },
+      {
+        "aria": "Индикаторы, показатели и стратегии",
+        "className": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+        "dataName": "open-indicators-dialog",
+        "i": 67,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Избранные индикаторы",
+        "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+        "dataName": "show-favorite-indicators",
+        "i": 68,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Шаблоны индикаторов",
+        "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+        "dataName": null,
+        "i": 69,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Все изменения сохранены",
+        "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-common-tooltip accessible-GwQQdU8S",
+        "dataName": null,
+        "i": 75,
+        "role": null,
+        "tag": "button",
+        "text": "Без названияСохранить",
+        "title": null
+      },
+      {
+        "aria": "Управление графиками",
+        "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+        "dataName": "save-load-menu",
+        "i": 76,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": null,
+        "className": "apply-common-tooltip common-tooltip-wide small-Lgtz1OtS small-Lgtz1OtS",
+        "dataName": null,
+        "i": 114,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": "Рынок закрыт · Данные обновляются один раз в 5 секунд"
+      },
+      {
+        "aria": "Скрыть информацию об индикаторах",
+        "className": "toggler-l31H9iuA pane-button-e6PF69Df apply-common-tooltip accessible-l31H9iuA objectsTreeCanBeShown-l31H9iuA",
+        "dataName": null,
+        "i": 115,
+        "role": null,
+        "tag": "button",
+        "text": "2",
+        "title": "Скрыть информацию об индикаторах"
+      },
+      {
+        "aria": "Списки котировок, подробная информация и новости",
+        "className": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isInteractive-GwQQdU8S accessible-GwQQdU8S",
+        "dataName": "base",
+        "i": 145,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Pine",
+        "className": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isInteractive-GwQQdU8S accessible-GwQQdU8S",
+        "dataName": "pine-dialog-button",
+        "i": 150,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": null
+      },
+      {
+        "aria": "Закрыть отчёт по стратегии",
+        "className": "container-yt6RGAn_ button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+        "dataName": null,
+        "i": 156,
+        "role": null,
+        "tag": "button",
+        "text": "Отчёт по стратегии",
+        "title": null
+      },
+      {
+        "aria": "Закрыть отчёт по стратегии",
+        "className": "container-yt6RGAn_ button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+        "dataName": null,
+        "i": 157,
+        "role": null,
+        "tag": "button",
+        "text": "Отчёт по стратегии",
+        "title": null
+      },
+      {
+        "aria": null,
+        "className": "button-D4RPB3ZC small-D4RPB3ZC black-D4RPB3ZC primary-D4RPB3ZC apply-overflow-tooltip apply-overflow-tooltip--check-children-recursively apply-overflow-tooltip-",
+        "dataName": null,
+        "i": 161,
+        "role": null,
+        "tag": "button",
+        "text": "Загрузить стратегию",
+        "title": null
+      },
+      {
+        "aria": null,
+        "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN withEndSlot-FujgyDpN",
+        "dataName": "toast-group-expand-button-news-notification",
+        "i": 187,
+        "role": null,
+        "tag": "button",
+        "text": "Больше",
+        "title": null
+      },
+      {
+        "aria": null,
+        "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN iconOnly-FujgyDpN withEndSlot-FujgyDpN apply-common-tooltip",
+        "dataName": "toast-group-close-button-news-notification",
+        "i": 188,
+        "role": null,
+        "tag": "button",
+        "text": "",
+        "title": "Закрыть всё"
+      },
+      {
+        "aria": null,
+        "className": "dialog-RY6N1NHl js-dialog visible-RY6N1NHl i-focused dialog-media__desktop-hd",
+        "dataName": "pine-dialog",
+        "i": 202,
+        "role": null,
+        "tag": "div",
+        "text": "Редактор PineСтратегия EMA + MACD (Michael)Добавить на графикДобавить на графикСохранитьСохранитьОпубликовать скриптОпубликовать скрипт17plot(slow, \"Slow SMA\")Нажмите нужное сочета",
+        "title": null
+      },
+      {
+        "aria": null,
+        "className": "nameButton-k49p41Es isPressed-k49p41Es",
+        "dataName": null,
+        "i": 204,
+        "role": "button",
+        "tag": "div",
+        "text": "Стратегия EMA + MACD (Michael)",
+        "title": null
+      },
+      {
+        "aria": null,
+        "className": "apply-common-tooltip lightButton-bYDQcOkp withStartSlot-bYDQcOkp secondary-PVWoXu5j gray-PVWoXu5j small-bYDQcOkp typography-regular16px-bYDQcOkp",
+        "dataName": null,
+        "i": 205,
+        "role": null,
+        "tag": "button",
+        "text": "Добавить на графикДобавить на график",
+        "title": "Добавить на график"
+      },
+      {
+        "aria": null,
+        "className": "saveButton-fF7iXGw2 unsaved-fF7iXGw2 apply-common-tooltip hidden-fF7iXGw2 lightButton-bYDQcOkp withStartSlot-bYDQcOkp ghost-PVWoXu5j gray-PVWoXu5j small-bYDQcOk",
+        "dataName": null,
+        "i": 206,
+        "role": null,
+        "tag": "button",
+        "text": "СохранитьСохранить",
+        "title": "Сохранить скрипт"
+      },
+      {
+        "aria": null,
+        "className": "publishButton-HeHIQL4x apply-common-tooltip lightButton-bYDQcOkp withStartSlot-bYDQcOkp secondary-PVWoXu5j gray-PVWoXu5j small-bYDQcOkp typography-regular16px-b",
+        "dataName": null,
+        "i": 207,
+        "role": null,
+        "tag": "button",
+        "text": "Опубликовать скриптОпубликовать скрипт",
+        "title": "Поделитесь своим скриптом с сообществом"
+      },
+      {
+        "aria": null,
+        "className": "button-vjBbghdv apply-common-tooltip button-vjBbghdv",
+        "dataName": null,
+        "i": 210,
+        "role": "button",
+        "tag": "button",
+        "text": "Несохранённая версия",
+        "title": null
+      }
+    ]
+  },
+  "success": true
+}

@@ -1,0 +1,12 @@
+{
+  "name": "ui-eval-sync",
+  "command": "go run ./cmd/tv ui eval 21+21",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:34:19.2233549+08:00",
+  "finishedAt": "2026-04-27T10:34:25.8626601+08:00",
+  "stdout": "research\\cdp-evaluate-await\\ui-eval-sync.stdout.json",
+  "stderr": "research\\cdp-evaluate-await\\ui-eval-sync.stderr.txt",
+  "stdoutValidJson": true,
+  "result": 42,
+  "parseError": null
+}

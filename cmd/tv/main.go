@@ -3,6 +3,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/signal"
@@ -11,23 +12,37 @@ import (
 	"syscall"
 
 	"github.com/jhonroun/tradingview-mcp-go/internal/cli"
+	"github.com/jhonroun/tradingview-mcp-go/internal/stream"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/alerts"
-	"github.com/jhonroun/tradingview-mcp-go/internal/tools/doctor"
+	"github.com/jhonroun/tradingview-mcp-go/internal/tools/batch"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/capture"
 	charttools "github.com/jhonroun/tradingview-mcp-go/internal/tools/chart"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/data"
+	"github.com/jhonroun/tradingview-mcp-go/internal/tools/doctor"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/drawing"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/health"
+	"github.com/jhonroun/tradingview-mcp-go/internal/tools/hts"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/indicators"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/pane"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/pine"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/replay"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/tab"
 	uitools "github.com/jhonroun/tradingview-mcp-go/internal/tools/ui"
-	"github.com/jhonroun/tradingview-mcp-go/internal/tools/batch"
-	"github.com/jhonroun/tradingview-mcp-go/internal/tools/hts"
-	"github.com/jhonroun/tradingview-mcp-go/internal/stream"
 )
+
+func boolOption(opts map[string]string, names ...string) bool {
+	for _, name := range names {
+		value, ok := opts[name]
+		if !ok {
+			continue
+		}
+		switch strings.ToLower(strings.TrimSpace(value)) {
+		case "", "1", "t", "true", "yes", "y", "on":
+			return true
+		}
+	}
+	return false
+}
 
 func init() {
 	// ── health ────────────────────────────────────────────────────────────────
@@ -180,11 +195,64 @@ func init() {
 			if len(args) == 0 {
 				return nil, fmt.Errorf("usage: tv symbol-search QUERY [--type TYPE] [--exchange EXCHANGE]")
 			}
-			return charttools.SymbolSearch(args[0], opts["type"], opts["exchange"])
+			return charttools.SymbolSearchResponse(args[0], opts["type"], opts["exchange"])
 		},
 	})
 
 	// ── indicator control (P6) ────────────────────────────────────────────────
+	cli.Register(cli.Command{
+		Name:        "manage-indicator",
+		Description: "Add/remove an indicator — tv manage-indicator add NAME [--allow-remove-any] | remove ENTITY_ID",
+		Handler: func(args []string, opts map[string]string) (interface{}, error) {
+			if len(args) == 0 {
+				return nil, fmt.Errorf("usage: tv manage-indicator add NAME [--inputs JSON_ARRAY] [--allow-remove-any] | tv manage-indicator remove ENTITY_ID")
+			}
+			action := strings.ToLower(args[0])
+			switch action {
+			case "add":
+				name := strings.TrimSpace(strings.Join(args[1:], " "))
+				if opts["name"] != "" {
+					name = opts["name"]
+				}
+				if name == "" {
+					return nil, fmt.Errorf("usage: tv manage-indicator add NAME [--inputs JSON_ARRAY] [--allow-remove-any]")
+				}
+				var inputs []interface{}
+				if raw := opts["inputs"]; raw != "" {
+					if err := json.Unmarshal([]byte(raw), &inputs); err != nil {
+						return nil, fmt.Errorf("parse --inputs JSON array: %w", err)
+					}
+				}
+				return charttools.ManageIndicator(charttools.ManageIndicatorArgs{
+					Action:         "add",
+					Name:           name,
+					Inputs:         inputs,
+					AllowRemoveAny: boolOption(opts, "allow-remove-any", "allow_remove_any"),
+				})
+			case "remove":
+				entityID := ""
+				if len(args) > 1 {
+					entityID = args[1]
+				}
+				if opts["entity-id"] != "" {
+					entityID = opts["entity-id"]
+				}
+				if opts["entity_id"] != "" {
+					entityID = opts["entity_id"]
+				}
+				if entityID == "" {
+					return nil, fmt.Errorf("usage: tv manage-indicator remove ENTITY_ID")
+				}
+				return charttools.ManageIndicator(charttools.ManageIndicatorArgs{
+					Action:   "remove",
+					EntityID: entityID,
+				})
+			default:
+				return nil, fmt.Errorf("unknown manage-indicator action %q; use add or remove", args[0])
+			}
+		},
+	})
+
 	cli.Register(cli.Command{
 		Name:        "indicator-toggle",
 		Description: "Show/hide an indicator — tv indicator-toggle ENTITY_ID --visible=true|false",
@@ -200,10 +268,10 @@ func init() {
 	// ── pine script (P7) ──────────────────────────────────────────────────────
 	cli.Register(cli.Command{
 		Name:        "pine",
-		Description: "Pine Script operations — tv pine <get|set|compile|smart-compile|errors|console|save|new|open|list|analyze|check> [args]",
+		Description: "Pine Script operations — tv pine <get|set|set-file|restore|compile|smart-compile|errors|console|save|new|open|list|analyze|check> [args]",
 		Handler: func(args []string, opts map[string]string) (interface{}, error) {
 			if len(args) == 0 {
-				return nil, fmt.Errorf("usage: tv pine <get|set|compile|smart-compile|errors|console|save|new|open|list|analyze|check>")
+				return nil, fmt.Errorf("usage: tv pine <get|set|set-file|restore|compile|smart-compile|errors|console|save|new|open|list|analyze|check>")
 			}
 			switch args[0] {
 			case "get":
@@ -212,7 +280,21 @@ func init() {
 				if len(args) < 2 {
 					return nil, fmt.Errorf("usage: tv pine set SOURCE_CODE")
 				}
-				return pine.SetSource(strings.Join(args[1:], " "))
+				return pine.SetSourceWithExpectedHash(strings.Join(args[1:], " "), opts["expected-current-sha256"])
+			case "set-file":
+				if len(args) < 2 {
+					return nil, fmt.Errorf("usage: tv pine set-file PATH")
+				}
+				b, err := os.ReadFile(args[1])
+				if err != nil {
+					return nil, err
+				}
+				return pine.SetSourceWithExpectedHash(string(b), opts["expected-current-sha256"])
+			case "restore":
+				if len(args) < 2 {
+					return nil, fmt.Errorf("usage: tv pine restore BACKUP_PATH [--expected-sha256 HASH]")
+				}
+				return pine.RestoreSource(args[1], opts["expected-sha256"])
 			case "compile", "raw-compile":
 				return pine.Compile()
 			case "smart-compile":
@@ -425,10 +507,10 @@ func init() {
 	// ── ui automation (P12) ──────────────────────────────────────────────────
 	cli.Register(cli.Command{
 		Name:        "ui",
-		Description: "UI automation — tv ui <click|open-panel|fullscreen|keyboard|type|hover|scroll|mouse|find|eval> [args]",
+		Description: "UI automation — tv ui <click|open-panel|fullscreen|keyboard|type|hover|scroll|mouse|find|eval|eval-await> [args]",
 		Handler: func(args []string, opts map[string]string) (interface{}, error) {
 			if len(args) == 0 {
-				return nil, fmt.Errorf("usage: tv ui <click|open-panel|fullscreen|keyboard|type|hover|scroll|mouse|find|eval>")
+				return nil, fmt.Errorf("usage: tv ui <click|open-panel|fullscreen|keyboard|type|hover|scroll|mouse|find|eval|eval-await>")
 			}
 			switch args[0] {
 			case "click":
@@ -476,6 +558,11 @@ func init() {
 					return nil, fmt.Errorf("usage: tv ui eval JS_EXPRESSION")
 				}
 				return uitools.Evaluate(strings.Join(args[1:], " "))
+			case "eval-await":
+				if len(args) < 2 {
+					return nil, fmt.Errorf("usage: tv ui eval-await JS_EXPRESSION")
+				}
+				return uitools.EvaluateAwait(strings.Join(args[1:], " "))
 			default:
 				return nil, fmt.Errorf("unknown ui subcommand %q", args[0])
 			}
@@ -552,6 +639,22 @@ func init() {
 				return nil, fmt.Errorf("usage: tv indicator NAME")
 			}
 			return hts.IndicatorState(strings.Join(args, " "))
+		},
+	})
+
+	cli.Register(cli.Command{
+		Name:        "indicator-history",
+		Description: "Historical study-model values — tv indicator-history NAME_OR_ENTITY_ID [--count N]",
+		Handler: func(args []string, opts map[string]string) (interface{}, error) {
+			if len(args) == 0 {
+				return nil, fmt.Errorf("usage: tv indicator-history NAME_OR_ENTITY_ID [--count N]")
+			}
+			count := 0
+			if v, ok := opts["count"]; ok {
+				count, _ = strconv.Atoi(v)
+			}
+			q := strings.Join(args, " ")
+			return data.GetIndicatorHistory("", q, count)
 		},
 	})
 

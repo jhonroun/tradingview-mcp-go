@@ -1,0 +1,86 @@
+[
+  {
+    "name": "status",
+    "command": "go run ./cmd/tv status",
+    "exitCode": 0,
+    "startedAt": "2026-04-27T10:18:53.2741852+08:00",
+    "finishedAt": "2026-04-27T10:18:53.8455926+08:00",
+    "stdout": "research\\implementation-baseline\\cli-status.stdout.json",
+    "stderr": "research\\implementation-baseline\\cli-status.stderr.txt",
+    "stdoutValidJson": true,
+    "stderrValidJson": false,
+    "parseError": null
+  },
+  {
+    "name": "doctor",
+    "command": "go run ./cmd/tv doctor",
+    "exitCode": 0,
+    "startedAt": "2026-04-27T10:18:53.947033+08:00",
+    "finishedAt": "2026-04-27T10:19:00.1597529+08:00",
+    "stdout": "research\\implementation-baseline\\cli-doctor.stdout.json",
+    "stderr": "research\\implementation-baseline\\cli-doctor.stderr.txt",
+    "stdoutValidJson": true,
+    "stderrValidJson": false,
+    "parseError": null
+  },
+  {
+    "name": "discover",
+    "command": "go run ./cmd/tv discover",
+    "exitCode": 0,
+    "startedAt": "2026-04-27T10:19:00.1735329+08:00",
+    "finishedAt": "2026-04-27T10:19:00.7568434+08:00",
+    "stdout": "research\\implementation-baseline\\cli-discover.stdout.json",
+    "stderr": "research\\implementation-baseline\\cli-discover.stderr.txt",
+    "stdoutValidJson": true,
+    "stderrValidJson": false,
+    "parseError": null
+  },
+  {
+    "name": "chart-state",
+    "command": "go run ./cmd/tv chart-state",
+    "exitCode": 0,
+    "startedAt": "2026-04-27T10:19:00.7669514+08:00",
+    "finishedAt": "2026-04-27T10:19:01.29832+08:00",
+    "stdout": "research\\implementation-baseline\\cli-chart-state.stdout.json",
+    "stderr": "research\\implementation-baseline\\cli-chart-state.stderr.txt",
+    "stdoutValidJson": true,
+    "stderrValidJson": false,
+    "parseError": null
+  },
+  {
+    "name": "quote",
+    "command": "go run ./cmd/tv quote",
+    "exitCode": 0,
+    "startedAt": "2026-04-27T10:19:01.3057163+08:00",
+    "finishedAt": "2026-04-27T10:19:01.8196513+08:00",
+    "stdout": "research\\implementation-baseline\\cli-quote.stdout.json",
+    "stderr": "research\\implementation-baseline\\cli-quote.stderr.txt",
+    "stdoutValidJson": true,
+    "stderrValidJson": false,
+    "parseError": null
+  },
+  {
+    "name": "ohlcv",
+    "command": "go run ./cmd/tv ohlcv --count 10 --summary",
+    "exitCode": 0,
+    "startedAt": "2026-04-27T10:19:01.8354159+08:00",
+    "finishedAt": "2026-04-27T10:19:02.4058166+08:00",
+    "stdout": "research\\implementation-baseline\\cli-ohlcv.stdout.json",
+    "stderr": "research\\implementation-baseline\\cli-ohlcv.stderr.txt",
+    "stdoutValidJson": true,
+    "stderrValidJson": false,
+    "parseError": null
+  },
+  {
+    "name": "screenshot",
+    "command": "go run ./cmd/tv screenshot --region chart --filename implementation-baseline-20260427-101853.png",
+    "exitCode": 0,
+    "startedAt": "2026-04-27T10:19:02.4494879+08:00",
+    "finishedAt": "2026-04-27T10:19:03.436166+08:00",
+    "stdout": "research\\implementation-baseline\\cli-screenshot.stdout.json",
+    "stderr": "research\\implementation-baseline\\cli-screenshot.stderr.txt",
+    "stdoutValidJson": true,
+    "stderrValidJson": false,
+    "parseError": null
+  }
+]

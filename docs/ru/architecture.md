@@ -51,11 +51,11 @@ internal/
 
 ## Совместимость
 
-Проект целенаправленно обеспечивает **совместимость 1:1** с оригинальной Node.js-реализацией:
+Проект сохраняет исходную **Node.js parity базу из 78 tools** и добавляет Go-only stabilization helpers.
 
 | Аспект | Node.js | Go-порт |
 | --- | --- | --- |
-| MCP tools | 78 | 78 (100% совпадение имён) |
+| MCP tools | 78 | 85 текущих Go tools: 78 parity tools + 7 расширений |
 | CLI-группы | 15 | 15+ |
 | JSON-схемы аргументов | оригинал | идентичны |
 | JSON-структура ответов | `{success, ...}` | идентична |
@@ -65,6 +65,12 @@ internal/
 | Windows Store | да | да (Get-AppxPackage) |
 
 Детальная матрица совместимости: [docs/dev/COMPATIBILITY_MATRIX.md](../dev/COMPATIBILITY_MATRIX.md)
+
+Go-only extensions включают `data_get_indicator_history`, `data_get_orders`, `pine_restore_source` и четыре агрегированных LLM/context tools. Data tools при необходимости возвращают `source`, `reliability`, `coverage`, `status` и `reliableForTradingLogic`, потому что часть TradingView paths является undocumented internal API.
+
+`tv_discover` является entry point для compatibility probes этих internals. Он сохраняет legacy объект `paths` и добавляет `compatibility_probes` с `compatible`, `available`, `status`, `stability`, `reliability`. Запускайте его после обновлений TradingView Desktop до доверия workflows на study model, backtesting API или strategy equity plot.
+
+Strategy equity намеренно описана как loaded chart data, а не полный native Strategy Tester export. Надёжный runtime path — explicit Pine `Strategy Equity` plot, прочитанный из loaded bars; derived equity остаётся conditional, а full native bar-by-bar equity out of scope, пока TradingView не exposes стабильный report field.
 
 ---
 

@@ -87,3 +87,18 @@ Report the context to the user as:
 ```
 
 Then proceed with analysis or await user instructions.
+
+## Current MCP Contract Notes
+
+- Current Go registry: 85 MCP tools; original Node parity baseline: 78 tools.
+- Aggregate context tools are convenience helpers; when a decision depends on exact indicator values, verify with `data_get_indicator` or `data_get_indicator_history`.
+- Treat `source`/`reliability` fields as part of the data, not as optional metadata.
+- If `quote_get` reports `bidAskAvailable:false`, do not present a bid/ask spread.
+## Release 1.2 Data Guards
+
+- Run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path-dependent tool returns unavailable statuses.
+- Treat `coverage: loaded_chart_bars` as chart-loaded coverage only, including strategy equity from `data_get_equity`.
+- Use the optional history-load workflow only as best effort: expand/scroll the chart range, wait for bars to load, repeat the data call, and compare `loaded_bar_count` / `data_points`.
+- Keep derived equity conditional; do not present it as native Strategy Tester equity or as unqualified `reliableForTradingLogic:true` data.
+- Do not pursue full native bar-by-bar Strategy Tester equity until TradingView exposes a stable report field.
+

@@ -17,7 +17,7 @@ AI Go-порт проекта [tradesdontlie/tradingview-mcp](https://github.com
 | --- | --- |
 | О проекте, история создания, требования | эта страница |
 | Установка, запуск CDP, настройка MCP, провайдеры | [install.md](install.md) |
-| MCP-инструменты (78 штук) | [tools.md](tools.md) |
+| MCP-инструменты (85 текущих Go tools) | [tools.md](tools.md) |
 | CLI-команды и скрипты | [cli.md](cli.md) |
 | Навыки и агенты | [agents-skills.md](agents-skills.md) |
 | Архитектура, совместимость, дисклеймер | [architecture.md](architecture.md) |
@@ -58,9 +58,18 @@ AI Go-порт проекта [tradesdontlie/tradingview-mcp](https://github.com
 - вёл `CHANGELOG.md` и `TODO.md` по ходу работы;
 - обеспечивал 1:1 совместимость по именам инструментов, схемам аргументов и структуре JSON-ответов.
 
-Итог: **78/78 MCP tools, 83+ CLI-команды, 78 unit-тестов** — за одну сессию.
+Первичный parity-итог: **78/78 MCP tools, 83+ CLI-команды, 78 unit-тестов** — за одну сессию.
+
+Текущий стабилизированный Go registry: **85 MCP tools**. Дополнительные tools — Go-расширения для истории study model, strategy orders, безопасного Pine restore и агрегированного LLM context.
 
 **Результат:** полностью функциональный Go-бинарник без зависимостей от Node.js, `npm` или `chrome-remote-interface`.
+
+### Текущие границы надёжности
+
+- TradingView internal paths undocumented. После обновлений TradingView Desktop запускайте `tv discover` compatibility probes.
+- Strategy equity из `data_get_equity` покрывает только loaded bars (`coverage: loaded_chart_bars`), если TradingView не загрузил весь диапазон.
+- Derived equity является conditional и не является native Strategy Tester equity.
+- Full native bar-by-bar Strategy Tester equity не реализуется, пока TradingView не exposes стабильный report field.
 
 ---
 

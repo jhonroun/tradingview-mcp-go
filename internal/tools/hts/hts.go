@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"strconv"
 	"strings"
 
 	"github.com/jhonroun/tradingview-mcp-go/internal/mcp"
@@ -39,8 +38,7 @@ func numVal(v interface{}) float64 {
 	case int64:
 		return float64(vt)
 	case string:
-		s := strings.TrimSpace(strings.ReplaceAll(vt, ",", ""))
-		if f, err := strconv.ParseFloat(s, 64); err == nil {
+		if f, ok := data.ParseDisplayNumber(vt); ok {
 			return f
 		}
 	}
@@ -57,8 +55,7 @@ func parseFirstNumeric(values map[string]interface{}) (val float64, key string, 
 				return vt, k, true
 			}
 		case string:
-			s := strings.TrimSpace(strings.ReplaceAll(vt, ",", ""))
-			if f, err := strconv.ParseFloat(s, 64); err == nil && !math.IsNaN(f) && !math.IsInf(f, 0) {
+			if f, ok := data.ParseDisplayNumber(vt); ok && !math.IsNaN(f) && !math.IsInf(f, 0) {
 				return f, k, true
 			}
 		}
@@ -169,10 +166,10 @@ func ChartContextForLLM(topN int) (map[string]interface{}, error) {
 	}
 
 	return map[string]interface{}{
-		"success":         true,
-		"symbol":          symbol,
-		"timeframe":       timeframe,
-		"chart_type":      chartType,
+		"success":    true,
+		"symbol":     symbol,
+		"timeframe":  timeframe,
+		"chart_type": chartType,
 		"price": map[string]interface{}{
 			"last":   quote["last"],
 			"open":   quote["open"],
@@ -278,7 +275,7 @@ func MarketSummary() (map[string]interface{}, error) {
 			prev := bars[len(bars)-2]
 			change = round2(last.Close - prev.Close)
 			if prev.Close != 0 {
-				changePct = round2((last.Close-prev.Close)/prev.Close*100)
+				changePct = round2((last.Close - prev.Close) / prev.Close * 100)
 			}
 		}
 		result["change"] = change

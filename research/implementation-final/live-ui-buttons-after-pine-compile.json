@@ -1,0 +1,1377 @@
+{
+  "result": [
+    {
+      "aria": null,
+      "class": "button-JQZ0HKD4 apply-common-tooltip",
+      "i": 0,
+      "text": "NG1!",
+      "visible": true
+    },
+    {
+      "aria": "Сравнить инструменты",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 2,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "1 минута",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 3,
+      "text": "1м",
+      "visible": true
+    },
+    {
+      "aria": "5 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 4,
+      "text": "5м",
+      "visible": true
+    },
+    {
+      "aria": "15 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 5,
+      "text": "15м",
+      "visible": true
+    },
+    {
+      "aria": "30 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 6,
+      "text": "30м",
+      "visible": true
+    },
+    {
+      "aria": "1 час",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 7,
+      "text": "1ч",
+      "visible": true
+    },
+    {
+      "aria": "4 часа",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 8,
+      "text": "4ч",
+      "visible": true
+    },
+    {
+      "aria": "1 день",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isActive-GwQQdU8S isInterac",
+      "i": 9,
+      "text": "Д",
+      "visible": true
+    },
+    {
+      "aria": "1 неделя",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 10,
+      "text": "Н",
+      "visible": true
+    },
+    {
+      "aria": "Интервал графика",
+      "class": "menuBtn-S_1OCXUK button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 11,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Японские свечи",
+      "class": "menu-b3Cgff6l button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 12,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Индикаторы, показатели и стратегии",
+      "class": "button-OhqNVIYA button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S apply-common-t",
+      "i": 13,
+      "text": "Индикаторы",
+      "visible": true
+    },
+    {
+      "aria": "Избранные индикаторы",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 14,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Шаблоны индикаторов",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 15,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Создать оповещение",
+      "class": "button-OhqNVIYA button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S apply-common-t",
+      "i": 16,
+      "text": "Оповещения",
+      "visible": true
+    },
+    {
+      "aria": "Симулятор рынка",
+      "class": "button-OhqNVIYA button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S apply-common-t",
+      "i": 17,
+      "text": "Симулятор рынка",
+      "visible": true
+    },
+    {
+      "aria": "Отменить изменение стиля серии",
+      "class": "button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+      "i": 18,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Расположение графиков",
+      "class": "button-aGeQPIIx button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 20,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Сохранить все графики для всех инструментов и интервалов рабочего пространства",
+      "class": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E bu",
+      "i": 21,
+      "text": "СохранитьСохранить",
+      "visible": true
+    },
+    {
+      "aria": "Управление графиками",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 22,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Быстрый поиск",
+      "class": "iconButton-OhqNVIYA button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInter",
+      "i": 23,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Настройки",
+      "class": "iconButton-OhqNVIYA button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInter",
+      "i": 24,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Полноэкранный режим",
+      "class": "button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S acce",
+      "i": 25,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Сделать снимок экрана",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 26,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Поделитесь своей идеей с другими трейдерами",
+      "class": "menuWrap-yRWAMXSg accessible-yRWAMXSg button-merBkM5y apply-common-tooltip acces",
+      "i": 28,
+      "text": "Опубликовать",
+      "visible": false
+    },
+    {
+      "aria": null,
+      "class": "button-JQZ0HKD4 apply-common-tooltip",
+      "i": 29,
+      "text": "NG1!",
+      "visible": true
+    },
+    {
+      "aria": "Сравнить инструменты",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 31,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "1 минута",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 32,
+      "text": "1м",
+      "visible": true
+    },
+    {
+      "aria": "5 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 33,
+      "text": "5м",
+      "visible": true
+    },
+    {
+      "aria": "15 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 34,
+      "text": "15м",
+      "visible": true
+    },
+    {
+      "aria": "30 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 35,
+      "text": "30м",
+      "visible": true
+    },
+    {
+      "aria": "1 час",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 36,
+      "text": "1ч",
+      "visible": true
+    },
+    {
+      "aria": "4 часа",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 37,
+      "text": "4ч",
+      "visible": true
+    },
+    {
+      "aria": "1 день",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isActive-GwQQdU8S isInterac",
+      "i": 38,
+      "text": "Д",
+      "visible": true
+    },
+    {
+      "aria": "1 неделя",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 39,
+      "text": "Н",
+      "visible": true
+    },
+    {
+      "aria": "Интервал графика",
+      "class": "menuBtn-S_1OCXUK button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 40,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Японские свечи",
+      "class": "menu-b3Cgff6l button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 41,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Индикаторы, показатели и стратегии",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 42,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Избранные индикаторы",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 43,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Шаблоны индикаторов",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 44,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Создать оповещение",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 45,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Симулятор рынка",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 46,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Отменить изменение стиля серии",
+      "class": "button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+      "i": 47,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Расположение графиков",
+      "class": "button-aGeQPIIx button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 49,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Сохранить все графики для всех инструментов и интервалов рабочего пространства",
+      "class": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E bu",
+      "i": 50,
+      "text": "СохранитьСохранить",
+      "visible": true
+    },
+    {
+      "aria": "Управление графиками",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 51,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Быстрый поиск",
+      "class": "iconButton-OhqNVIYA button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInter",
+      "i": 52,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Настройки",
+      "class": "iconButton-OhqNVIYA button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInter",
+      "i": 53,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Полноэкранный режим",
+      "class": "button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S acce",
+      "i": 54,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Сделать снимок экрана",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 55,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Поделитесь своей идеей с другими трейдерами",
+      "class": "menuWrap-yRWAMXSg accessible-yRWAMXSg button-merBkM5y apply-common-tooltip acces",
+      "i": 57,
+      "text": "Опубликовать",
+      "visible": false
+    },
+    {
+      "aria": null,
+      "class": "button-JQZ0HKD4 apply-common-tooltip",
+      "i": 58,
+      "text": "NG1!",
+      "visible": true
+    },
+    {
+      "aria": "Сравнить инструменты",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 60,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "1 минута",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 61,
+      "text": "1м",
+      "visible": true
+    },
+    {
+      "aria": "5 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 62,
+      "text": "5м",
+      "visible": true
+    },
+    {
+      "aria": "15 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 63,
+      "text": "15м",
+      "visible": true
+    },
+    {
+      "aria": "30 минут",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 64,
+      "text": "30м",
+      "visible": true
+    },
+    {
+      "aria": "1 час",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 65,
+      "text": "1ч",
+      "visible": true
+    },
+    {
+      "aria": "4 часа",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 66,
+      "text": "4ч",
+      "visible": true
+    },
+    {
+      "aria": "1 день",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isActive-GwQQdU8S isInterac",
+      "i": 67,
+      "text": "Д",
+      "visible": true
+    },
+    {
+      "aria": "1 неделя",
+      "class": "button-S_1OCXUK button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S isGr",
+      "i": 68,
+      "text": "Н",
+      "visible": true
+    },
+    {
+      "aria": "Интервал графика",
+      "class": "menuBtn-S_1OCXUK button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 69,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Японские свечи",
+      "class": "menu-b3Cgff6l button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 70,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Индикаторы, показатели и стратегии",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 71,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Избранные индикаторы",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 72,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Шаблоны индикаторов",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 73,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Создать оповещение",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 74,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Симулятор рынка",
+      "class": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-commo",
+      "i": 75,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Отменить изменение стиля серии",
+      "class": "button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+      "i": 76,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Расположение графиков",
+      "class": "button-aGeQPIIx button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 78,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Сохранить все графики для всех инструментов и интервалов рабочего пространства",
+      "class": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E bu",
+      "i": 79,
+      "text": "СохранитьСохранить",
+      "visible": true
+    },
+    {
+      "aria": "Управление графиками",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 80,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Быстрый поиск",
+      "class": "iconButton-OhqNVIYA button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInter",
+      "i": 81,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Настройки",
+      "class": "iconButton-OhqNVIYA button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInter",
+      "i": 82,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Полноэкранный режим",
+      "class": "button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S acce",
+      "i": 83,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Сделать снимок экрана",
+      "class": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "i": 84,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Поделитесь своей идеей с другими трейдерами",
+      "class": "menuWrap-yRWAMXSg accessible-yRWAMXSg button-merBkM5y apply-common-tooltip acces",
+      "i": 86,
+      "text": "Опубликовать",
+      "visible": false
+    },
+    {
+      "aria": null,
+      "class": "button-AoI2iZaK roundButton-FujgyDpN roundButtonColor-xCeOT7of black-xCeOT7of se",
+      "i": 87,
+      "text": "Торговать",
+      "visible": true
+    },
+    {
+      "aria": "Поделитесь своей идеей с другими трейдерами",
+      "class": "menuWrap-yRWAMXSg accessible-yRWAMXSg button-merBkM5y apply-common-tooltip acces",
+      "i": 88,
+      "text": "Опубликовать",
+      "visible": true
+    },
+    {
+      "aria": "Перекрестие",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isA",
+      "i": 89,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Курсоры",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 90,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Линия тренда",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 91,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Линии тренда",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 92,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Коррекция Фибоначчи",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 93,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Инструменты Ганна и Фибоначчи",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 94,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Паттерн XABCD",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 95,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Паттерны",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 96,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Длинная позиция",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 97,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Инструменты для измерения и прогнозирования",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 98,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Кисть",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 99,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Геометрические фигуры",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 100,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Текст",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 101,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Инструменты комментирования",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 102,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Значок",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 103,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Иконки",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 104,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Линейка",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 105,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Увеличить масштаб",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 106,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Магнит позволяет притягивать точки объектов к ближайшим ценам (откр., макс., мин., закр.) баров",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 107,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Магниты",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 108,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Продолжить в режиме рисования",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 109,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Зафиксировать все объекты",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 110,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Скрыть все объекты рисования",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 111,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Скрыть параметры",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 112,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Удалить объекты",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 113,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Удалить параметры",
+      "class": "arrow-pbhJWNrt apply-common-tooltip common-tooltip-vertical accessible-pbhJWNrt",
+      "i": 114,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Показать панель избранных инструментов рисования",
+      "class": "button-KTgbfaP5 button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 115,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Сменить инструмент",
+      "class": "title-l31H9iuA accessible-l31H9iuA",
+      "i": 116,
+      "text": "Фьючерсный контракт на природный газ",
+      "visible": true
+    },
+    {
+      "aria": "Изменить интервал",
+      "class": "title-l31H9iuA accessible-l31H9iuA",
+      "i": 117,
+      "text": "1Д",
+      "visible": true
+    },
+    {
+      "aria": "Снять отметку с инструмента",
+      "class": "button-l31H9iuA flag-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 118,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Синхронизация инструмента/интервала на графиках",
+      "class": "button-l31H9iuA blockHidden-e6PF69Df linking-l31H9iuA apply-common-tooltip acces",
+      "i": 119,
+      "text": "",
+      "visible": false
+    },
+    {
+      "aria": "Скрыть",
+      "class": "button-l31H9iuA blockHidden-e6PF69Df eye-l31H9iuA apply-common-tooltip accessibl",
+      "i": 120,
+      "text": "",
+      "visible": false
+    },
+    {
+      "aria": "Ещё",
+      "class": "button-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 121,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Скрыть информацию об индикаторах",
+      "class": "toggler-l31H9iuA pane-button-e6PF69Df apply-common-tooltip accessible-l31H9iuA o",
+      "i": 123,
+      "text": "0",
+      "visible": false
+    },
+    {
+      "aria": "Включить/выключить автоматический масштаб",
+      "class": "priceScaleModeButton-okRV4Kjm priceScaleModeButton_activated-okRV4Kjm priceScale",
+      "i": 124,
+      "text": "А",
+      "visible": true
+    },
+    {
+      "aria": "Включить/выключить логарифмическую шкалу",
+      "class": "priceScaleModeButton-okRV4Kjm priceScaleModeButtons__button-PEm49B2T apply-commo",
+      "i": 125,
+      "text": "Л",
+      "visible": true
+    },
+    {
+      "aria": "Скрыть информацию об индикаторе",
+      "class": "toggler-l31H9iuA pane-button-e6PF69Df apply-common-tooltip accessible-l31H9iuA o",
+      "i": 126,
+      "text": "1",
+      "visible": false
+    },
+    {
+      "aria": "Скрыть",
+      "class": "button-l31H9iuA eye-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 127,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Показывать настройки интервала",
+      "class": "button-l31H9iuA blockHidden-e6PF69Df intervalEye-l31H9iuA apply-common-tooltip a",
+      "i": 128,
+      "text": "",
+      "visible": false
+    },
+    {
+      "aria": "Настройки",
+      "class": "button-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 129,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Удалить",
+      "class": "button-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 130,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Ещё",
+      "class": "button-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 131,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Включить/выключить автоматический масштаб",
+      "class": "priceScaleModeButton-okRV4Kjm priceScaleModeButton_activated-okRV4Kjm priceScale",
+      "i": 132,
+      "text": "А",
+      "visible": true
+    },
+    {
+      "aria": "Включить/выключить логарифмическую шкалу",
+      "class": "priceScaleModeButton-okRV4Kjm priceScaleModeButtons__button-PEm49B2T apply-commo",
+      "i": 133,
+      "text": "Л",
+      "visible": true
+    },
+    {
+      "aria": "Скрыть информацию об индикаторе",
+      "class": "toggler-l31H9iuA pane-button-e6PF69Df apply-common-tooltip accessible-l31H9iuA o",
+      "i": 134,
+      "text": "1",
+      "visible": false
+    },
+    {
+      "aria": "Скрыть",
+      "class": "button-l31H9iuA eye-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 135,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Показывать настройки интервала",
+      "class": "button-l31H9iuA blockHidden-e6PF69Df intervalEye-l31H9iuA apply-common-tooltip a",
+      "i": 136,
+      "text": "",
+      "visible": false
+    },
+    {
+      "aria": "Настройки",
+      "class": "button-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 137,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Удалить",
+      "class": "button-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 138,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Ещё",
+      "class": "button-l31H9iuA apply-common-tooltip accessible-l31H9iuA",
+      "i": 139,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Включить/выключить автоматический масштаб",
+      "class": "priceScaleModeButton-okRV4Kjm priceScaleModeButton_activated-okRV4Kjm priceScale",
+      "i": 140,
+      "text": "А",
+      "visible": true
+    },
+    {
+      "aria": "Включить/выключить логарифмическую шкалу",
+      "class": "priceScaleModeButton-okRV4Kjm priceScaleModeButtons__button-PEm49B2T apply-commo",
+      "i": 141,
+      "text": "Л",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "button-Hfju7pW_ dateRange-BXXUwft2 button-merBkM5y apply-common-tooltip accessib",
+      "i": 142,
+      "text": "Диапазон дат",
+      "visible": true
+    },
+    {
+      "aria": "1 день в 1-минутных интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 143,
+      "text": "1Д",
+      "visible": true
+    },
+    {
+      "aria": "5 дней в 5-минутных интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 144,
+      "text": "5Д",
+      "visible": true
+    },
+    {
+      "aria": "1 месяц в 30-минутных интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 145,
+      "text": "1М",
+      "visible": true
+    },
+    {
+      "aria": "3 месяца в 1-часовых интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 146,
+      "text": "3М",
+      "visible": true
+    },
+    {
+      "aria": "6 месяцев в 2-часовых интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 147,
+      "text": "6М",
+      "visible": true
+    },
+    {
+      "aria": "Данные с начала года в 1-дневных интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 148,
+      "text": "YTD",
+      "visible": true
+    },
+    {
+      "aria": "1 год в 1-дневных интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 149,
+      "text": "1Г",
+      "visible": true
+    },
+    {
+      "aria": "5 лет в 1-недельных интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 150,
+      "text": "5Л",
+      "visible": true
+    },
+    {
+      "aria": "Все данные в 1-месячных интервалах",
+      "class": "item-k2h4OAz8 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 151,
+      "text": "Все",
+      "visible": true
+    },
+    {
+      "aria": "Перейти к дате",
+      "class": "button-uToIfRbZ button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInteracti",
+      "i": 152,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Часовой пояс",
+      "class": "item-BXXUwft2 button-GwQQdU8S button-x1dCOTP3 apply-common-tooltip isInteractive",
+      "i": 153,
+      "text": "17:59:05 UTC+8",
+      "visible": true
+    },
+    {
+      "aria": "Корректировать с учётом изменений контрактов",
+      "class": "item-BXXUwft2 button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S access",
+      "i": 154,
+      "text": "корр",
+      "visible": true
+    },
+    {
+      "aria": "Списки котировок, подробная информация и новости",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 155,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Оповещения",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 156,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Дерево объектов и Окно данных",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 157,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Чаты",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 158,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Скринеры",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 159,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Pine",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 160,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Календари",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 161,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Сообщество",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 162,
+      "text": "99+",
+      "visible": true
+    },
+    {
+      "aria": "Уведомления",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 163,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Продукты",
+      "class": "button-pcFY_CU1 common-tooltip-vertical button-merBkM5y apply-common-tooltip acc",
+      "i": 164,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Справочный центр",
+      "class": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isI",
+      "i": 165,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "segmentedControlBase-NZgAw_ip xsmall-NZgAw_ip",
+      "i": 166,
+      "text": "Публичные",
+      "visible": false
+    },
+    {
+      "aria": null,
+      "class": "segmentedControlBase-NZgAw_ip xsmall-NZgAw_ip checked-NZgAw_ip",
+      "i": 167,
+      "text": "Личные",
+      "visible": false
+    },
+    {
+      "aria": "Закрыть отчёт по стратегии",
+      "class": "container-yt6RGAn_ button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S a",
+      "i": 168,
+      "text": "Отчёт по стратегии",
+      "visible": true
+    },
+    {
+      "aria": "Закрыть отчёт по стратегии",
+      "class": "container-yt6RGAn_ button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S a",
+      "i": 169,
+      "text": "Отчёт по стратегии",
+      "visible": true
+    },
+    {
+      "aria": "Свернуть панель",
+      "class": "button-dA6R3Y1X firstButton-dA6R3Y1X button-xNqEcuN2 button-GwQQdU8S apply-commo",
+      "i": 171,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Развернуть панель",
+      "class": "button-dA6R3Y1X button-xNqEcuN2 button-GwQQdU8S apply-common-tooltip isInteracti",
+      "i": 172,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "button-D4RPB3ZC small-D4RPB3ZC black-D4RPB3ZC primary-D4RPB3ZC apply-overflow-to",
+      "i": 173,
+      "text": "Загрузить стратегию",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 174,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 176,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 178,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 180,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 182,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 184,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 186,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 188,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 190,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 191,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 193,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 195,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 197,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 199,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 201,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 203,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 205,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 207,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 209,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 211,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT",
+      "i": 212,
+      "text": "Больше",
+      "visible": true
+    },
+    {
+      "aria": "Включить режим разделённого экрана",
+      "class": "apply-common-tooltip pinButton-tid3CVVx hidden-tid3CVVx lightButton-bYDQcOkp noC",
+      "i": 214,
+      "text": "",
+      "visible": false
+    },
+    {
+      "aria": "Закрыть",
+      "class": "lightButton-bYDQcOkp noContent-bYDQcOkp withStartSlot-bYDQcOkp ghost-PVWoXu5j gr",
+      "i": 215,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "apply-common-tooltip lightButton-bYDQcOkp withStartSlot-bYDQcOkp secondary-PVWoX",
+      "i": 216,
+      "text": "Добавить на графикДобавить на график",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "saveButton-fF7iXGw2 saved-fF7iXGw2 hidden-fF7iXGw2 lightButton-bYDQcOkp withStar",
+      "i": 217,
+      "text": "СохраненоСохранено",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "publishButton-HeHIQL4x apply-common-tooltip lightButton-bYDQcOkp withStartSlot-b",
+      "i": 218,
+      "text": "Опубликовать скриптОпубликовать скрипт",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "button-vjBbghdv apply-common-tooltip button-vjBbghdv",
+      "i": 221,
+      "text": "34 ∙ Сегодня, 17:58",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "button-vjBbghdv apply-common-tooltip button-vjBbghdv",
+      "i": 222,
+      "text": "Линия 1, Столбец 1",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "button-K4u4Ng3Z lightButton-bYDQcOkp primary-PVWoXu5j gray-PVWoXu5j xsmall-bYDQc",
+      "i": 223,
+      "text": "ХорошоХорошо",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "nav-button-znwuaSC1 size-medium-znwuaSC1 preserve-paddings-znwuaSC1 close-BZKENk",
+      "i": 224,
+      "text": "Закрыть меню",
+      "visible": true
+    },
+    {
+      "aria": "Закрыть",
+      "class": "overlayBtn-xxA0F0Gn xsmall-xxA0F0Gn",
+      "i": 225,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": "Пауза",
+      "class": "overlayBtn-xxA0F0Gn xsmall-xxA0F0Gn",
+      "i": 226,
+      "text": "",
+      "visible": true
+    },
+    {
+      "aria": null,
+      "class": "action-_7jZcAZi button-D4RPB3ZC medium-D4RPB3ZC black-D4RPB3ZC primary-D4RPB3ZC ",
+      "i": 229,
+      "text": "Улучшить подписку",
+      "visible": true
+    }
+  ],
+  "success": true
+}

@@ -1,0 +1,12 @@
+{
+  "name": "chart-state",
+  "command": "go run ./cmd/tv chart-state",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:19:00.7669514+08:00",
+  "finishedAt": "2026-04-27T10:19:01.29832+08:00",
+  "stdout": "research\\implementation-baseline\\cli-chart-state.stdout.json",
+  "stderr": "research\\implementation-baseline\\cli-chart-state.stderr.txt",
+  "stdoutValidJson": true,
+  "stderrValidJson": false,
+  "parseError": null
+}

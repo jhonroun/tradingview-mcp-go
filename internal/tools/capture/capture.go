@@ -31,15 +31,13 @@ func CaptureScreenshot(region, filename string) (map[string]interface{}, error) 
 	if region == "" {
 		region = "full"
 	}
-	fname := filename
-	if fname == "" {
-		fname = fmt.Sprintf("tv_%s_%s", region, ts)
+	filePath, err := screenshotFilePath(region, filename, ts)
+	if err != nil {
+		return nil, err
 	}
-	fname = strings.ReplaceAll(strings.ReplaceAll(fname, "/", "_"), "\\", "_")
-	filePath := filepath.Join(screenshotDir, fname+".png")
 
 	var b64data string
-	err := cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
+	err = cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
 		clip, err := regionClip(ctx, c, region)
 		if err != nil {
 			return err
@@ -111,6 +109,30 @@ func regionClip(ctx context.Context, c *cdp.Client, region string) (*cdp.Screens
 		Width: bounds.Width, Height: bounds.Height,
 		Scale: 1,
 	}, nil
+}
+
+func screenshotFilePath(region, filename, ts string) (string, error) {
+	fname := filename
+	if fname == "" {
+		fname = fmt.Sprintf("tv_%s_%s", region, ts)
+	}
+	ext := screenshotExt(fname)
+	if ext != "" && !strings.EqualFold(ext, ".png") {
+		return "", fmt.Errorf("screenshot filename must use .png extension or no extension, got %q", ext)
+	}
+	fname = strings.ReplaceAll(strings.ReplaceAll(fname, "/", "_"), "\\", "_")
+	if ext == "" {
+		fname += ".png"
+	}
+	return filepath.Join(screenshotDir, fname), nil
+}
+
+func screenshotExt(name string) string {
+	base := name
+	if idx := strings.LastIndexAny(base, `/\`); idx >= 0 {
+		base = base[idx+1:]
+	}
+	return filepath.Ext(base)
 }
 
 // RegisterTools registers capture_screenshot into the MCP registry.

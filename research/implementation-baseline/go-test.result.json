@@ -1,0 +1,8 @@
+{
+  "command": "go test ./...",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:17:27.0515817+08:00",
+  "finishedAt": "2026-04-27T10:17:39.7030613+08:00",
+  "stdout": "research\\implementation-baseline\\go-test.stdout.txt",
+  "stderr": "research\\implementation-baseline\\go-test.stderr.txt"
+}

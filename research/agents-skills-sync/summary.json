@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-04-27T23:24:50.8048896+08:00",
+  "go_test_exitcode": "0",
+  "go_vet_exitcode": "0",
+  "mcp_exitcode": "0",
+  "initialize_protocol": "2024-11-05",
+  "tools_count": 85,
+  "unknown_tool_is_error": true,
+  "skill_count": 18,
+  "skill_ru_count": 18,
+  "agent_ru_variant_count": 21
+}

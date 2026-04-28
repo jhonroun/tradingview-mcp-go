@@ -159,3 +159,19 @@ If plot.current == null:
 Use chart_get_state to list all indicators with entity IDs
 Then call data_get_indicator with the correct entity_id
 ```
+
+## Current MCP Contract Notes
+
+- Current Go registry: 85 MCP tools; original Node parity baseline: 78 tools.
+- Go-only extension tools include `data_get_indicator_history`, `data_get_orders`, and `pine_restore_source`.
+- Data tools may include `source`, `reliability`, `coverage`, `status`, `warning`, and `reliableForTradingLogic`.
+- Equity from `tradingview_strategy_plot` has `coverage: loaded_chart_bars` and is not automatically full Strategy Tester history.
+- `quote_get` can include `bidAskAvailable:false`, `bidAvailable:false`, `askAvailable:false`, and `sourceLimitation`.
+## Release 1.2 Data Guards
+
+- Run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path-dependent tool returns unavailable statuses.
+- Treat `coverage: loaded_chart_bars` as chart-loaded coverage only, including strategy equity from `data_get_equity`.
+- Use the optional history-load workflow only as best effort: expand/scroll the chart range, wait for bars to load, repeat the data call, and compare `loaded_bar_count` / `data_points`.
+- Keep derived equity conditional; do not present it as native Strategy Tester equity or as unqualified `reliableForTradingLogic:true` data.
+- Do not pursue full native bar-by-bar Strategy Tester equity until TradingView exposes a stable report field.
+

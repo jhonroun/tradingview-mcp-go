@@ -1,0 +1,11 @@
+{
+  "command": "go run ./cmd/tv indicator-history RSI --count 3",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T11:00:21.5170099+08:00",
+  "finishedAt": "2026-04-27T11:00:28.4348527+08:00",
+  "historyCount": 3,
+  "source": "tradingview_study_model",
+  "parseError": null,
+  "stdout": "research\\indicator-study-model\\cli-indicator-history.stdout.json",
+  "stderr": "research\\indicator-study-model\\cli-indicator-history.stderr.txt"
+}

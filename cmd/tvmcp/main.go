@@ -29,6 +29,8 @@ TOOL SELECTION GUIDE:
 Reading your chart:
 - chart_get_state → get symbol, timeframe, all indicator names + entity IDs (call first)
 - data_get_study_values → get current numeric values from ALL visible indicators (RSI, MACD, BB, EMA, etc.)
+- data_get_indicator_history → get historical study-model values for loaded chart bars
+- data_get_strategy_results / data_get_trades / data_get_orders / data_get_equity → read Strategy Tester report when a strategy is loaded
 - quote_get → get real-time price snapshot (last, OHLC, volume)
 - data_get_ohlcv → get price bars. ALWAYS pass summary=true unless you need individual bars
 
@@ -38,6 +40,9 @@ Reading custom Pine indicator output (line.new/label.new/table.new/box.new drawi
 - data_get_pine_tables → table data as formatted rows (session stats, analytics dashboards)
 - data_get_pine_boxes → price zones as {high, low} pairs
 - ALWAYS pass study_filter to target a specific indicator by name
+
+Editing Pine source:
+- pine_get_source returns source hash/name/type; pine_set_source creates a backup; pine_restore_source verifies SHA256
 
 Screenshots: capture_screenshot → regions: "full", "chart", "strategy_tester"
 Launch: tv_launch → auto-detect and start TradingView with CDP on any platform

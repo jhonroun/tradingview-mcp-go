@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-04-28",
+  "command": "go run ./cmd/tvmcp < mcp smoke payload",
+  "exitcode": 0,
+  "initialize_protocol": "2024-11-05",
+  "tools_count": 85,
+  "unknown_tool_is_error": true,
+  "unknown_tool_text": "unknown tool: __release_unknown_tool__"
+}

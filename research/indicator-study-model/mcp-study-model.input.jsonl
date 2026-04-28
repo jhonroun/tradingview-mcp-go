@@ -1,0 +1,6 @@
+{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"codex-study-model","version":"0.1.0"}}}
+{"jsonrpc":"2.0","method":"notifications/initialized","params":{}}
+{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"data_get_study_values","arguments":{}}}
+{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"data_get_indicator","arguments":{"entity_id":"Vvzmzg"}}}
+{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"data_get_indicator_history","arguments":{"entity_id":"Vvzmzg","max_bars":5}}}
+{"jsonrpc":"2.0","id":5,"method":"tools/list","params":{}}

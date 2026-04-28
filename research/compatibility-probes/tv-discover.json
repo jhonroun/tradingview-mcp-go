@@ -1,0 +1,131 @@
+{
+  "compatibility_probe_contract": "compatible=true means the internal path/method exists; available=true means useful data is present in the current chart state",
+  "compatibility_probe_count": 9,
+  "compatibility_probe_limitation": "TradingView internal paths are undocumented and must be re-probed after TradingView updates.",
+  "compatibility_probes": [
+    {
+      "name": "tradingview_api",
+      "path": "window.TradingViewApi",
+      "purpose": "Root TradingView Desktop API object.",
+      "status": "ok",
+      "compatible": true,
+      "available": true,
+      "stability": "unstable_internal_path"
+    },
+    {
+      "name": "active_chart_widget",
+      "path": "window.TradingViewApi._activeChartWidgetWV.value()",
+      "purpose": "Active chart widget used by chart/data tools.",
+      "status": "ok",
+      "compatible": true,
+      "available": true,
+      "stability": "unstable_internal_path"
+    },
+    {
+      "name": "chart_model",
+      "path": "chart.model().model()",
+      "purpose": "Internal chart model used to reach studies and strategies.",
+      "status": "ok",
+      "compatible": true,
+      "available": true,
+      "stability": "unstable_internal_path"
+    },
+    {
+      "name": "data_sources",
+      "path": "model.dataSources()",
+      "purpose": "Internal study/source collection.",
+      "status": "ok",
+      "compatible": true,
+      "available": true,
+      "stability": "unstable_internal_path",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "details": {
+        "source_count": 13
+      }
+    },
+    {
+      "name": "study_model_data",
+      "path": "study.data().valueAt()/fullRangeIterator()",
+      "purpose": "Numeric Pine runtime values for indicators/studies.",
+      "status": "ok",
+      "compatible": true,
+      "available": true,
+      "stability": "unstable_internal_path",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "details": {
+        "source_count": 13
+      }
+    },
+    {
+      "name": "strategy_sources",
+      "path": "model.strategySources()",
+      "purpose": "Internal strategy source collection.",
+      "status": "no_strategy_loaded",
+      "compatible": true,
+      "available": false,
+      "stability": "unstable_internal_path",
+      "reliability": "reliable_backtesting_report_unstable_internal_path",
+      "details": {
+        "strategy_source_count": 0
+      }
+    },
+    {
+      "name": "active_strategy_source",
+      "path": "model.activeStrategySource()",
+      "purpose": "Active TradingView strategy source.",
+      "status": "no_strategy_loaded",
+      "compatible": true,
+      "available": false,
+      "stability": "unstable_internal_path",
+      "reliability": "reliable_backtesting_report_unstable_internal_path",
+      "details": {
+        "active_strategy_id": "",
+        "active_strategy_name": ""
+      }
+    },
+    {
+      "name": "backtesting_strategy_api",
+      "path": "await window.TradingViewApi.backtestingStrategyApi()",
+      "purpose": "Async Strategy Tester report API.",
+      "status": "no_strategy_loaded",
+      "compatible": true,
+      "available": false,
+      "stability": "unstable_internal_path",
+      "reliability": "reliable_backtesting_report_unstable_internal_path",
+      "details": {
+        "report_keys": [
+          "currency",
+          "settings",
+          "buyHold",
+          "buyHoldPercent",
+          "filledOrders",
+          "performance",
+          "trades",
+          "firstTradeIndex",
+          "activeOrders",
+          "runupDrawdownPeriods",
+          "hasRunupData",
+          "hasDrawdownData"
+        ]
+      }
+    },
+    {
+      "name": "strategy_equity_plot",
+      "path": "model.strategySources()[0].data().fullRangeIterator()",
+      "purpose": "Explicit Pine Strategy Equity plot for loaded-bar equity.",
+      "status": "no_strategy_loaded",
+      "compatible": true,
+      "available": false,
+      "stability": "unstable_internal_path",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path"
+    }
+  ],
+  "paths": {
+    "alertService": false,
+    "chartApi": true,
+    "chartWidgetCollection": true,
+    "replayApi": true
+  },
+  "success": true,
+  "unstable_internal_paths": true
+}

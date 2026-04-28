@@ -1,0 +1,3472 @@
+{
+  "captured_at": "2026-04-26T22:15:51.765Z",
+  "hitCount": 356,
+  "hits": [
+    {
+      "ctor": "Object",
+      "key": "trade",
+      "keys": [
+        "from",
+        "to"
+      ],
+      "path": "report.settings.dateRange.trade",
+      "sample": {
+        "from": 1586534400000,
+        "to": 1777096800000
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "from",
+      "path": "report.settings.dateRange.trade.from",
+      "sample": 1586534400000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "to",
+      "path": "report.settings.dateRange.trade.to",
+      "sample": 1777096800000,
+      "type": "number"
+    },
+    {
+      "ctor": "Array",
+      "key": "filledOrders",
+      "length": 86,
+      "path": "report.filledOrders",
+      "sample": {
+        "arrayLength": 86,
+        "sample": [
+          {
+            "barTime": 0,
+            "comment": "Long",
+            "id": "Long",
+            "isBuy": true,
+            "isEntry": true,
+            "price": 1.751,
+            "quantity": 1,
+            "type": "MARKET"
+          },
+          {
+            "barTime": 1,
+            "comment": "Close entry(s) order Long",
+            "id": "Close entry(s) order Long",
+            "isBuy": false,
+            "isEntry": false,
+            "price": 1.814,
+            "quantity": 1,
+            "type": "MARKET"
+          },
+          {
+            "barTime": 2,
+            "comment": "Long",
+            "id": "Long",
+            "isBuy": true,
+            "isEntry": true,
+            "price": 1.808,
+            "quantity": 1,
+            "type": "MARKET"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    {
+      "length": 86,
+      "path": "report.filledOrders",
+      "sample": {
+        "arrayLength": 86,
+        "sample": [
+          {
+            "barTime": 0,
+            "comment": "Long",
+            "id": "Long",
+            "isBuy": true,
+            "isEntry": true,
+            "price": 1.751,
+            "quantity": 1,
+            "type": "MARKET"
+          },
+          {
+            "barTime": 1,
+            "comment": "Close entry(s) order Long",
+            "id": "Close entry(s) order Long",
+            "isBuy": false,
+            "isEntry": false,
+            "price": 1.814,
+            "quantity": 1,
+            "type": "MARKET"
+          },
+          {
+            "barTime": 2,
+            "comment": "Long",
+            "id": "Long",
+            "isBuy": true,
+            "isEntry": true,
+            "price": 1.808,
+            "quantity": 1,
+            "type": "MARKET"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    {
+      "ctor": "Boolean",
+      "key": "isBuy",
+      "path": "report.filledOrders[0].isBuy",
+      "sample": true,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "comment",
+      "path": "report.filledOrders[0].comment",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Boolean",
+      "key": "isEntry",
+      "path": "report.filledOrders[0].isEntry",
+      "sample": true,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.filledOrders[0].id",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.filledOrders[0].price",
+      "sample": 1.751,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.filledOrders[0].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "barTime",
+      "path": "report.filledOrders[0].barTime",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.filledOrders[0].type",
+      "sample": "MARKET",
+      "type": "string"
+    },
+    {
+      "ctor": null,
+      "key": "isBuy",
+      "path": "report.filledOrders[1].isBuy",
+      "sample": false,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "comment",
+      "path": "report.filledOrders[1].comment",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": null,
+      "key": "isEntry",
+      "path": "report.filledOrders[1].isEntry",
+      "sample": false,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.filledOrders[1].id",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.filledOrders[1].price",
+      "sample": 1.814,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.filledOrders[1].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "barTime",
+      "path": "report.filledOrders[1].barTime",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.filledOrders[1].type",
+      "sample": "MARKET",
+      "type": "string"
+    },
+    {
+      "ctor": "Boolean",
+      "key": "isBuy",
+      "path": "report.filledOrders[2].isBuy",
+      "sample": true,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "comment",
+      "path": "report.filledOrders[2].comment",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Boolean",
+      "key": "isEntry",
+      "path": "report.filledOrders[2].isEntry",
+      "sample": true,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.filledOrders[2].id",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.filledOrders[2].price",
+      "sample": 1.808,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.filledOrders[2].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "barTime",
+      "path": "report.filledOrders[2].barTime",
+      "sample": 2,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.filledOrders[2].type",
+      "sample": "MARKET",
+      "type": "string"
+    },
+    {
+      "ctor": null,
+      "key": "isBuy",
+      "path": "report.filledOrders[3].isBuy",
+      "sample": false,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "comment",
+      "path": "report.filledOrders[3].comment",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": null,
+      "key": "isEntry",
+      "path": "report.filledOrders[3].isEntry",
+      "sample": false,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.filledOrders[3].id",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.filledOrders[3].price",
+      "sample": 1.687,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.filledOrders[3].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "barTime",
+      "path": "report.filledOrders[3].barTime",
+      "sample": 3,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.filledOrders[3].type",
+      "sample": "MARKET",
+      "type": "string"
+    },
+    {
+      "ctor": "Boolean",
+      "key": "isBuy",
+      "path": "report.filledOrders[4].isBuy",
+      "sample": true,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "comment",
+      "path": "report.filledOrders[4].comment",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Boolean",
+      "key": "isEntry",
+      "path": "report.filledOrders[4].isEntry",
+      "sample": true,
+      "type": "boolean"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.filledOrders[4].id",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.filledOrders[4].price",
+      "sample": 1.841,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.filledOrders[4].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "barTime",
+      "path": "report.filledOrders[4].barTime",
+      "sample": 4,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.filledOrders[4].type",
+      "sample": "MARKET",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "performance",
+      "keys": [
+        "all",
+        "long",
+        "maxStrategyDrawDown",
+        "openPL",
+        "buyHoldReturn",
+        "sharpeRatio",
+        "sortinoRatio",
+        "maxStrategyDrawDownPercent",
+        "maxStrategyRunUp",
+        "maxStrategyRunUpPercent",
+        "buyHoldReturnPercent",
+        "openPLPercent",
+        "buyHoldGainPercent",
+        "maxMarginUsed",
+        "avgMarginUsed",
+        "short",
+        "initialCapital",
+        "averageRunup",
+        "averageRunupPercent",
+        "averageRunupDuration",
+        "averageDrawdown",
+        "averageDrawdownPercent",
+        "averageDrawdownDuration",
+        "maxDrawdown",
+        "maxRunup",
+        "maxDrawdownPercent",
+        "maxRunupPercent"
+      ],
+      "path": "report.performance",
+      "sample": {
+        "all": {
+          "avgBarsInLossTrade": 12.80952380952381,
+          "avgBarsInTrade": 20.651162790697676,
+          "avgBarsInWinTrade": 28.333333333333332,
+          "avgLosTrade": 32.99047619,
+          "avgLosTradePercent": 0.09508297342143199,
+          "avgTrade": 5.209302326,
+          "avgTradePercent": 0.014417281965555421,
+          "avgWinTrade": 43.65714286,
+          "avgWinTradePercent": 0.12460407458899787,
+          "commissionPaid": 0,
+          "grossLoss": 692.8000000000001,
+          "grossLossPercent": 0.0006928,
+          "grossLossWC": 692.8000000000001,
+          "grossProfit": 916.8000000000002,
+          "grossProfitPercent": 0.0009168000000000002,
+          "grossProfitWC": 916.8000000000002,
+          "largestLosTrade": 211.00000000000003,
+          "largestLosTradePercent": 0.396244131455,
+          "largestWinTrade": 272.1,
+          "largestWinTradePercent": 0.541169451074,
+          "marginCalls": 0,
+          "maxContractsHeld": 1,
+          "netProfit": 224.0000000000001,
+          "netProfitPercent": 0.0002240000000000001,
+          "numberOfLosingTrades": 21,
+          "numberOfWiningTrades": 21,
+          "percentProfitable": 0.4883720930232558,
+          "profitFactor": 1.3233256351039262,
+          "ratioAvgWinAvgLoss": 1.3233256352096323,
+          "totalOpenTrades": 0
+        },
+        "averageDrawdown": 204.3,
+        "averageDrawdownDuration": 54801000000,
+        "averageDrawdownPercent": 0.0002043,
+        "averageRunup": 226.30000000000004,
+        "averageRunupDuration": 23731200000,
+        "averageRunupPercent": 0.00022630000000000005,
+        "avgMarginUsed": 0,
+        "buyHoldGainPercent": 0.43803540833809257,
+        "buyHoldReturn": 438033.70000000007,
+        "buyHoldReturnPercent": 0.4380337000000001,
+        "initialCapital": 1000000,
+        "long": {
+          "avgBarsInLossTrade": 12.80952380952381,
+          "avgBarsInTrade": 20.651162790697676,
+          "avgBarsInWinTrade": 28.333333333333332,
+          "avgLosTrade": 32.99047619,
+          "avgLosTradePercent": 0.09508297342143199,
+          "avgTrade": 5.209302326,
+          "avgTradePercent": 0.014417281965555421,
+          "avgWinTrade": 43.65714286,
+          "avgWinTradePercent": 0.12460407458899787,
+          "commissionPaid": 0,
+          "grossLoss": 692.8000000000001,
+          "grossLossPercent": 0.0006928,
+          "grossLossWC": 692.8000000000001,
+          "grossProfit": 916.8000000000002,
+          "grossProfitPercent": 0.0009168000000000002,
+          "grossProfitWC": 916.8000000000002,
+          "largestLosTrade": 211.00000000000003,
+          "largestLosTradePercent": 0.396244131455,
+          "largestWinTrade": 272.1,
+          "largestWinTradePercent": 0.541169451074,
+          "marginCalls": 0,
+          "maxContractsHeld": 1,
+          "netProfit": 224.0000000000001,
+          "netProfitPercent": 0.0002240000000000001,
+          "numberOfLosingTrades": 21,
+          "numberOfWiningTrades": 21,
+          "percentProfitable": 0.4883720930232558,
+          "profitFactor": 1.3233256351039262,
+          "ratioAvgWinAvgLoss": 1.3233256352096323,
+          "totalOpenTrades": 0
+        },
+        "maxDrawdown": 386.6,
+        "maxDrawdownPercent": 0.0003866,
+        "maxMarginUsed": 0,
+        "maxRunup": 446.8,
+        "maxRunupPercent": 0.0004468,
+        "maxStrategyDrawDown": 401.5,
+        "maxStrategyDrawDownPercent": 0.00040125499370084625,
+        "maxStrategyRunUp": 817.6999999999534,
+        "maxStrategyRunUpPercent": 0.000817044730126392,
+        "openPL": 0,
+        "openPLPercent": 0,
+        "sharpeRatio": -34.1643484442475,
+        "short": {
+          "avgBarsInLossTrade": 0,
+          "avgBarsInTrade": 0,
+          "avgBarsInWinTrade": 0,
+          "avgLosTrade": null,
+          "avgLosTradePercent": null,
+          "avgTrade": null,
+          "avgTradePercent": null,
+          "avgWinTrade": null,
+          "avgWinTradePercent": null,
+          "commissionPaid": 0,
+          "grossLoss": 0,
+          "grossLossPercent": 0,
+          "grossLossWC": 0,
+          "grossProfit": 0,
+          "grossProfitPercent": 0,
+          "grossProfitWC": 0,
+          "largestLosTrade": null,
+          "largestLosTradePercent": null,
+          "largestWinTrade": null,
+          "largestWinTradePercent": null,
+          "marginCalls": 0,
+          "maxContractsHeld": 0,
+          "netProfit": 0,
+          "netProfitPercent": 0,
+          "numberOfLosingTrades": 0,
+          "numberOfWiningTrades": 0,
+          "percentProfitable": null,
+          "profitFactor": null,
+          "ratioAvgWinAvgLoss": null,
+          "totalOpenTrades": 0
+        },
+        "sortinoRatio": -0.9995719004537292
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Object",
+      "key": "all",
+      "keys": [
+        "avgBarsInLossTrade",
+        "avgBarsInTrade",
+        "avgBarsInWinTrade",
+        "avgLosTrade",
+        "avgLosTradePercent",
+        "avgTrade",
+        "avgTradePercent",
+        "avgWinTrade",
+        "avgWinTradePercent",
+        "commissionPaid",
+        "grossLoss",
+        "grossLossPercent",
+        "grossLossWC",
+        "grossProfit",
+        "grossProfitPercent",
+        "grossProfitWC",
+        "largestLosTrade",
+        "largestLosTradePercent",
+        "largestWinTrade",
+        "largestWinTradePercent",
+        "marginCalls",
+        "maxContractsHeld",
+        "netProfit",
+        "netProfitPercent",
+        "numberOfLosingTrades",
+        "numberOfWiningTrades",
+        "percentProfitable",
+        "profitFactor",
+        "ratioAvgWinAvgLoss",
+        "totalOpenTrades",
+        "totalTrades",
+        "numberOfEvenTrades",
+        "accountSizeRequired",
+        "marginEfficiency",
+        "returnOnAccount",
+        "expectedPayoff",
+        "annualizedReturn",
+        "returnOnInitialCapital",
+        "maxEquityRunUpAsPercentOfInitialCapital",
+        "returnOfMaxEquityDrawdown",
+        "maxEquityDrawdownAsPercentOfInitialCapital",
+        "netProfitAsPercentOfLargestLoss",
+        "largestWinnerAsPercentOfGrossProfit",
+        "largestLoserAsPercentOfGrossLoss",
+        "strategyOutperformance",
+        "totalProfit",
+        "totalProfitPercent"
+      ],
+      "path": "report.performance.all",
+      "sample": {
+        "avgBarsInLossTrade": 12.80952380952381,
+        "avgBarsInTrade": 20.651162790697676,
+        "avgBarsInWinTrade": 28.333333333333332,
+        "avgLosTrade": 32.99047619,
+        "avgLosTradePercent": 0.09508297342143199,
+        "avgTrade": 5.209302326,
+        "avgTradePercent": 0.014417281965555421,
+        "avgWinTrade": 43.65714286,
+        "avgWinTradePercent": 0.12460407458899787,
+        "commissionPaid": 0,
+        "grossLoss": 692.8000000000001,
+        "grossLossPercent": 0.0006928,
+        "grossLossWC": 692.8000000000001,
+        "grossProfit": 916.8000000000002,
+        "grossProfitPercent": 0.0009168000000000002,
+        "grossProfitWC": 916.8000000000002,
+        "largestLosTrade": 211.00000000000003,
+        "largestLosTradePercent": 0.396244131455,
+        "largestWinTrade": 272.1,
+        "largestWinTradePercent": 0.541169451074,
+        "marginCalls": 0,
+        "maxContractsHeld": 1,
+        "netProfit": 224.0000000000001,
+        "netProfitPercent": 0.0002240000000000001,
+        "numberOfLosingTrades": 21,
+        "numberOfWiningTrades": 21,
+        "percentProfitable": 0.4883720930232558,
+        "profitFactor": 1.3233256351039262,
+        "ratioAvgWinAvgLoss": 1.3233256352096323,
+        "totalOpenTrades": 0
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgBarsInLossTrade",
+      "path": "report.performance.all.avgBarsInLossTrade",
+      "sample": 12.80952380952381,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgBarsInTrade",
+      "path": "report.performance.all.avgBarsInTrade",
+      "sample": 20.651162790697676,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgBarsInWinTrade",
+      "path": "report.performance.all.avgBarsInWinTrade",
+      "sample": 28.333333333333332,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgLosTrade",
+      "path": "report.performance.all.avgLosTrade",
+      "sample": 32.99047619,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgLosTradePercent",
+      "path": "report.performance.all.avgLosTradePercent",
+      "sample": 0.09508297342143199,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgTrade",
+      "path": "report.performance.all.avgTrade",
+      "sample": 5.209302326,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgTradePercent",
+      "path": "report.performance.all.avgTradePercent",
+      "sample": 0.014417281965555421,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgWinTrade",
+      "path": "report.performance.all.avgWinTrade",
+      "sample": 43.65714286,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgWinTradePercent",
+      "path": "report.performance.all.avgWinTradePercent",
+      "sample": 0.12460407458899787,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "commissionPaid",
+      "path": "report.performance.all.commissionPaid",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossLoss",
+      "path": "report.performance.all.grossLoss",
+      "sample": 692.8000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossLossPercent",
+      "path": "report.performance.all.grossLossPercent",
+      "sample": 0.0006928,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossLossWC",
+      "path": "report.performance.all.grossLossWC",
+      "sample": 692.8000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossProfit",
+      "path": "report.performance.all.grossProfit",
+      "sample": 916.8000000000002,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossProfitPercent",
+      "path": "report.performance.all.grossProfitPercent",
+      "sample": 0.0009168000000000002,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossProfitWC",
+      "path": "report.performance.all.grossProfitWC",
+      "sample": 916.8000000000002,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestLosTrade",
+      "path": "report.performance.all.largestLosTrade",
+      "sample": 211.00000000000003,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestLosTradePercent",
+      "path": "report.performance.all.largestLosTradePercent",
+      "sample": 0.396244131455,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestWinTrade",
+      "path": "report.performance.all.largestWinTrade",
+      "sample": 272.1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestWinTradePercent",
+      "path": "report.performance.all.largestWinTradePercent",
+      "sample": 0.541169451074,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "marginCalls",
+      "path": "report.performance.all.marginCalls",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxContractsHeld",
+      "path": "report.performance.all.maxContractsHeld",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "netProfit",
+      "path": "report.performance.all.netProfit",
+      "sample": 224.0000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "netProfitPercent",
+      "path": "report.performance.all.netProfitPercent",
+      "sample": 0.0002240000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "numberOfLosingTrades",
+      "path": "report.performance.all.numberOfLosingTrades",
+      "sample": 21,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "numberOfWiningTrades",
+      "path": "report.performance.all.numberOfWiningTrades",
+      "sample": 21,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentProfitable",
+      "path": "report.performance.all.percentProfitable",
+      "sample": 0.4883720930232558,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "profitFactor",
+      "path": "report.performance.all.profitFactor",
+      "sample": 1.3233256351039262,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "ratioAvgWinAvgLoss",
+      "path": "report.performance.all.ratioAvgWinAvgLoss",
+      "sample": 1.3233256352096323,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "totalOpenTrades",
+      "path": "report.performance.all.totalOpenTrades",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "totalTrades",
+      "path": "report.performance.all.totalTrades",
+      "sample": 43,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "numberOfEvenTrades",
+      "path": "report.performance.all.numberOfEvenTrades",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "accountSizeRequired",
+      "path": "report.performance.all.accountSizeRequired",
+      "sample": 401.5,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "marginEfficiency",
+      "path": "report.performance.all.marginEfficiency",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "returnOnAccount",
+      "path": "report.performance.all.returnOnAccount",
+      "sample": 0.5579078455790787,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "expectedPayoff",
+      "path": "report.performance.all.expectedPayoff",
+      "sample": 5.209302325581398,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "annualizedReturn",
+      "path": "report.performance.all.annualizedReturn",
+      "sample": 3.5925870754072164E-05,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "returnOnInitialCapital",
+      "path": "report.performance.all.returnOnInitialCapital",
+      "sample": 0.0002240000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxEquityRunUpAsPercentOfInitialCapital",
+      "path": "report.performance.all.maxEquityRunUpAsPercentOfInitialCapital",
+      "sample": 0.0008176999999999535,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "returnOfMaxEquityDrawdown",
+      "path": "report.performance.all.returnOfMaxEquityDrawdown",
+      "sample": 0.5579078455790787,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxEquityDrawdownAsPercentOfInitialCapital",
+      "path": "report.performance.all.maxEquityDrawdownAsPercentOfInitialCapital",
+      "sample": 0.0004015,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "netProfitAsPercentOfLargestLoss",
+      "path": "report.performance.all.netProfitAsPercentOfLargestLoss",
+      "sample": 1.0616113744075832,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestWinnerAsPercentOfGrossProfit",
+      "path": "report.performance.all.largestWinnerAsPercentOfGrossProfit",
+      "sample": 0.29679319371727747,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestLoserAsPercentOfGrossLoss",
+      "path": "report.performance.all.largestLoserAsPercentOfGrossLoss",
+      "sample": 0.3045612009237875,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "strategyOutperformance",
+      "path": "report.performance.all.strategyOutperformance",
+      "sample": -437809.70000000007,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "totalProfit",
+      "path": "report.performance.all.totalProfit",
+      "sample": 224.0000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "totalProfitPercent",
+      "path": "report.performance.all.totalProfitPercent",
+      "sample": 0.0002240000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "long",
+      "keys": [
+        "avgBarsInLossTrade",
+        "avgBarsInTrade",
+        "avgBarsInWinTrade",
+        "avgLosTrade",
+        "avgLosTradePercent",
+        "avgTrade",
+        "avgTradePercent",
+        "avgWinTrade",
+        "avgWinTradePercent",
+        "commissionPaid",
+        "grossLoss",
+        "grossLossPercent",
+        "grossLossWC",
+        "grossProfit",
+        "grossProfitPercent",
+        "grossProfitWC",
+        "largestLosTrade",
+        "largestLosTradePercent",
+        "largestWinTrade",
+        "largestWinTradePercent",
+        "marginCalls",
+        "maxContractsHeld",
+        "netProfit",
+        "netProfitPercent",
+        "numberOfLosingTrades",
+        "numberOfWiningTrades",
+        "percentProfitable",
+        "profitFactor",
+        "ratioAvgWinAvgLoss",
+        "totalOpenTrades",
+        "totalTrades",
+        "numberOfEvenTrades",
+        "marginEfficiency",
+        "returnOnAccount",
+        "expectedPayoff",
+        "annualizedReturn",
+        "returnOnInitialCapital",
+        "returnOfMaxEquityDrawdown",
+        "netProfitAsPercentOfLargestLoss",
+        "largestWinnerAsPercentOfGrossProfit",
+        "largestLoserAsPercentOfGrossLoss"
+      ],
+      "path": "report.performance.long",
+      "sample": {
+        "avgBarsInLossTrade": 12.80952380952381,
+        "avgBarsInTrade": 20.651162790697676,
+        "avgBarsInWinTrade": 28.333333333333332,
+        "avgLosTrade": 32.99047619,
+        "avgLosTradePercent": 0.09508297342143199,
+        "avgTrade": 5.209302326,
+        "avgTradePercent": 0.014417281965555421,
+        "avgWinTrade": 43.65714286,
+        "avgWinTradePercent": 0.12460407458899787,
+        "commissionPaid": 0,
+        "grossLoss": 692.8000000000001,
+        "grossLossPercent": 0.0006928,
+        "grossLossWC": 692.8000000000001,
+        "grossProfit": 916.8000000000002,
+        "grossProfitPercent": 0.0009168000000000002,
+        "grossProfitWC": 916.8000000000002,
+        "largestLosTrade": 211.00000000000003,
+        "largestLosTradePercent": 0.396244131455,
+        "largestWinTrade": 272.1,
+        "largestWinTradePercent": 0.541169451074,
+        "marginCalls": 0,
+        "maxContractsHeld": 1,
+        "netProfit": 224.0000000000001,
+        "netProfitPercent": 0.0002240000000000001,
+        "numberOfLosingTrades": 21,
+        "numberOfWiningTrades": 21,
+        "percentProfitable": 0.4883720930232558,
+        "profitFactor": 1.3233256351039262,
+        "ratioAvgWinAvgLoss": 1.3233256352096323,
+        "totalOpenTrades": 0
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgBarsInLossTrade",
+      "path": "report.performance.long.avgBarsInLossTrade",
+      "sample": 12.80952380952381,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgBarsInTrade",
+      "path": "report.performance.long.avgBarsInTrade",
+      "sample": 20.651162790697676,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgBarsInWinTrade",
+      "path": "report.performance.long.avgBarsInWinTrade",
+      "sample": 28.333333333333332,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgLosTrade",
+      "path": "report.performance.long.avgLosTrade",
+      "sample": 32.99047619,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgLosTradePercent",
+      "path": "report.performance.long.avgLosTradePercent",
+      "sample": 0.09508297342143199,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgTrade",
+      "path": "report.performance.long.avgTrade",
+      "sample": 5.209302326,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgTradePercent",
+      "path": "report.performance.long.avgTradePercent",
+      "sample": 0.014417281965555421,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgWinTrade",
+      "path": "report.performance.long.avgWinTrade",
+      "sample": 43.65714286,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "avgWinTradePercent",
+      "path": "report.performance.long.avgWinTradePercent",
+      "sample": 0.12460407458899787,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "commissionPaid",
+      "path": "report.performance.long.commissionPaid",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossLoss",
+      "path": "report.performance.long.grossLoss",
+      "sample": 692.8000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossLossPercent",
+      "path": "report.performance.long.grossLossPercent",
+      "sample": 0.0006928,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossLossWC",
+      "path": "report.performance.long.grossLossWC",
+      "sample": 692.8000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossProfit",
+      "path": "report.performance.long.grossProfit",
+      "sample": 916.8000000000002,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossProfitPercent",
+      "path": "report.performance.long.grossProfitPercent",
+      "sample": 0.0009168000000000002,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "grossProfitWC",
+      "path": "report.performance.long.grossProfitWC",
+      "sample": 916.8000000000002,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestLosTrade",
+      "path": "report.performance.long.largestLosTrade",
+      "sample": 211.00000000000003,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestLosTradePercent",
+      "path": "report.performance.long.largestLosTradePercent",
+      "sample": 0.396244131455,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestWinTrade",
+      "path": "report.performance.long.largestWinTrade",
+      "sample": 272.1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestWinTradePercent",
+      "path": "report.performance.long.largestWinTradePercent",
+      "sample": 0.541169451074,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "marginCalls",
+      "path": "report.performance.long.marginCalls",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxContractsHeld",
+      "path": "report.performance.long.maxContractsHeld",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "netProfit",
+      "path": "report.performance.long.netProfit",
+      "sample": 224.0000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "netProfitPercent",
+      "path": "report.performance.long.netProfitPercent",
+      "sample": 0.0002240000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "numberOfLosingTrades",
+      "path": "report.performance.long.numberOfLosingTrades",
+      "sample": 21,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "numberOfWiningTrades",
+      "path": "report.performance.long.numberOfWiningTrades",
+      "sample": 21,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentProfitable",
+      "path": "report.performance.long.percentProfitable",
+      "sample": 0.4883720930232558,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "profitFactor",
+      "path": "report.performance.long.profitFactor",
+      "sample": 1.3233256351039262,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "ratioAvgWinAvgLoss",
+      "path": "report.performance.long.ratioAvgWinAvgLoss",
+      "sample": 1.3233256352096323,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "totalOpenTrades",
+      "path": "report.performance.long.totalOpenTrades",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "totalTrades",
+      "path": "report.performance.long.totalTrades",
+      "sample": 43,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "numberOfEvenTrades",
+      "path": "report.performance.long.numberOfEvenTrades",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "marginEfficiency",
+      "path": "report.performance.long.marginEfficiency",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "returnOnAccount",
+      "path": "report.performance.long.returnOnAccount",
+      "sample": 0.5579078455790787,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "expectedPayoff",
+      "path": "report.performance.long.expectedPayoff",
+      "sample": 5.209302325581398,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "annualizedReturn",
+      "path": "report.performance.long.annualizedReturn",
+      "sample": 3.5925870754072164E-05,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "returnOnInitialCapital",
+      "path": "report.performance.long.returnOnInitialCapital",
+      "sample": 0.0002240000000000001,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "returnOfMaxEquityDrawdown",
+      "path": "report.performance.long.returnOfMaxEquityDrawdown",
+      "sample": 0.5579078455790787,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "netProfitAsPercentOfLargestLoss",
+      "path": "report.performance.long.netProfitAsPercentOfLargestLoss",
+      "sample": 1.0616113744075832,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestWinnerAsPercentOfGrossProfit",
+      "path": "report.performance.long.largestWinnerAsPercentOfGrossProfit",
+      "sample": 0.29679319371727747,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "largestLoserAsPercentOfGrossLoss",
+      "path": "report.performance.long.largestLoserAsPercentOfGrossLoss",
+      "sample": 0.3045612009237875,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxStrategyDrawDown",
+      "path": "report.performance.maxStrategyDrawDown",
+      "sample": 401.5,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "openPL",
+      "path": "report.performance.openPL",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "buyHoldReturn",
+      "path": "report.performance.buyHoldReturn",
+      "sample": 438033.70000000007,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "sharpeRatio",
+      "path": "report.performance.sharpeRatio",
+      "sample": -34.1643484442475,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "sortinoRatio",
+      "path": "report.performance.sortinoRatio",
+      "sample": -0.9995719004537292,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxStrategyDrawDownPercent",
+      "path": "report.performance.maxStrategyDrawDownPercent",
+      "sample": 0.00040125499370084625,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxStrategyRunUp",
+      "path": "report.performance.maxStrategyRunUp",
+      "sample": 817.6999999999534,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxStrategyRunUpPercent",
+      "path": "report.performance.maxStrategyRunUpPercent",
+      "sample": 0.000817044730126392,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "buyHoldReturnPercent",
+      "path": "report.performance.buyHoldReturnPercent",
+      "sample": 0.4380337000000001,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "openPLPercent",
+      "path": "report.performance.openPLPercent",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "buyHoldGainPercent",
+      "path": "report.performance.buyHoldGainPercent",
+      "sample": 0.43803540833809257,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "maxMarginUsed",
+      "path": "report.performance.maxMarginUsed",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "avgMarginUsed",
+      "path": "report.performance.avgMarginUsed",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "short",
+      "keys": [
+        "avgBarsInLossTrade",
+        "avgBarsInTrade",
+        "avgBarsInWinTrade",
+        "avgLosTrade",
+        "avgLosTradePercent",
+        "avgTrade",
+        "avgTradePercent",
+        "avgWinTrade",
+        "avgWinTradePercent",
+        "commissionPaid",
+        "grossLoss",
+        "grossLossPercent",
+        "grossLossWC",
+        "grossProfit",
+        "grossProfitPercent",
+        "grossProfitWC",
+        "largestLosTrade",
+        "largestLosTradePercent",
+        "largestWinTrade",
+        "largestWinTradePercent",
+        "marginCalls",
+        "maxContractsHeld",
+        "netProfit",
+        "netProfitPercent",
+        "numberOfLosingTrades",
+        "numberOfWiningTrades",
+        "percentProfitable",
+        "profitFactor",
+        "ratioAvgWinAvgLoss",
+        "totalOpenTrades",
+        "totalTrades",
+        "numberOfEvenTrades",
+        "marginEfficiency",
+        "returnOnAccount",
+        "expectedPayoff",
+        "annualizedReturn",
+        "returnOnInitialCapital",
+        "returnOfMaxEquityDrawdown",
+        "netProfitAsPercentOfLargestLoss",
+        "largestWinnerAsPercentOfGrossProfit",
+        "largestLoserAsPercentOfGrossLoss"
+      ],
+      "path": "report.performance.short",
+      "sample": {
+        "avgBarsInLossTrade": 0,
+        "avgBarsInTrade": 0,
+        "avgBarsInWinTrade": 0,
+        "avgLosTrade": null,
+        "avgLosTradePercent": null,
+        "avgTrade": null,
+        "avgTradePercent": null,
+        "avgWinTrade": null,
+        "avgWinTradePercent": null,
+        "commissionPaid": 0,
+        "grossLoss": 0,
+        "grossLossPercent": 0,
+        "grossLossWC": 0,
+        "grossProfit": 0,
+        "grossProfitPercent": 0,
+        "grossProfitWC": 0,
+        "largestLosTrade": null,
+        "largestLosTradePercent": null,
+        "largestWinTrade": null,
+        "largestWinTradePercent": null,
+        "marginCalls": 0,
+        "maxContractsHeld": 0,
+        "netProfit": 0,
+        "netProfitPercent": 0,
+        "numberOfLosingTrades": 0,
+        "numberOfWiningTrades": 0,
+        "percentProfitable": null,
+        "profitFactor": null,
+        "ratioAvgWinAvgLoss": null,
+        "totalOpenTrades": 0
+      },
+      "type": "object"
+    },
+    {
+      "ctor": null,
+      "key": "avgBarsInLossTrade",
+      "path": "report.performance.short.avgBarsInLossTrade",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "avgBarsInTrade",
+      "path": "report.performance.short.avgBarsInTrade",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "avgBarsInWinTrade",
+      "path": "report.performance.short.avgBarsInWinTrade",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "avgLosTrade",
+      "path": "report.performance.short.avgLosTrade",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "avgLosTradePercent",
+      "path": "report.performance.short.avgLosTradePercent",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "avgTrade",
+      "path": "report.performance.short.avgTrade",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "avgTradePercent",
+      "path": "report.performance.short.avgTradePercent",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "avgWinTrade",
+      "path": "report.performance.short.avgWinTrade",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "avgWinTradePercent",
+      "path": "report.performance.short.avgWinTradePercent",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "commissionPaid",
+      "path": "report.performance.short.commissionPaid",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "grossLoss",
+      "path": "report.performance.short.grossLoss",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "grossLossPercent",
+      "path": "report.performance.short.grossLossPercent",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "grossLossWC",
+      "path": "report.performance.short.grossLossWC",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "grossProfit",
+      "path": "report.performance.short.grossProfit",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "grossProfitPercent",
+      "path": "report.performance.short.grossProfitPercent",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "grossProfitWC",
+      "path": "report.performance.short.grossProfitWC",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "largestLosTrade",
+      "path": "report.performance.short.largestLosTrade",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "largestLosTradePercent",
+      "path": "report.performance.short.largestLosTradePercent",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "largestWinTrade",
+      "path": "report.performance.short.largestWinTrade",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "largestWinTradePercent",
+      "path": "report.performance.short.largestWinTradePercent",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "marginCalls",
+      "path": "report.performance.short.marginCalls",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "maxContractsHeld",
+      "path": "report.performance.short.maxContractsHeld",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "netProfit",
+      "path": "report.performance.short.netProfit",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "netProfitPercent",
+      "path": "report.performance.short.netProfitPercent",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "numberOfLosingTrades",
+      "path": "report.performance.short.numberOfLosingTrades",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "numberOfWiningTrades",
+      "path": "report.performance.short.numberOfWiningTrades",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "percentProfitable",
+      "path": "report.performance.short.percentProfitable",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "profitFactor",
+      "path": "report.performance.short.profitFactor",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "ratioAvgWinAvgLoss",
+      "path": "report.performance.short.ratioAvgWinAvgLoss",
+      "sample": null,
+      "type": "null"
+    },
+    {
+      "ctor": null,
+      "key": "totalOpenTrades",
+      "path": "report.performance.short.totalOpenTrades",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "totalTrades",
+      "path": "report.performance.short.totalTrades",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "numberOfEvenTrades",
+      "path": "report.performance.short.numberOfEvenTrades",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "marginEfficiency",
+      "path": "report.performance.short.marginEfficiency",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "returnOnAccount",
+      "path": "report.performance.short.returnOnAccount",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "expectedPayoff",
+      "path": "report.performance.short.expectedPayoff",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "annualizedReturn",
+      "path": "report.performance.short.annualizedReturn",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "returnOnInitialCapital",
+      "path": "report.performance.short.returnOnInitialCapital",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "returnOfMaxEquityDrawdown",
+      "path": "report.performance.short.returnOfMaxEquityDrawdown",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "netProfitAsPercentOfLargestLoss",
+      "path": "report.performance.short.netProfitAsPercentOfLargestLoss",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "largestWinnerAsPercentOfGrossProfit",
+      "path": "report.performance.short.largestWinnerAsPercentOfGrossProfit",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "largestLoserAsPercentOfGrossLoss",
+      "path": "report.performance.short.largestLoserAsPercentOfGrossLoss",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "initialCapital",
+      "path": "report.performance.initialCapital",
+      "sample": 1000000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "averageRunup",
+      "path": "report.performance.averageRunup",
+      "sample": 226.30000000000004,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "averageRunupPercent",
+      "path": "report.performance.averageRunupPercent",
+      "sample": 0.00022630000000000005,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "averageRunupDuration",
+      "path": "report.performance.averageRunupDuration",
+      "sample": 23731200000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "averageDrawdown",
+      "path": "report.performance.averageDrawdown",
+      "sample": 204.3,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "averageDrawdownPercent",
+      "path": "report.performance.averageDrawdownPercent",
+      "sample": 0.0002043,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "averageDrawdownDuration",
+      "path": "report.performance.averageDrawdownDuration",
+      "sample": 54801000000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxDrawdown",
+      "path": "report.performance.maxDrawdown",
+      "sample": 386.6,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxRunup",
+      "path": "report.performance.maxRunup",
+      "sample": 446.8,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxDrawdownPercent",
+      "path": "report.performance.maxDrawdownPercent",
+      "sample": 0.0003866,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "maxRunupPercent",
+      "path": "report.performance.maxRunupPercent",
+      "sample": 0.0004468,
+      "type": "number"
+    },
+    {
+      "ctor": "Array",
+      "key": "trades",
+      "length": 43,
+      "path": "report.trades",
+      "sample": {
+        "arrayLength": 43,
+        "sample": [
+          {
+            "cumulativeProfit": {
+              "percentValue": 6.3E-06,
+              "value": 6.3
+            },
+            "drawdown": {
+              "percentValue": 0.10850942,
+              "value": 19
+            },
+            "entry": {
+              "id": "Long",
+              "price": 1.751,
+              "time": 1586534400000,
+              "type": "le"
+            },
+            "exit": {
+              "id": "Close entry(s) order Long",
+              "price": 1.814,
+              "time": 1589904000000,
+              "type": "lx"
+            },
+            "profit": {
+              "percentValue": 0.03597944,
+              "value": 6.3
+            },
+            "quantity": 1,
+            "runup": {
+              "percentValue": 0.23243861,
+              "value": 40.7
+            },
+            "tradeNumber": 1
+          },
+          {
+            "cumulativeProfit": {
+              "percentValue": -5.7999999999999995E-06,
+              "value": -5.8
+            },
+            "drawdown": {
+              "percentValue": 0.077986725,
+              "value": 14.1
+            },
+            "entry": {
+              "id": "Long",
+              "price": 1.808,
+              "time": 1591286400000,
+              "type": "le"
+            },
+            "exit": {
+              "id": "Close entry(s) order Long",
+              "price": 1.687,
+              "time": 1592236800000,
+              "type": "lx"
+            },
+            "profit": {
+              "percentValue": -0.06692478,
+              "value": -12.1
+            },
+            "quantity": 1,
+            "runup": {
+              "percentValue": 0.032079645,
+              "value": 5.8
+            },
+            "tradeNumber": 2
+          },
+          {
+            "cumulativeProfit": {
+              "percentValue": -1.57E-05,
+              "value": -15.7
+            },
+            "drawdown": {
+              "percentValue": 0.1347094,
+              "value": 24.8
+            },
+            "entry": {
+              "id": "Long",
+              "price": 1.841,
+              "time": 1594224000000,
+              "type": "le"
+            },
+            "exit": {
+              "id": "Close entry(s) order Long",
+              "price": 1.742,
+              "time": 1595520000000,
+              "type": "lx"
+            },
+            "profit": {
+              "percentValue": -0.05377512,
+              "value": -9.9
+            },
+            "quantity": 1,
+            "runup": {
+              "percentValue": 0.02661597,
+              "value": 4.9
+            },
+            "tradeNumber": 3
+          }
+        ]
+      },
+      "type": "array"
+    },
+    {
+      "length": 43,
+      "path": "report.trades",
+      "sample": {
+        "arrayLength": 43,
+        "sample": [
+          {
+            "cumulativeProfit": {
+              "percentValue": 6.3E-06,
+              "value": 6.3
+            },
+            "drawdown": {
+              "percentValue": 0.10850942,
+              "value": 19
+            },
+            "entry": {
+              "id": "Long",
+              "price": 1.751,
+              "time": 1586534400000,
+              "type": "le"
+            },
+            "exit": {
+              "id": "Close entry(s) order Long",
+              "price": 1.814,
+              "time": 1589904000000,
+              "type": "lx"
+            },
+            "profit": {
+              "percentValue": 0.03597944,
+              "value": 6.3
+            },
+            "quantity": 1,
+            "runup": {
+              "percentValue": 0.23243861,
+              "value": 40.7
+            },
+            "tradeNumber": 1
+          },
+          {
+            "cumulativeProfit": {
+              "percentValue": -5.7999999999999995E-06,
+              "value": -5.8
+            },
+            "drawdown": {
+              "percentValue": 0.077986725,
+              "value": 14.1
+            },
+            "entry": {
+              "id": "Long",
+              "price": 1.808,
+              "time": 1591286400000,
+              "type": "le"
+            },
+            "exit": {
+              "id": "Close entry(s) order Long",
+              "price": 1.687,
+              "time": 1592236800000,
+              "type": "lx"
+            },
+            "profit": {
+              "percentValue": -0.06692478,
+              "value": -12.1
+            },
+            "quantity": 1,
+            "runup": {
+              "percentValue": 0.032079645,
+              "value": 5.8
+            },
+            "tradeNumber": 2
+          },
+          {
+            "cumulativeProfit": {
+              "percentValue": -1.57E-05,
+              "value": -15.7
+            },
+            "drawdown": {
+              "percentValue": 0.1347094,
+              "value": 24.8
+            },
+            "entry": {
+              "id": "Long",
+              "price": 1.841,
+              "time": 1594224000000,
+              "type": "le"
+            },
+            "exit": {
+              "id": "Close entry(s) order Long",
+              "price": 1.742,
+              "time": 1595520000000,
+              "type": "lx"
+            },
+            "profit": {
+              "percentValue": -0.05377512,
+              "value": -9.9
+            },
+            "quantity": 1,
+            "runup": {
+              "percentValue": 0.02661597,
+              "value": 4.9
+            },
+            "tradeNumber": 3
+          }
+        ]
+      },
+      "type": "array"
+    },
+    {
+      "ctor": "Object",
+      "key": "entry",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[0].entry",
+      "sample": {
+        "id": "Long",
+        "price": 1.751,
+        "time": 1586534400000,
+        "type": "le"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[0].entry.id",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[0].entry.price",
+      "sample": 1.751,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[0].entry.time",
+      "sample": 1586534400000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[0].entry.type",
+      "sample": "le",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "exit",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[0].exit",
+      "sample": {
+        "id": "Close entry(s) order Long",
+        "price": 1.814,
+        "time": 1589904000000,
+        "type": "lx"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[0].exit.id",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[0].exit.price",
+      "sample": 1.814,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[0].exit.time",
+      "sample": 1589904000000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[0].exit.type",
+      "sample": "lx",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "profit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[0].profit",
+      "sample": {
+        "percentValue": 0.03597944,
+        "value": 6.3
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[0].profit.value",
+      "sample": 6.3,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[0].profit.percentValue",
+      "sample": 0.03597944,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "cumulativeProfit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[0].cumulativeProfit",
+      "sample": {
+        "percentValue": 6.3E-06,
+        "value": 6.3
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[0].cumulativeProfit.value",
+      "sample": 6.3,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[0].cumulativeProfit.percentValue",
+      "sample": 6.3E-06,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "drawdown",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[0].drawdown",
+      "sample": {
+        "percentValue": 0.10850942,
+        "value": 19
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[0].drawdown.value",
+      "sample": 19,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[0].drawdown.percentValue",
+      "sample": 0.10850942,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "runup",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[0].runup",
+      "sample": {
+        "percentValue": 0.23243861,
+        "value": 40.7
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[0].runup.value",
+      "sample": 40.7,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[0].runup.percentValue",
+      "sample": 0.23243861,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.trades[0].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "tradeNumber",
+      "path": "report.trades[0].tradeNumber",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "entry",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[1].entry",
+      "sample": {
+        "id": "Long",
+        "price": 1.808,
+        "time": 1591286400000,
+        "type": "le"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[1].entry.id",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[1].entry.price",
+      "sample": 1.808,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[1].entry.time",
+      "sample": 1591286400000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[1].entry.type",
+      "sample": "le",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "exit",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[1].exit",
+      "sample": {
+        "id": "Close entry(s) order Long",
+        "price": 1.687,
+        "time": 1592236800000,
+        "type": "lx"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[1].exit.id",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[1].exit.price",
+      "sample": 1.687,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[1].exit.time",
+      "sample": 1592236800000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[1].exit.type",
+      "sample": "lx",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "profit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[1].profit",
+      "sample": {
+        "percentValue": -0.06692478,
+        "value": -12.1
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[1].profit.value",
+      "sample": -12.1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[1].profit.percentValue",
+      "sample": -0.06692478,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "cumulativeProfit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[1].cumulativeProfit",
+      "sample": {
+        "percentValue": -5.7999999999999995E-06,
+        "value": -5.8
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[1].cumulativeProfit.value",
+      "sample": -5.8,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[1].cumulativeProfit.percentValue",
+      "sample": -5.7999999999999995E-06,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "drawdown",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[1].drawdown",
+      "sample": {
+        "percentValue": 0.077986725,
+        "value": 14.1
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[1].drawdown.value",
+      "sample": 14.1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[1].drawdown.percentValue",
+      "sample": 0.077986725,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "runup",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[1].runup",
+      "sample": {
+        "percentValue": 0.032079645,
+        "value": 5.8
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[1].runup.value",
+      "sample": 5.8,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[1].runup.percentValue",
+      "sample": 0.032079645,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.trades[1].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "tradeNumber",
+      "path": "report.trades[1].tradeNumber",
+      "sample": 2,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "entry",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[2].entry",
+      "sample": {
+        "id": "Long",
+        "price": 1.841,
+        "time": 1594224000000,
+        "type": "le"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[2].entry.id",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[2].entry.price",
+      "sample": 1.841,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[2].entry.time",
+      "sample": 1594224000000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[2].entry.type",
+      "sample": "le",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "exit",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[2].exit",
+      "sample": {
+        "id": "Close entry(s) order Long",
+        "price": 1.742,
+        "time": 1595520000000,
+        "type": "lx"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[2].exit.id",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[2].exit.price",
+      "sample": 1.742,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[2].exit.time",
+      "sample": 1595520000000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[2].exit.type",
+      "sample": "lx",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "profit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[2].profit",
+      "sample": {
+        "percentValue": -0.05377512,
+        "value": -9.9
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[2].profit.value",
+      "sample": -9.9,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[2].profit.percentValue",
+      "sample": -0.05377512,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "cumulativeProfit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[2].cumulativeProfit",
+      "sample": {
+        "percentValue": -1.57E-05,
+        "value": -15.7
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[2].cumulativeProfit.value",
+      "sample": -15.7,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[2].cumulativeProfit.percentValue",
+      "sample": -1.57E-05,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "drawdown",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[2].drawdown",
+      "sample": {
+        "percentValue": 0.1347094,
+        "value": 24.8
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[2].drawdown.value",
+      "sample": 24.8,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[2].drawdown.percentValue",
+      "sample": 0.1347094,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "runup",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[2].runup",
+      "sample": {
+        "percentValue": 0.02661597,
+        "value": 4.9
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[2].runup.value",
+      "sample": 4.9,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[2].runup.percentValue",
+      "sample": 0.02661597,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.trades[2].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "tradeNumber",
+      "path": "report.trades[2].tradeNumber",
+      "sample": 3,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "entry",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[3].entry",
+      "sample": {
+        "id": "Long",
+        "price": 2.1,
+        "time": 1596470400000,
+        "type": "le"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[3].entry.id",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[3].entry.price",
+      "sample": 2.1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[3].entry.time",
+      "sample": 1596470400000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[3].entry.type",
+      "sample": "le",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "exit",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[3].exit",
+      "sample": {
+        "id": "Close entry(s) order Long",
+        "price": 2.32,
+        "time": 1599840000000,
+        "type": "lx"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[3].exit.id",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[3].exit.price",
+      "sample": 2.32,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[3].exit.time",
+      "sample": 1599840000000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[3].exit.type",
+      "sample": "lx",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "profit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[3].profit",
+      "sample": {
+        "percentValue": 0.104761906,
+        "value": 22
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[3].profit.value",
+      "sample": 22,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[3].profit.percentValue",
+      "sample": 0.104761906,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "cumulativeProfit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[3].cumulativeProfit",
+      "sample": {
+        "percentValue": 6.3E-06,
+        "value": 6.3
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[3].cumulativeProfit.value",
+      "sample": 6.3,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[3].cumulativeProfit.percentValue",
+      "sample": 6.3E-06,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "drawdown",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[3].drawdown",
+      "sample": {
+        "percentValue": 0.020952381,
+        "value": 4.4
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[3].drawdown.value",
+      "sample": 4.4,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[3].drawdown.percentValue",
+      "sample": 0.020952381,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "runup",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[3].runup",
+      "sample": {
+        "percentValue": 0.3042857,
+        "value": 63.9
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[3].runup.value",
+      "sample": 63.9,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[3].runup.percentValue",
+      "sample": 0.3042857,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.trades[3].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "tradeNumber",
+      "path": "report.trades[3].tradeNumber",
+      "sample": 4,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "entry",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[4].entry",
+      "sample": {
+        "id": "Long",
+        "price": 2.683,
+        "time": 1601913600000,
+        "type": "le"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[4].entry.id",
+      "sample": "Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[4].entry.price",
+      "sample": 2.683,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[4].entry.time",
+      "sample": 1601913600000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[4].entry.type",
+      "sample": "le",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "exit",
+      "keys": [
+        "id",
+        "price",
+        "time",
+        "type"
+      ],
+      "path": "report.trades[4].exit",
+      "sample": {
+        "id": "Close entry(s) order Long",
+        "price": 2.773,
+        "time": 1605542400000,
+        "type": "lx"
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "String",
+      "key": "id",
+      "path": "report.trades[4].exit.id",
+      "sample": "Close entry(s) order Long",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "price",
+      "path": "report.trades[4].exit.price",
+      "sample": 2.773,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "time",
+      "path": "report.trades[4].exit.time",
+      "sample": 1605542400000,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.trades[4].exit.type",
+      "sample": "lx",
+      "type": "string"
+    },
+    {
+      "ctor": "Object",
+      "key": "profit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[4].profit",
+      "sample": {
+        "percentValue": 0.03354454,
+        "value": 9
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[4].profit.value",
+      "sample": 9,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[4].profit.percentValue",
+      "sample": 0.03354454,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "cumulativeProfit",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[4].cumulativeProfit",
+      "sample": {
+        "percentValue": 1.53E-05,
+        "value": 15.3
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[4].cumulativeProfit.value",
+      "sample": 15.3,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[4].cumulativeProfit.percentValue",
+      "sample": 1.53E-05,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "drawdown",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[4].drawdown",
+      "sample": {
+        "percentValue": 0.068207234,
+        "value": 18.3
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[4].drawdown.value",
+      "sample": 18.3,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[4].drawdown.percentValue",
+      "sample": 0.068207234,
+      "type": "number"
+    },
+    {
+      "ctor": "Object",
+      "key": "runup",
+      "keys": [
+        "value",
+        "percentValue"
+      ],
+      "path": "report.trades[4].runup",
+      "sample": {
+        "percentValue": 0.26723817,
+        "value": 71.7
+      },
+      "type": "object"
+    },
+    {
+      "ctor": "Number",
+      "key": "value",
+      "path": "report.trades[4].runup.value",
+      "sample": 71.7,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "percentValue",
+      "path": "report.trades[4].runup.percentValue",
+      "sample": 0.26723817,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "quantity",
+      "path": "report.trades[4].quantity",
+      "sample": 1,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "tradeNumber",
+      "path": "report.trades[4].tradeNumber",
+      "sample": 5,
+      "type": "number"
+    },
+    {
+      "ctor": null,
+      "key": "firstTradeIndex",
+      "path": "report.firstTradeIndex",
+      "sample": 0,
+      "type": "number"
+    },
+    {
+      "ctor": "Array",
+      "key": "activeOrders",
+      "length": 0,
+      "path": "report.activeOrders",
+      "sample": {
+        "arrayLength": 0,
+        "sample": []
+      },
+      "type": "array"
+    },
+    {
+      "length": 0,
+      "path": "report.activeOrders",
+      "sample": {
+        "arrayLength": 0,
+        "sample": []
+      },
+      "type": "array"
+    },
+    {
+      "ctor": "Array",
+      "key": "runupDrawdownPeriods",
+      "length": 5,
+      "path": "report.runupDrawdownPeriods",
+      "sample": {
+        "arrayLength": 5,
+        "sample": [
+          {
+            "endTime": 1595520000000,
+            "endValue": -15.7,
+            "startTime": 1589904000000,
+            "startValue": 6.3,
+            "type": "drawdown"
+          },
+          {
+            "endTime": 1609862400000,
+            "endValue": 24.3,
+            "startTime": 1595520000000,
+            "startValue": -15.7,
+            "type": "runup"
+          },
+          {
+            "endTime": 1634659200000,
+            "endValue": 211.3,
+            "startTime": 1611763200000,
+            "startValue": 19.2,
+            "type": "runup"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    {
+      "length": 5,
+      "path": "report.runupDrawdownPeriods",
+      "sample": {
+        "arrayLength": 5,
+        "sample": [
+          {
+            "endTime": 1595520000000,
+            "endValue": -15.7,
+            "startTime": 1589904000000,
+            "startValue": 6.3,
+            "type": "drawdown"
+          },
+          {
+            "endTime": 1609862400000,
+            "endValue": 24.3,
+            "startTime": 1595520000000,
+            "startValue": -15.7,
+            "type": "runup"
+          },
+          {
+            "endTime": 1634659200000,
+            "endValue": 211.3,
+            "startTime": 1611763200000,
+            "startValue": 19.2,
+            "type": "runup"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.runupDrawdownPeriods[0].type",
+      "sample": "drawdown",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "startTime",
+      "path": "report.runupDrawdownPeriods[0].startTime",
+      "sample": 1589904000000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "startValue",
+      "path": "report.runupDrawdownPeriods[0].startValue",
+      "sample": 6.3,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endTime",
+      "path": "report.runupDrawdownPeriods[0].endTime",
+      "sample": 1595520000000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endValue",
+      "path": "report.runupDrawdownPeriods[0].endValue",
+      "sample": -15.7,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.runupDrawdownPeriods[1].type",
+      "sample": "runup",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "startTime",
+      "path": "report.runupDrawdownPeriods[1].startTime",
+      "sample": 1595520000000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "startValue",
+      "path": "report.runupDrawdownPeriods[1].startValue",
+      "sample": -15.7,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endTime",
+      "path": "report.runupDrawdownPeriods[1].endTime",
+      "sample": 1609862400000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endValue",
+      "path": "report.runupDrawdownPeriods[1].endValue",
+      "sample": 24.3,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.runupDrawdownPeriods[2].type",
+      "sample": "runup",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "startTime",
+      "path": "report.runupDrawdownPeriods[2].startTime",
+      "sample": 1611763200000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "startValue",
+      "path": "report.runupDrawdownPeriods[2].startValue",
+      "sample": 19.2,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endTime",
+      "path": "report.runupDrawdownPeriods[2].endTime",
+      "sample": 1634659200000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endValue",
+      "path": "report.runupDrawdownPeriods[2].endValue",
+      "sample": 211.3,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.runupDrawdownPeriods[3].type",
+      "sample": "runup",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "startTime",
+      "path": "report.runupDrawdownPeriods[3].startTime",
+      "sample": 1636646400000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "startValue",
+      "path": "report.runupDrawdownPeriods[3].startValue",
+      "sample": 163.8,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endTime",
+      "path": "report.runupDrawdownPeriods[3].endTime",
+      "sample": 1670601600000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endValue",
+      "path": "report.runupDrawdownPeriods[3].endValue",
+      "sample": 610.6,
+      "type": "number"
+    },
+    {
+      "ctor": "String",
+      "key": "type",
+      "path": "report.runupDrawdownPeriods[4].type",
+      "sample": "drawdown",
+      "type": "string"
+    },
+    {
+      "ctor": "Number",
+      "key": "startTime",
+      "path": "report.runupDrawdownPeriods[4].startTime",
+      "sample": 1670601600000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "startValue",
+      "path": "report.runupDrawdownPeriods[4].startValue",
+      "sample": 610.6,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endTime",
+      "path": "report.runupDrawdownPeriods[4].endTime",
+      "sample": 1774587600000,
+      "type": "number"
+    },
+    {
+      "ctor": "Number",
+      "key": "endValue",
+      "path": "report.runupDrawdownPeriods[4].endValue",
+      "sample": 224,
+      "type": "number"
+    },
+    {
+      "ctor": "Boolean",
+      "key": "hasRunupData",
+      "path": "report.hasRunupData",
+      "sample": true,
+      "type": "boolean"
+    },
+    {
+      "ctor": "Boolean",
+      "key": "hasDrawdownData",
+      "path": "report.hasDrawdownData",
+      "sample": true,
+      "type": "boolean"
+    }
+  ],
+  "reportIsNull": false,
+  "topLevelKeys": [
+    "currency",
+    "settings",
+    "buyHold",
+    "buyHoldPercent",
+    "filledOrders",
+    "performance",
+    "trades",
+    "firstTradeIndex",
+    "activeOrders",
+    "runupDrawdownPeriods",
+    "hasRunupData",
+    "hasDrawdownData"
+  ]
+}

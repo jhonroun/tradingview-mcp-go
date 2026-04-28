@@ -1,0 +1,35 @@
+{
+  "button_clicked": "Pine Save",
+  "compiled": true,
+  "diagnostics": [
+    {
+      "code": "PINE_VERSION_OUTDATED",
+      "column": 3,
+      "end_column": 12,
+      "end_line": 1,
+      "line": 1,
+      "message": "Версия 5 Pine Script® устарела. Используйте текущую версию — 6.",
+      "severity": 4,
+      "severity_label": "warning",
+      "source": "monaco"
+    }
+  ],
+  "error_count": 0,
+  "errors": [],
+  "has_errors": false,
+  "success": true,
+  "warning_count": 1,
+  "warnings": [
+    {
+      "code": "PINE_VERSION_OUTDATED",
+      "column": 3,
+      "end_column": 12,
+      "end_line": 1,
+      "line": 1,
+      "message": "Версия 5 Pine Script® устарела. Используйте текущую версию — 6.",
+      "severity": 4,
+      "severity_label": "warning",
+      "source": "monaco"
+    }
+  ]
+}

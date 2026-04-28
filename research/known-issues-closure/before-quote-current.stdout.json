@@ -1,0 +1,18 @@
+{
+  "ask": 0,
+  "bid": 0,
+  "change": 0.01,
+  "change_pct": 0.3948,
+  "close": 2.543,
+  "description": "Natural Gas Futures",
+  "exchange": "RUS",
+  "high": 2.547,
+  "last": 2.543,
+  "low": 2.509,
+  "open": 2.535,
+  "success": true,
+  "symbol": "RUS:NG1!",
+  "time": 1777096800,
+  "type": "futures",
+  "volume": 124889
+}

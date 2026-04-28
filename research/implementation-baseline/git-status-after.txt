@@ -1,0 +1,95 @@
+ M CHANGELOG.md
+ M Makefile
+ M STATUS.md
+ M cmd/tv/main.go
+ M docs/dev/JSON_CONTRACTS.md
+ M docs/dev/README.md
+ M docs/dev/TODO.md
+ M internal/tools/capture/capture.go
+ M internal/tools/chart/chart_contracts_test.go
+ M internal/tools/chart/symbol.go
+ M internal/tools/indicators/indicators.go
+ M internal/tools/ui/ui.go
+ M tests/smoke/smoke_test.go
+?? AGENTS.md
+?? PLAN.md
+?? TODO_codex.md
+?? docs/dev/FINAL_AUDIT_REPORT.md
+?? docs/dev/HTS_MARKET_SUMMARY_CONTRACT.md
+?? docs/dev/INSTRUMENT_RESOLVER_CONTRACT.md
+?? docs/dev/LLM_MARKET_CONTEXT_CONTRACT.md
+?? internal/tools/capture/capture_test.go
+?? old/TODO_codex.md
+?? old/prompts_codex.md
+?? old/prompts_codex_strategy_research.md
+?? prompts.md
+?? research/implementation-baseline/README.md
+?? research/implementation-baseline/cli-chart-state.result.json
+?? research/implementation-baseline/cli-chart-state.stderr.txt
+?? research/implementation-baseline/cli-chart-state.stdout.json
+?? research/implementation-baseline/cli-discover.result.json
+?? research/implementation-baseline/cli-discover.stderr.txt
+?? research/implementation-baseline/cli-discover.stdout.json
+?? research/implementation-baseline/cli-doctor.result.json
+?? research/implementation-baseline/cli-doctor.stderr.txt
+?? research/implementation-baseline/cli-doctor.stdout.json
+?? research/implementation-baseline/cli-ohlcv.result.json
+?? research/implementation-baseline/cli-ohlcv.stderr.txt
+?? research/implementation-baseline/cli-ohlcv.stdout.json
+?? research/implementation-baseline/cli-quote.result.json
+?? research/implementation-baseline/cli-quote.stderr.txt
+?? research/implementation-baseline/cli-quote.stdout.json
+?? research/implementation-baseline/cli-screenshot-copy.json
+?? research/implementation-baseline/cli-screenshot.result.json
+?? research/implementation-baseline/cli-screenshot.stderr.txt
+?? research/implementation-baseline/cli-screenshot.stdout.json
+?? research/implementation-baseline/cli-status.result.json
+?? research/implementation-baseline/cli-status.stderr.txt
+?? research/implementation-baseline/cli-status.stdout.json
+?? research/implementation-baseline/cli-summary.json
+?? research/implementation-baseline/environment.json
+?? research/implementation-baseline/git-status-after.txt
+?? research/implementation-baseline/go-test.result.json
+?? research/implementation-baseline/go-test.stderr.txt
+?? research/implementation-baseline/go-test.stdout.txt
+?? research/implementation-baseline/implementation-baseline-20260427-101853.png
+?? research/implementation-baseline/mcp-initialize-tools-list.input.jsonl
+?? research/implementation-baseline/mcp-initialize-tools-list.output.jsonl
+?? research/implementation-baseline/mcp-initialize-tools-list.result.json
+?? research/implementation-baseline/mcp-initialize-tools-list.stderr.txt
+?? research/implementation-baseline/mcp-initialize.response.json
+?? research/implementation-baseline/mcp-tools-count.json
+?? research/implementation-baseline/mcp-tools-list.response.json
+?? research/implementation-baseline/mcp-tools-names.json
+?? research/strategy-equity-full/README.md
+?? research/strategy-equity-full/findings.json
+?? research/strategy-equity-full/mcp-test-sma-strategy-equity-plot.pine
+?? research/strategy-equity-full/mcp-test-sma-strategy.pine
+?? research/strategy-live-test/00-pine-editor-backup.json
+?? research/strategy-live-test/00-pine-editor-backup.pine
+?? research/strategy-live-test/01-before-state.json
+?? research/strategy-live-test/02-limit-handling.json
+?? research/strategy-live-test/03-after-add-strategy.json
+?? research/strategy-live-test/03a-pine-set-source.json
+?? research/strategy-live-test/03b-buttons-after-set-source.json
+?? research/strategy-live-test/03c-add-attempt.json
+?? research/strategy-live-test/03d-pine-dom-elements.json
+?? research/strategy-live-test/03e-pine-more-menu.json
+?? research/strategy-live-test/03f-name-menu.json
+?? research/strategy-live-test/03g-create-new-script.json
+?? research/strategy-live-test/03h-copy-dialog.json
+?? research/strategy-live-test/03i-menuitem-coords.json
+?? research/strategy-live-test/03j-after-create-new-mouse.json
+?? research/strategy-live-test/03k-after-new-strategy-template.json
+?? research/strategy-live-test/03l-after-ctrl-k-s.json
+?? research/strategy-live-test/03m-save-apply-attempt.json
+?? research/strategy-live-test/03n-add-retry-after-limit.json
+?? research/strategy-live-test/04-model-strategy-api.json
+?? research/strategy-live-test/05-backtesting-report.json
+?? research/strategy-live-test/06-report-key-search.json
+?? research/strategy-live-test/07-normalized-result.json
+?? research/strategy-live-test/08-cleanup.json
+?? research/strategy-live-test/08b-pine-restore-check.json
+?? research/strategy-live-test/09-restore-custom-indicator-attempt.json
+?? research/strategy-live-test/10-restore-volume.json
+?? research/strategy-live-test/README.md

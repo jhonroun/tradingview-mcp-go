@@ -196,6 +196,8 @@ tv status        # check CDP connection
 tv discover      # check available API paths
 ```
 
+`tv discover` also returns `compatibility_probes` for undocumented TradingView internals. After TradingView Desktop updates, verify those probes before relying on study model values, strategy reports, or equity extraction. Strategy equity remains `coverage: loaded_chart_bars`; derived equity is conditional and not native Strategy Tester equity.
+
 ---
 
 ## Supported AI Providers

@@ -2,45 +2,72 @@
 
 > [← Назад к документации](README.md)
 
----
+В репозитории есть английские и русские workflow-файлы для всех agents и skills.
 
-## Навыки (Skills)
+Текущий Go MCP registry: `85` tools. Историческая Node parity база: `78` tools.
 
-Директория `skills/` содержит готовые workflow-сценарии для AI-ассистентов.
+## Skills
 
-| Навык | Описание |
+У каждого skill есть:
+
+- English: `skills/<name>/SKILL.md`
+- Russian: `skills/<name>/SKILL.ru.md`
+
+| Skill | Для чего |
 | --- | --- |
-| `chart-analysis` | Технический анализ: символ, индикаторы, разметка, скриншот |
-| `multi-symbol-scan` | Скан нескольких символов, batch-сравнение |
-| `pine-develop` | Разработка Pine Script: написание → компиляция → исправление ошибок |
-| `replay-practice` | Ручная торговля в режиме Replay |
-| `strategy-report` | Отчёт о производительности стратегии |
+| `chart-analysis` | Полный анализ графика со screenshot context |
+| `data-quality` | Проверки source/reliability/coverage |
+| `error-handling` | Retryability и structured statuses |
+| `futures-roll` | Continuous futures и roll context |
+| `indicator-scan` | Таблицы сигналов индикаторов |
+| `json-contracts` | Проверка MCP JSON responses |
+| `llm-context` | Компактный LLM-ready context |
+| `market-brief` | Market brief |
+| `multi-symbol-scan` | Скан нескольких symbols |
+| `pine-develop` | Цикл разработки Pine |
+| `pine-safe-edit` | Pine edits с backup/hash/restore |
+| `regression-smoke` | Regression/live smoke workflow |
+| `replay-practice` | Практика в Replay |
+| `strategy-backtesting-api` | Strategy report/trades/orders |
+| `strategy-equity-plot` | Workflow explicit Strategy Equity plot |
+| `strategy-report` | Отчёт по Strategy performance |
+| `study-model-values` | Надёжные study model values/history |
+| `tradingview-limit-handling` | Обработка лимита studies |
 
-Чтобы использовать навык, откройте `skills/<name>/SKILL.md` в контексте вашего AI-клиента.
+## Agents
 
----
+У каждого agent есть EN/RU variants для каждого клиента.
 
-## Агенты
+| Agent | Для чего |
+| --- | --- |
+| `market-analyst` | Live chart reads и indicator-aware market briefs |
+| `futures-analyst` | Continuous futures, roll context, bid/ask caveats |
+| `performance-analyst` | Strategy Tester metrics, trades, orders, equity |
 
-Директория `agents/` содержит **нативные форматы** для каждого AI-клиента — без дополнительной конвертации.
+Root Claude agent files:
 
-### `performance-analyst`
+- `agents/market-analyst.md`, `agents/market-analyst.ru.md`
+- `agents/futures-analyst.md`, `agents/futures-analyst.ru.md`
+- `agents/performance-analyst.md`, `agents/performance-analyst.ru.md`
 
-Анализирует результаты бэктеста: метрики, сделки, кривую доходности → структурированный отчёт.
+Client variants:
 
-Автоматически вызывает: `data_get_strategy_results`, `data_get_trades`, `data_get_equity`,
-`chart_get_state`, `capture_screenshot`.
+- Cursor: `agents/cursor/*.mdc`, `agents/cursor/*.ru.mdc`
+- Cline: `agents/cline/*.md`, `agents/cline/*.ru.md`
+- Windsurf: `agents/windsurf/*.md`, `agents/windsurf/*.ru.md`
+- Continue: `agents/continue/*.prompt`, `agents/continue/*.ru.prompt`
+- Codex: `agents/codex/*.md`, `agents/codex/*.ru.md`
+- Gemini: `agents/gemini/*.md`, `agents/gemini/*.ru.md`
 
-| Клиент | Файл | Установка |
-| --- | --- | --- |
-| **Claude Code** | `agents/performance-analyst.md` | `claude --agent agents/performance-analyst.md` |
-| **Cursor** | `agents/cursor/performance-analyst.mdc` | скопировать в `.cursor/rules/` |
-| **Cline** | `agents/cline/performance-analyst.md` | скопировать в `.clinerules/` |
-| **Windsurf** | `agents/windsurf/performance-analyst.md` | добавить в `.windsurfrules` |
-| **Continue** | `agents/continue/performance-analyst.prompt` | скопировать в `.continue/prompts/` |
-| **OpenAI Codex CLI** | `agents/codex/performance-analyst.md` | скопировать в `AGENTS.md` или `--instructions` |
-| **Gemini CLI** | `agents/gemini/performance-analyst.md` | скопировать в `GEMINI.md` или `--system` |
+## Правила надёжности
 
-Подробные инструкции установки для каждого клиента: [agents/README.md](../../agents/README.md)
+Agents и skills должны проверять `source`, `reliability`, `status`, `coverage` и `reliableForTradingLogic` перед trading-logic выводами.
 
-Универсальный системный промпт (источник истины): [prompts/performance-analyst.md](../../prompts/performance-analyst.md)
+- Compatibility: после обновлений TradingView Desktop или unavailable statuses запускайте `tv discover` и проверяйте `compatibility_probes`.
+- Indicator values: предпочитать `tradingview_study_model`.
+- Strategy metrics/trades/orders: требовать `source: tradingview_backtesting_api` и `status: ok`.
+- Equity: требовать explicit Pine plot `Strategy Equity`; `coverage: loaded_chart_bars` — частичное покрытие, не full Strategy Tester history.
+- Optional history loading: расширить/проскроллить диапазон графика, дождаться догрузки баров TradingView, повторить data call, затем сравнить `loaded_bar_count` и `data_points`.
+- Derived equity: только conditional; не называть native TradingView equity.
+- Full native bar-by-bar Strategy Tester equity: не реализовывать и не обещать, пока TradingView не exposes стабильный report field.
+- Bid/ask: использовать только при `bidAskAvailable:true`.

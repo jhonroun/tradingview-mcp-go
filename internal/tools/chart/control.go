@@ -84,10 +84,26 @@ func SetType(chartType string) (map[string]interface{}, error) {
 
 // ManageIndicatorArgs holds parameters for chart_manage_indicator.
 type ManageIndicatorArgs struct {
-	Action   string        `json:"action"`
-	Name     string        `json:"name"`
-	EntityID string        `json:"entity_id"`
-	Inputs   []interface{} `json:"inputs"`
+	Action         string        `json:"action"`
+	Name           string        `json:"name"`
+	EntityID       string        `json:"entity_id"`
+	Inputs         []interface{} `json:"inputs"`
+	AllowRemoveAny bool          `json:"allow_remove_any"`
+}
+
+type addStudyEvaluation struct {
+	CreateError string      `json:"createError"`
+	LimitText   string      `json:"limitText"`
+	Before      []StudyInfo `json:"before"`
+	After       []StudyInfo `json:"after"`
+	NewStudies  []StudyInfo `json:"newStudies"`
+}
+
+type removeStudyEvaluation struct {
+	Removed bool        `json:"removed"`
+	Error   string      `json:"error"`
+	Before  []StudyInfo `json:"before"`
+	After   []StudyInfo `json:"after"`
 }
 
 // ManageIndicator adds or removes an indicator on the chart.
@@ -97,7 +113,7 @@ func ManageIndicator(args ManageIndicatorArgs) (map[string]interface{}, error) {
 
 	switch strings.ToLower(args.Action) {
 	case "add":
-		return addIndicator(ctx, args.Name, args.Inputs)
+		return addIndicator(ctx, args.Name, args.Inputs, args.AllowRemoveAny)
 	case "remove":
 		return removeIndicator(ctx, args.EntityID)
 	default:
@@ -105,44 +121,185 @@ func ManageIndicator(args ManageIndicatorArgs) (map[string]interface{}, error) {
 	}
 }
 
-func addIndicator(ctx context.Context, name string, inputs []interface{}) (map[string]interface{}, error) {
+const chartStudyControlJS = `
+function studyControlDelay(ms) {
+	return new Promise(function(resolve) { setTimeout(resolve, ms); });
+}
+function studyControlStudyInfo(s) {
+	var id = "";
+	var name = "";
+	try { id = s.id || s.entityId || s._id || ""; } catch(e) {}
+	try { name = s.name || s.title || s.shortName || ""; } catch(e) {}
+	if (!name) {
+		try {
+			var mi = typeof s.metaInfo === "function" ? s.metaInfo() : s.metaInfo;
+			name = mi && (mi.description || mi.shortDescription || mi.id || "");
+		} catch(e) {}
+	}
+	return { id: String(id || ""), name: String(name || "unknown") };
+}
+function studyControlCollectStudies(chart) {
+	try {
+		var all = chart.getAllStudies() || [];
+		return Array.prototype.map.call(all, studyControlStudyInfo).filter(function(s) {
+			return s.id || s.name;
+		});
+	} catch(e) {
+		return [];
+	}
+}
+function studyControlCollectLimitText() {
+	var candidates = [];
+	var seen = {};
+	function add(text) {
+		text = String(text || "").replace(/\s+/g, " ").trim();
+		if (!text || text.length > 2000 || seen[text]) return;
+		seen[text] = true;
+		candidates.push(text);
+	}
+	try {
+		var selectors = '[role="dialog"],[data-name*="dialog"],[class*="dialog"],[class*="toast"],[class*="notification"],[class*="popup"],[class*="modal"]';
+		Array.prototype.forEach.call(document.querySelectorAll(selectors), function(node) {
+			add(node.innerText || node.textContent || "");
+		});
+	} catch(e) {}
+	if (candidates.length === 0) {
+		try {
+			var re = /indicator|study|subscription|maximum|limit|available|upgrade|plan/i;
+			var nodes = document.querySelectorAll("div,span");
+			for (var i = 0; i < nodes.length && candidates.length < 20; i++) {
+				var text = nodes[i].innerText || nodes[i].textContent || "";
+				if (re.test(text)) add(text);
+			}
+		} catch(e) {}
+	}
+	return candidates.slice(0, 20).join("\n");
+}
+`
+
+func addIndicator(ctx context.Context, name string, inputs []interface{}, allowRemoveAny bool) (map[string]interface{}, error) {
+	name = strings.TrimSpace(name)
+	if name == "" {
+		return nil, fmt.Errorf("name is required for add action")
+	}
 	inputsJSON, _ := json.Marshal(inputs)
 	if inputs == nil {
 		inputsJSON = []byte("[]")
 	}
 
-	expr := fmt.Sprintf(`(async function() {
-		var chart = %s;
-		var before = chart.getAllStudies().map(function(s) { return s.id; });
-		chart.createStudy(%s, false, false, %s);
-		await new Promise(function(r) { setTimeout(r, 1500); });
-		var after = chart.getAllStudies().map(function(s) { return s.id; });
-		var newIds = after.filter(function(id) { return before.indexOf(id) === -1; });
-		return { entityId: newIds[0] || null, name: %s };
-	})()`, tv.ChartAPI, tv.SafeString(name), string(inputsJSON), tv.SafeString(name))
+	var first addStudyEvaluation
+	var retry addStudyEvaluation
+	var removed StudyInfo
+	var removeEval removeStudyEvaluation
+	var removalLogPath string
+	var removalLogErr error
 
-	var raw json.RawMessage
 	err := cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
 		var err error
-		raw, err = c.Evaluate(ctx, expr, true)
+		first, err = evaluateAddStudy(ctx, c, name, inputsJSON)
+		if err != nil {
+			return err
+		}
+		if _, ok := addedStudy(first); ok {
+			return nil
+		}
+		details, limitReached := detectStudyLimit(first.CreateError, first.LimitText, first.After)
+		if !limitReached || !allowRemoveAny {
+			return nil
+		}
+		var ok bool
+		removed, ok = selectStudyForRemoval(first.After)
+		if !ok {
+			return nil
+		}
+		removeEval, err = evaluateRemoveStudy(ctx, c, removed.ID)
+		if err != nil {
+			return err
+		}
+		if removeEval.Error != "" || !removeEval.Removed {
+			return nil
+		}
+		removalLogPath, removalLogErr = appendStudyRemovalLog(studyRemovalLogEntry{
+			EntityID:        removed.ID,
+			Name:            removed.Name,
+			Reason:          "study_limit_reached_allow_remove_any",
+			RequestedName:   name,
+			Limit:           details.Limit,
+			CurrentStudies:  len(first.After),
+			AllowRemoveAny:  true,
+			TradingViewPath: "chart.removeEntity",
+		})
+		retry, err = evaluateAddStudy(ctx, c, name, inputsJSON)
 		return err
 	})
 	if err != nil {
 		return nil, err
 	}
-	var result struct {
-		EntityID string `json:"entityId"`
-		Name     string `json:"name"`
+
+	if study, ok := addedStudy(first); ok {
+		return buildStudyAddSuccessResult(name, first, study), nil
 	}
-	if err := json.Unmarshal(raw, &result); err != nil {
-		return nil, fmt.Errorf("parse add result: %w", err)
+	details, limitReached := detectStudyLimit(first.CreateError, first.LimitText, first.After)
+	if limitReached && !allowRemoveAny {
+		return buildStudyLimitResult("add", name, first.After, details), nil
 	}
-	return map[string]interface{}{
-		"success":  true,
-		"action":   "add",
-		"entityId": result.EntityID,
-		"name":     result.Name,
-	}, nil
+	if limitReached && allowRemoveAny {
+		if removed.ID == "" {
+			result := buildStudyLimitResult("add", name, first.After, details)
+			result["allowRemoveAny"] = true
+			result["error"] = "TradingView study limit reached, but no removable study entity was found."
+			return result, nil
+		}
+		if removeEval.Error != "" || !removeEval.Removed {
+			result := buildStudyLimitResult("add", name, first.After, details)
+			result["allowRemoveAny"] = true
+			result["selectedStudy"] = removed
+			result["removeError"] = removeEval.Error
+			result["error"] = "TradingView study limit reached, but the selected study could not be removed."
+			return result, nil
+		}
+		if study, ok := addedStudy(retry); ok {
+			result := buildStudyAddSuccessResult(name, retry, study)
+			result["limitWasReached"] = true
+			result["allowRemoveAny"] = true
+			result["removedStudy"] = removed
+			result["currentStudiesBeforeRemoval"] = normalizeStudyInfos(first.After)
+			result["removal_logged"] = removalLogErr == nil
+			if removalLogPath != "" {
+				result["removal_log_path"] = removalLogPath
+			}
+			if removalLogErr != nil {
+				result["removal_log_error"] = removalLogErr.Error()
+			}
+			return result, nil
+		}
+		retryDetails, retryLimit := detectStudyLimit(retry.CreateError, retry.LimitText, retry.After)
+		if retryLimit {
+			result := buildStudyLimitResult("add", name, retry.After, retryDetails)
+			result["allowRemoveAny"] = true
+			result["removedStudy"] = removed
+			result["removal_logged"] = removalLogErr == nil
+			if removalLogPath != "" {
+				result["removal_log_path"] = removalLogPath
+			}
+			if removalLogErr != nil {
+				result["removal_log_error"] = removalLogErr.Error()
+			}
+			return result, nil
+		}
+		result := buildStudyAddFailedResult(name, retry)
+		result["allowRemoveAny"] = true
+		result["removedStudy"] = removed
+		result["removal_logged"] = removalLogErr == nil
+		if removalLogPath != "" {
+			result["removal_log_path"] = removalLogPath
+		}
+		if removalLogErr != nil {
+			result["removal_log_error"] = removalLogErr.Error()
+		}
+		return result, nil
+	}
+	return buildStudyAddFailedResult(name, first), nil
 }
 
 func removeIndicator(ctx context.Context, entityID string) (map[string]interface{}, error) {
@@ -160,7 +317,129 @@ func removeIndicator(ctx context.Context, entityID string) (map[string]interface
 	if err != nil {
 		return nil, err
 	}
-	return map[string]interface{}{"success": true, "action": "remove", "entityId": entityID}, nil
+	return map[string]interface{}{"success": true, "status": "ok", "action": "remove", "entityId": entityID}, nil
+}
+
+func evaluateAddStudy(ctx context.Context, c *cdp.Client, name string, inputsJSON []byte) (addStudyEvaluation, error) {
+	expr := fmt.Sprintf(`(async function() {
+		%s
+		var chart = %s;
+		var before = studyControlCollectStudies(chart);
+		var beforeIds = {};
+		before.forEach(function(s) { if (s.id) beforeIds[s.id] = true; });
+		var createError = "";
+		try {
+			await Promise.resolve(chart.createStudy(%s, false, false, %s));
+		} catch(e) {
+			createError = String((e && (e.message || e.description)) || e || "");
+		}
+		await studyControlDelay(1500);
+		var after = studyControlCollectStudies(chart);
+		var newStudies = after.filter(function(s) { return s.id && !beforeIds[s.id]; });
+		return {
+			createError: createError,
+			limitText: studyControlCollectLimitText(),
+			before: before,
+			after: after,
+			newStudies: newStudies
+		};
+	})()`, chartStudyControlJS, tv.ChartAPI, tv.SafeString(name), string(inputsJSON))
+
+	raw, err := c.EvaluateWithOptions(ctx, expr, cdp.EvaluateOptions{
+		AwaitPromise:  true,
+		ReturnByValue: true,
+		Timeout:       20 * time.Second,
+	})
+	if err != nil {
+		return addStudyEvaluation{}, err
+	}
+	var result addStudyEvaluation
+	if err := json.Unmarshal(raw, &result); err != nil {
+		return addStudyEvaluation{}, fmt.Errorf("parse add indicator result: %w", err)
+	}
+	result.Before = normalizeStudyInfos(result.Before)
+	result.After = normalizeStudyInfos(result.After)
+	result.NewStudies = normalizeStudyInfos(result.NewStudies)
+	return result, nil
+}
+
+func evaluateRemoveStudy(ctx context.Context, c *cdp.Client, entityID string) (removeStudyEvaluation, error) {
+	expr := fmt.Sprintf(`(async function() {
+		%s
+		var chart = %s;
+		var before = studyControlCollectStudies(chart);
+		var removeError = "";
+		try {
+			chart.removeEntity(%s);
+		} catch(e) {
+			removeError = String((e && (e.message || e.description)) || e || "");
+		}
+		await studyControlDelay(1000);
+		var after = studyControlCollectStudies(chart);
+		var stillPresent = after.some(function(s) { return s.id === %s; });
+		return {
+			removed: !removeError && !stillPresent,
+			error: removeError,
+			before: before,
+			after: after
+		};
+	})()`, chartStudyControlJS, tv.ChartAPI, tv.SafeString(entityID), tv.SafeString(entityID))
+
+	raw, err := c.EvaluateWithOptions(ctx, expr, cdp.EvaluateOptions{
+		AwaitPromise:  true,
+		ReturnByValue: true,
+		Timeout:       8 * time.Second,
+	})
+	if err != nil {
+		return removeStudyEvaluation{}, err
+	}
+	var result removeStudyEvaluation
+	if err := json.Unmarshal(raw, &result); err != nil {
+		return removeStudyEvaluation{}, fmt.Errorf("parse remove indicator result: %w", err)
+	}
+	result.Before = normalizeStudyInfos(result.Before)
+	result.After = normalizeStudyInfos(result.After)
+	return result, nil
+}
+
+func addedStudy(result addStudyEvaluation) (StudyInfo, bool) {
+	for _, study := range result.NewStudies {
+		if strings.TrimSpace(study.ID) != "" {
+			return study, true
+		}
+	}
+	return StudyInfo{}, false
+}
+
+func buildStudyAddSuccessResult(requestedName string, result addStudyEvaluation, study StudyInfo) map[string]interface{} {
+	return map[string]interface{}{
+		"success":        true,
+		"status":         "ok",
+		"action":         "add",
+		"entityId":       study.ID,
+		"name":           requestedName,
+		"study":          study,
+		"currentStudies": normalizeStudyInfos(result.After),
+	}
+}
+
+func buildStudyAddFailedResult(requestedName string, result addStudyEvaluation) map[string]interface{} {
+	out := map[string]interface{}{
+		"success":           false,
+		"status":            "study_add_failed",
+		"error":             "TradingView did not add a new study.",
+		"action":            "add",
+		"requestedName":     requestedName,
+		"currentStudies":    normalizeStudyInfos(result.After),
+		"currentStudyCount": len(result.After),
+	}
+	if result.CreateError != "" {
+		out["create_error"] = result.CreateError
+	}
+	if result.LimitText != "" {
+		out["ui_message"] = compactLimitMessage(result.LimitText)
+	}
+	return out
 }
 
 // SetVisibleRange zooms the chart to show bars between from and to (Unix seconds).
@@ -329,6 +608,10 @@ func registerControlTools(reg *mcp.Registry) {
 				"name":      {Type: "string", Description: "Indicator name for add (e.g. RSI, MACD, Bollinger Bands)"},
 				"entity_id": {Type: "string", Description: "Entity ID for remove (from chart_get_state)"},
 				"inputs":    {Type: "array", Description: "Optional input values array for add"},
+				"allow_remove_any": {
+					Type:        "boolean",
+					Description: "For add only: if TradingView reports a study limit, explicitly allow removing the most recent existing study, logging it to research, and retrying once",
+				},
 			},
 			Required: []string{"action"},
 		},

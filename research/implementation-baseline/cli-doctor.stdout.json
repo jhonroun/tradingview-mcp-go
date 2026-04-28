@@ -1,0 +1,24 @@
+{
+  "port": {
+    "reachable": true,
+    "cdp": true,
+    "owner": "TradingView.exe"
+  },
+  "process": {
+    "running": true,
+    "pid": 37356,
+    "has_cdp_flag": true,
+    "cmdline": "\"C:\\Program Files\\WindowsApps\\TradingView.Desktop_3.1.0.7818_x64__n534cwy3pjxzj\\TradingView.exe\" --remote-debugging-port=9222"
+  },
+  "install": {
+    "found": true,
+    "path": "C:\\Program Files\\WindowsApps\\TradingView.Desktop_3.1.0.7818_x64__n534cwy3pjxzj\\TradingView.exe",
+    "source": "Microsoft Store (WindowsApps)",
+    "is_msix": true,
+    "appdata_dir": "C:\\Users\\jhonr\\AppData\\Roaming\\TradingView"
+  },
+  "launch_cmd": "cd \"C:\\Program Files\\WindowsApps\\TradingView.Desktop_3.1.0.7818_x64__n534cwy3pjxzj\" \u0026\u0026 \"C:\\Program Files\\WindowsApps\\TradingView.Desktop_3.1.0.7818_x64__n534cwy3pjxzj\\TradingView.exe\" --remote-debugging-port=9222",
+  "hints": [
+    "CDP is available. Run: tv status"
+  ]
+}

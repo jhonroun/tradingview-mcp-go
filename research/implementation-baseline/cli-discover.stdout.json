@@ -1,0 +1,9 @@
+{
+  "paths": {
+    "alertService": false,
+    "chartApi": true,
+    "chartWidgetCollection": true,
+    "replayApi": true
+  },
+  "success": true
+}

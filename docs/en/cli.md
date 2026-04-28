@@ -470,3 +470,18 @@ Every tool either returns `{ "success": true, …fields… }` or `{ "success": f
 | `scripts/configure-mcp.sh` | Configure MCP config for a given client |
 | `scripts/configure-mcp.ps1` | Same for Windows |
 | `scripts/package.sh` | Build release archives for all platforms |
+
+---
+
+## Current Data Contract Notes
+
+- Current Go MCP registry is `85` tools; original Node parity baseline is `78`.
+- `tv discover` returns legacy `paths` plus structured `compatibility_probes` for unstable TradingView internals. Re-run it after TradingView Desktop updates.
+- `data_get_indicator` and `data_get_indicator_history` are reliable for trading logic only when `source` is `tradingview_study_model` and `reliableForTradingLogic` is true.
+- `data_get_strategy_results`, `data_get_trades`, and `data_get_orders` require `status: ok` and `source: tradingview_backtesting_api`.
+- `data_get_equity` is reliable only with `source: tradingview_strategy_plot`; `coverage: loaded_chart_bars` is not guaranteed full backtest history.
+- To load more history, use `chart_set_visible_range` / `chart_scroll_to_date`, wait for TradingView to fetch bars, then re-run equity/history tools and compare `loaded_bar_count` / `data_points`. This remains best-effort loaded-bars coverage.
+- Derived equity is conditional and must not be presented as native Strategy Tester equity.
+- Do not implement or promise full native bar-by-bar Strategy Tester equity unless TradingView exposes a stable report field.
+- `quote_get` may return `bidAskAvailable:false`; do not calculate bid/ask spreads from zero compatibility values.
+- `pine_set_source` creates a backup and `pine_restore_source` verifies SHA256.

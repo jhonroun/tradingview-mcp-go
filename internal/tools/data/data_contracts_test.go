@@ -75,6 +75,7 @@ func buildQuote(raw map[string]interface{}) map[string]interface{} {
 			raw[key] = float64(0)
 		}
 	}
+	markQuoteBidAskAvailability(raw)
 	raw["success"] = true
 	return raw
 }
@@ -104,12 +105,56 @@ func TestQuoteAlwaysHasSentinelFields(t *testing.T) {
 		}
 		_ = f // zero is the expected sentinel
 	}
+	if q["bidAskAvailable"] != false {
+		t.Fatalf("bidAskAvailable = %v, want false", q["bidAskAvailable"])
+	}
+	if q["sourceLimitation"] == "" {
+		t.Fatal("quote with unavailable bid/ask must include sourceLimitation")
+	}
+	if q["warning"] == "" {
+		t.Fatal("quote with unavailable bid/ask must include warning")
+	}
 }
 
 func TestQuoteSuccessAlwaysSet(t *testing.T) {
 	q := buildQuote(map[string]interface{}{"last": float64(100)})
 	if q["success"] != true {
 		t.Error("success must be true")
+	}
+}
+
+func TestQuoteMOEXFuturesZeroBidAskMarkedUnavailable(t *testing.T) {
+	q := buildQuote(map[string]interface{}{
+		"symbol":   "RUS:NG1!",
+		"exchange": "RUS",
+		"type":     "futures",
+		"last":     float64(2.543),
+		"bid":      float64(0),
+		"ask":      float64(0),
+	})
+	if q["bidAskAvailable"] != false || q["bidAvailable"] != false || q["askAvailable"] != false {
+		t.Fatalf("bid/ask availability flags = %v/%v/%v, want all false", q["bidAskAvailable"], q["bidAvailable"], q["askAvailable"])
+	}
+	if q["sourceLimitation"] != "tradingview_moex_futures_bid_ask_unavailable" {
+		t.Fatalf("sourceLimitation = %v", q["sourceLimitation"])
+	}
+	if q["bid_source"] != "tradingview_unavailable" || q["ask_source"] != "tradingview_unavailable" {
+		t.Fatalf("bid/ask sources = %v/%v", q["bid_source"], q["ask_source"])
+	}
+}
+
+func TestQuotePositiveBidAskMarkedAvailable(t *testing.T) {
+	q := buildQuote(map[string]interface{}{
+		"symbol": "BINANCE:BTCUSDT",
+		"last":   float64(67400),
+		"bid":    float64(67398),
+		"ask":    float64(67402),
+	})
+	if q["bidAskAvailable"] != true || q["bidAvailable"] != true || q["askAvailable"] != true {
+		t.Fatalf("bid/ask availability flags = %v/%v/%v, want all true", q["bidAskAvailable"], q["bidAvailable"], q["askAvailable"])
+	}
+	if _, ok := q["sourceLimitation"]; ok {
+		t.Fatalf("available quote must not include sourceLimitation: %+v", q)
 	}
 }
 

@@ -17,7 +17,7 @@ Connects any MCP client to a live **TradingView Desktop** chart via the Chrome D
 | --- | --- |
 | About, origin story, requirements | this page |
 | Install, CDP launch, MCP config, providers | [install.md](install.md) |
-| MCP tools (78 total) | [tools.md](tools.md) |
+| MCP tools (85 current Go tools) | [tools.md](tools.md) |
 | CLI commands and scripts | [cli.md](cli.md) |
 | Skills and agents | [agents-skills.md](agents-skills.md) |
 | Architecture, compatibility, disclaimer | [architecture.md](architecture.md) |
@@ -58,9 +58,18 @@ The porting process was performed with the direct assistance of **Claude Code** 
 - maintained `CHANGELOG.md` and `TODO.md` throughout the process;
 - ensured 1:1 compatibility in tool names, argument schemas, and JSON response structure.
 
-Result: **78/78 MCP tools, 83+ CLI commands, 78 unit tests** — in a single session.
+Initial parity result: **78/78 MCP tools, 83+ CLI commands, 78 unit tests** — in a single session.
+
+Current stabilized Go registry: **85 MCP tools**. The additional tools are Go extensions for study-model history, strategy orders, Pine restore safety, and LLM-ready aggregate context.
 
 **Outcome:** a fully functional Go binary with zero dependency on Node.js, `npm`, or `chrome-remote-interface`.
+
+### Current Reliability Boundaries
+
+- TradingView internal paths are undocumented. Use `tv discover` compatibility probes after TradingView Desktop updates.
+- Strategy equity from `data_get_equity` is loaded-bars-only (`coverage: loaded_chart_bars`) unless TradingView has actually loaded the full range.
+- Derived equity is conditional and not native Strategy Tester equity.
+- Full native bar-by-bar Strategy Tester equity is not implemented unless TradingView exposes a stable report field.
 
 ---
 

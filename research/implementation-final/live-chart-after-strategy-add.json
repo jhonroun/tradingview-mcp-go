@@ -1,0 +1,39 @@
+{
+  "chartType": 1,
+  "exchange": "RUS",
+  "indicators": [
+    {
+      "id": "rqX2ro",
+      "name": "MCP Test SMA Strategy"
+    },
+    {
+      "id": "Vvzmzg",
+      "name": "Помошник RSI - True ADX"
+    },
+    {
+      "id": "cfyrsD",
+      "name": "Volume"
+    }
+  ],
+  "pane_count": 3,
+  "resolution": "1D",
+  "studies": [
+    {
+      "id": "rqX2ro",
+      "name": "MCP Test SMA Strategy"
+    },
+    {
+      "id": "Vvzmzg",
+      "name": "Помошник RSI - True ADX"
+    },
+    {
+      "id": "cfyrsD",
+      "name": "Volume"
+    }
+  ],
+  "success": true,
+  "symbol": "RUS:NG1!",
+  "ticker": "NG1!",
+  "timeframe": "1D",
+  "type": "1"
+}

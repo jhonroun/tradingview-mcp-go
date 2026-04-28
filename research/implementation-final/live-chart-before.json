@@ -1,0 +1,31 @@
+{
+  "chartType": 1,
+  "exchange": "RUS",
+  "indicators": [
+    {
+      "id": "Vvzmzg",
+      "name": "Помошник RSI - True ADX"
+    },
+    {
+      "id": "cfyrsD",
+      "name": "Volume"
+    }
+  ],
+  "pane_count": 3,
+  "resolution": "1D",
+  "studies": [
+    {
+      "id": "Vvzmzg",
+      "name": "Помошник RSI - True ADX"
+    },
+    {
+      "id": "cfyrsD",
+      "name": "Volume"
+    }
+  ],
+  "success": true,
+  "symbol": "RUS:NG1!",
+  "ticker": "NG1!",
+  "timeframe": "1D",
+  "type": "1"
+}

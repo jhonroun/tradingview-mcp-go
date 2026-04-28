@@ -5,6 +5,21 @@ These are the authoritative field names and types Go currently returns.
 
 > Status: **draft** — verify against live TradingView before marking stable.
 
+For the final HTS readiness decision, see
+[FINAL_AUDIT_REPORT.md](FINAL_AUDIT_REPORT.md).
+
+For the source-aware contract intended for the external HTS MCP layer, see
+[HTS_MARKET_SUMMARY_CONTRACT.md](HTS_MARKET_SUMMARY_CONTRACT.md). That document
+separates TradingView, HTS Go, PineScript `HTS_JSON`, Tinkoff, and unreliable
+data classes.
+
+For the compact LLM-facing payloads that intentionally omit raw candles, see
+[LLM_MARKET_CONTEXT_CONTRACT.md](LLM_MARKET_CONTEXT_CONTRACT.md).
+
+For the proposed external resolver between TradingView analysis symbols and
+Tinkoff execution instruments, see
+[INSTRUMENT_RESOLVER_CONTRACT.md](INSTRUMENT_RESOLVER_CONTRACT.md).
+
 ---
 
 ## Error envelope (all tools)
@@ -71,6 +86,9 @@ Notes:
   "volume": 12345.67,
   "bid":    67398.0,
   "ask":    67402.0,
+  "bidAvailable": true,
+  "askAvailable": true,
+  "bidAskAvailable": true,
   "change": 600.0,
   "change_pct": 0.90
 }
@@ -78,7 +96,13 @@ Notes:
 
 Notes:
 
-- `bid`/`ask`: may be `0` or absent for non-orderbook symbols (indices, crypto on some feeds)
+- `bid`/`ask`: may be `0` sentinel values for non-orderbook symbols or feeds
+  where TradingView does not expose bid/ask.
+- `bidAskAvailable=false` means `bid`/`ask` are not executable quotes and must
+  not be treated as real market prices.
+- MOEX futures with unavailable bid/ask include
+  `sourceLimitation: "tradingview_moex_futures_bid_ask_unavailable"` and a
+  warning.
 - All price fields are `float64`; never null — use `0` as sentinel
 - `change_pct`: percentage as float (`0.90` = 0.90%, not 0.0090)
 
@@ -220,6 +244,7 @@ Notes:
 ```json
 {
   "success": true,
+  "status": "ok",
   "count": 3,
   "results": [
     {
@@ -229,6 +254,18 @@ Notes:
       "type":        "crypto"
     }
   ]
+}
+```
+
+Empty response:
+
+```json
+{
+  "success": true,
+  "status": "no_results",
+  "count": 0,
+  "reason": "TradingView symbol search API returned no results after applying requested filters.",
+  "results": []
 }
 ```
 

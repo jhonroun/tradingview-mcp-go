@@ -1,0 +1,65 @@
+{
+  "success": true,
+  "symbol": "RUS:NG1!",
+  "timeframe": "1D",
+  "strategy": "MCP Test SMA Strategy",
+  "native_report_equity_series_found": false,
+  "native_report_paths_checked": [
+    "bt.activeStrategyReportData.value()",
+    "bt._activeStrategyReportData.value()",
+    "bt._reportData.value()",
+    "bt._deepBacktestingManager._reportDataDeepBacktesting",
+    "model.strategySources()[0].reportData()",
+    "model.strategySources()[0].ordersData()",
+    "model.strategySources()[0].barsIndexes()"
+  ],
+  "native_report_top_level_arrays": {
+    "trades": 43,
+    "filledOrders": 86,
+    "buyHold": 44,
+    "buyHoldPercent": 44,
+    "runupDrawdownPeriods": 5
+  },
+  "working_machine_readable_source": {
+    "requires_pine_plot": true,
+    "pine_line": "plot(strategy.equity, \"Strategy Equity\", display=display.data_window)",
+    "path": "model.strategySources()[0].data().fullRangeIterator()",
+    "row_shape": ["time_seconds", "plot_0", "plot_1", "plot_2_strategy_equity"],
+    "sample": [
+      {
+        "index": -1000101,
+        "time": 1727366400000,
+        "equity": 1000565.3
+      },
+      {
+        "index": 298,
+        "time": 1777006800000,
+        "equity": 1000224
+      }
+    ],
+    "loaded_bar_count": 400,
+    "reliability": "reliable_pine_runtime_value_unstable_internal_path"
+  },
+  "coverage_limitation": "The confirmed Pine plot path returns bars loaded in the TradingView chart model. In this session the strategy source had 400 rows, while the report covered 2020-02-01 to 2026-04-25.",
+  "fallback": {
+    "mode": "derived_from_ohlcv_and_trades",
+    "reliability": "derived",
+    "requires": [
+      "OHLCV for all target bars",
+      "report.trades",
+      "performance.initialCapital",
+      "symbol pointValue",
+      "commission and slippage settings",
+      "order fill timing"
+    ]
+  },
+  "cleanup": {
+    "indicator_removed": false,
+    "test_strategy_removed": true,
+    "final_studies": [
+      "Vvzmzg: Помошник RSI - True ADX",
+      "cfyrsD: Volume"
+    ],
+    "pine_source_restored_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765"
+  }
+}

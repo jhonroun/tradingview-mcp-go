@@ -1,0 +1,12 @@
+{
+  "name": "ui-eval-await-async",
+  "command": "go run ./cmd/tv ui eval-await \"(async () => 42)()\"",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:34:25.9350868+08:00",
+  "finishedAt": "2026-04-27T10:34:27.9256385+08:00",
+  "stdout": "research\\cdp-evaluate-await\\ui-eval-await-async.stdout.json",
+  "stderr": "research\\cdp-evaluate-await\\ui-eval-await-async.stderr.txt",
+  "stdoutValidJson": true,
+  "result": 42,
+  "parseError": null
+}

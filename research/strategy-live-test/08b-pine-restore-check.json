@@ -1,0 +1,21 @@
+{
+  "captured_at": "2026-04-27T06:19:42.0700015+08:00",
+  "set_file": {
+    "lines_set": 540,
+    "success": true
+  },
+  "save": {
+    "action": "Ctrl+S_dispatched",
+    "success": true
+  },
+  "original_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+  "final_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+  "original_normalized_sha256": "8979236fbd5255c23fe6f8595c78d88b73d9fcbeb34c80f1c8b7902817ae65e0",
+  "final_normalized_sha256": "8979236fbd5255c23fe6f8595c78d88b73d9fcbeb34c80f1c8b7902817ae65e0",
+  "restored_exact": true,
+  "restored_normalized": true,
+  "original_line_count": 540,
+  "final_line_count": 540,
+  "original_char_count": 33307,
+  "final_char_count": 33307
+}

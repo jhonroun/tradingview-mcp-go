@@ -1,0 +1,12 @@
+{
+  "name": "doctor",
+  "command": "go run ./cmd/tv doctor",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:18:53.947033+08:00",
+  "finishedAt": "2026-04-27T10:19:00.1597529+08:00",
+  "stdout": "research\\implementation-baseline\\cli-doctor.stdout.json",
+  "stderr": "research\\implementation-baseline\\cli-doctor.stderr.txt",
+  "stdoutValidJson": true,
+  "stderrValidJson": false,
+  "parseError": null
+}

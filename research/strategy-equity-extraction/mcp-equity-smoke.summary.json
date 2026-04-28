@@ -1,0 +1,54 @@
+{
+  "captured_at": "2026-04-27T16:13:49.8077288+08:00",
+  "chart": {
+    "chartType": 1,
+    "exchange": "RUS",
+    "indicators": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      },
+      {
+        "id": "cfyrsD",
+        "name": "Volume"
+      }
+    ],
+    "pane_count": 3,
+    "resolution": "1D",
+    "studies": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      },
+      {
+        "id": "cfyrsD",
+        "name": "Volume"
+      }
+    ],
+    "success": true,
+    "symbol": "RUS:NG1!",
+    "ticker": "NG1!",
+    "timeframe": "1D",
+    "type": "1"
+  },
+  "data_get_equity": {
+    "active_strategy_id": "",
+    "active_strategy_name": "",
+    "error": "No TradingView strategy is loaded on the active chart.",
+    "reliability": "reliable_backtesting_report_unstable_internal_path",
+    "reliableForTradingLogic": false,
+    "source": "tradingview_backtesting_api",
+    "status": "no_strategy_loaded",
+    "strategy_loaded": false,
+    "strategy_source_count": 0,
+    "strategy_sources": [],
+    "success": false
+  },
+  "strategy_plot_implementation": {
+    "coverage": "loaded_chart_bars",
+    "source": "tradingview_strategy_plot",
+    "suggested_pine_line": "plot(strategy.equity, \"Strategy Equity\", display=display.data_window)",
+    "reliability": "reliable_pine_runtime_value_unstable_internal_path"
+  },
+  "live_verification": "current chart has no loaded strategy, so live result is no_strategy_loaded; strategy-equity-plot smoke not rerun to avoid mutating current chart/Pine state"
+}

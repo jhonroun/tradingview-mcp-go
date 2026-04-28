@@ -23,6 +23,7 @@ import (
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/chart"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/data"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/health"
+	"github.com/jhonroun/tradingview-mcp-go/internal/tools/indicators"
 	"github.com/jhonroun/tradingview-mcp-go/internal/tools/pine"
 )
 
@@ -85,6 +86,34 @@ func TestChartGetState(t *testing.T) {
 		t.Error("chart type should not be empty")
 	}
 	t.Logf("chart state: symbol=%v timeframe=%v type=%v", m["symbol"], m["timeframe"], m["type"])
+}
+
+// ── Phase 2: symbol_search ───────────────────────────────────────────────────
+
+func TestSymbolSearch(t *testing.T) {
+	skipIfNoCDP(t)
+	results, err := chart.SymbolSearch("NG", "", "")
+	if err != nil {
+		t.Fatalf("chart.SymbolSearch: %v", err)
+	}
+	if len(results) == 0 {
+		t.Fatal("symbol_search NG returned no results")
+	}
+	for i, r := range results {
+		if r.Symbol == "" {
+			t.Errorf("result[%d] missing symbol", i)
+		}
+		if r.Description == "" {
+			t.Errorf("result[%d] missing description", i)
+		}
+		if r.Type == "" {
+			t.Errorf("result[%d] missing type", i)
+		}
+		if r.Exchange == "" {
+			t.Errorf("result[%d] missing exchange", i)
+		}
+	}
+	t.Logf("symbol_search: first=%s exchange=%s count=%d", results[0].Symbol, results[0].Exchange, len(results))
 }
 
 // ── Phase 2: quote_get ────────────────────────────────────────────────────────
@@ -157,6 +186,101 @@ func TestDataGetStudyValues(t *testing.T) {
 	// studies array may be empty when no indicators are on the chart — that's valid
 	studies, _ := m["studies"].([]interface{})
 	t.Logf("study_count=%v studies=%d", m["study_count"], len(studies))
+}
+
+// ── Phase 2: indicator_set_inputs ────────────────────────────────────────────
+
+func TestIndicatorSetInputsVolumeLength(t *testing.T) {
+	skipIfNoCDP(t)
+
+	state, err := chart.GetState()
+	if err != nil {
+		t.Fatalf("chart.GetState: %v", err)
+	}
+	volumeID := ""
+	if studies, ok := state["studies"].([]chart.StudyInfo); ok {
+		for _, study := range studies {
+			if study.Name == "Volume" {
+				volumeID = study.ID
+				break
+			}
+		}
+	}
+	if volumeID == "" {
+		t.Skip("Volume study not found on current chart")
+	}
+
+	before, err := data.GetIndicator(volumeID)
+	if err != nil {
+		t.Fatalf("data.GetIndicator before: %v", err)
+	}
+	inputs, _ := before["inputs"].(map[string]interface{})
+	current, ok := numericInput(inputs, "length")
+	if !ok {
+		t.Skip("Volume length input not available")
+	}
+	original := int(current)
+	target := original + 1
+	if target <= 0 {
+		target = 20
+	}
+
+	restore := false
+	defer func() {
+		if restore {
+			_, _ = indicators.SetInputs(volumeID, map[string]interface{}{"length": original})
+		}
+	}()
+
+	result, err := indicators.SetInputs(volumeID, map[string]interface{}{"length": target})
+	if err != nil {
+		t.Fatalf("indicators.SetInputs: %v", err)
+	}
+	if success, _ := result["success"].(bool); !success {
+		t.Fatalf("indicator_set_inputs success=false: %v", result["error"])
+	}
+	restore = true
+	time.Sleep(1200 * time.Millisecond)
+
+	after, err := data.GetIndicator(volumeID)
+	if err != nil {
+		t.Fatalf("data.GetIndicator after: %v", err)
+	}
+	afterInputs, _ := after["inputs"].(map[string]interface{})
+	updated, ok := numericInput(afterInputs, "length")
+	if !ok {
+		t.Fatal("Volume length input missing after update")
+	}
+	if int(updated) != target {
+		t.Fatalf("Volume length = %v, want %d", updated, target)
+	}
+
+	restored, err := indicators.SetInputs(volumeID, map[string]interface{}{"length": original})
+	if err != nil {
+		t.Fatalf("restore Volume length: %v", err)
+	}
+	restore = false
+	if success, _ := restored["success"].(bool); !success {
+		t.Fatalf("restore success=false: %v", restored["error"])
+	}
+	time.Sleep(800 * time.Millisecond)
+	t.Logf("indicator_set_inputs Volume length: %d -> %d -> %d", original, target, original)
+}
+
+func numericInput(inputs map[string]interface{}, id string) (float64, bool) {
+	if inputs == nil {
+		return 0, false
+	}
+	switch v := inputs[id].(type) {
+	case float64:
+		return v, true
+	case int:
+		return float64(v), true
+	case int64:
+		return float64(v), true
+	default:
+		return 0, false
+	}
 }
 
 // ── Phase 2: capture_screenshot ──────────────────────────────────────────────

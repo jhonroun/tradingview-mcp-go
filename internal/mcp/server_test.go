@@ -74,7 +74,7 @@ func TestInitialize(t *testing.T) {
 
 // ── Phase 1: tools/list ───────────────────────────────────────────────────────
 
-func TestToolsListExact82(t *testing.T) {
+func TestToolsListExact85(t *testing.T) {
 	reg := newFullRegistry()
 	resp := runOne(t, reg, `{"jsonrpc":"2.0","id":1,"method":"tools/list"}`)
 
@@ -86,8 +86,8 @@ func TestToolsListExact82(t *testing.T) {
 	if err := json.Unmarshal(b, &result); err != nil {
 		t.Fatal(err)
 	}
-	if len(result.Tools) != 82 {
-		t.Errorf("tools/list returned %d tools, want 82", len(result.Tools))
+	if len(result.Tools) != 85 {
+		t.Errorf("tools/list returned %d tools, want 85", len(result.Tools))
 	}
 	for i, tool := range result.Tools {
 		if tool.Name == "" {
@@ -341,11 +341,11 @@ func TestSequentialRequests(t *testing.T) {
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
-// newFullRegistry registers all 82 production tools so tool-count tests work.
+// newFullRegistry registers all 85 production tools so tool-count tests work.
 // It imports the actual packages to avoid duplication of registration logic.
 func newFullRegistry() *Registry {
 	reg := NewRegistry()
-	// Register a stub for each of the 78 expected tools.
+	// Register a stub for each expected tool.
 	// The names are the canonical tool names from the compatibility matrix.
 	names := []string{
 		"tv_health_check", "tv_discover", "tv_ui_state", "tv_launch",
@@ -355,11 +355,11 @@ func newFullRegistry() *Registry {
 		"symbol_info", "symbol_search",
 		"quote_get", "data_get_ohlcv", "data_get_study_values",
 		"data_get_pine_lines", "data_get_pine_labels", "data_get_pine_tables", "data_get_pine_boxes",
-		"data_get_indicator", "data_get_strategy_results", "data_get_trades", "data_get_equity",
+		"data_get_indicator", "data_get_indicator_history", "data_get_strategy_results", "data_get_trades", "data_get_orders", "data_get_equity",
 		"depth_get",
 		"capture_screenshot",
 		"indicator_set_inputs", "indicator_toggle_visibility",
-		"pine_get_source", "pine_set_source", "pine_compile", "pine_smart_compile",
+		"pine_get_source", "pine_set_source", "pine_restore_source", "pine_compile", "pine_smart_compile",
 		"pine_get_errors", "pine_get_console", "pine_save", "pine_new",
 		"pine_open", "pine_list_scripts", "pine_analyze", "pine_check",
 		"draw_shape", "draw_list", "draw_get_properties", "draw_remove_one", "draw_clear",

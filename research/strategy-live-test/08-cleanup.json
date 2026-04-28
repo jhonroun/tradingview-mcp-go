@@ -1,0 +1,94 @@
+{
+  "captured_at": "2026-04-27T06:19:14.2611511+08:00",
+  "chart_cleanup": {
+    "actions": [
+      {
+        "action": "remove_test_strategy",
+        "id": "XTcDfv",
+        "ok": true
+      }
+    ],
+    "afterRemove": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "afterRestore": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "before": [
+      {
+        "id": "XTcDfv",
+        "name": "MCP Test SMA Strategy"
+      },
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "restore_removed_indicator": {
+      "method": "meta_id",
+      "ok": true
+    }
+  },
+  "pine_restore": {
+    "set_file": {
+      "lines_set": 541,
+      "success": true
+    },
+    "save": {
+      "action": "Ctrl+S_dispatched",
+      "success": true
+    },
+    "original_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+    "final_sha256": "932cd349e1bf0dadb6826b66ed60854e5c07273e9731e1b4a62dc05cbb2e1f01",
+    "restored": false
+  },
+  "final_chart_state": {
+    "chartType": 1,
+    "exchange": "RUS",
+    "indicators": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "pane_count": 2,
+    "resolution": "1D",
+    "studies": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "success": true,
+    "symbol": "RUS:NG1!",
+    "ticker": "NG1!",
+    "timeframe": "1D",
+    "type": "1"
+  }
+}

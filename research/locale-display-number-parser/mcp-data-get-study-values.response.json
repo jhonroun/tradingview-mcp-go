@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false,\"source\":\"tradingview_ui_data_window\",\"studies\":[{\"name\":\"Помошник RSI - True ADX\",\"entity_id\":\"Vvzmzg\",\"plot_count\":6,\"plots\":[{\"name\":\"DI+\",\"current\":15.55,\"values\":[15.55],\"display_value\":\"15,55\",\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false},{\"name\":\"DI-\",\"current\":29.82,\"values\":[29.82],\"display_value\":\"29,82\",\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false},{\"name\":\"ADX\",\"current\":26.29,\"values\":[26.29],\"display_value\":\"26,29\",\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false},{\"name\":\"RSI\",\"current\":31.14,\"values\":[31.14],\"display_value\":\"31,14\",\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false},{\"name\":\"RSI - зона перепроданности\",\"current\":70,\"values\":[70],\"display_value\":\"70,00\",\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false},{\"name\":\"RSI - зона перекупленности\",\"current\":30,\"values\":[30],\"display_value\":\"30,00\",\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false}],\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false},{\"name\":\"Volume\",\"entity_id\":\"cfyrsD\",\"plot_count\":1,\"plots\":[{\"name\":\"Volume\",\"current\":23120,\"values\":[23120],\"display_value\":\"23,12 K\",\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false}],\"source\":\"tradingview_ui_data_window\",\"reliability\":\"display_value_localized_ui_string\",\"reliableForTradingLogic\":false}],\"study_count\":2,\"success\":true}"
+      }
+    ]
+  }
+}

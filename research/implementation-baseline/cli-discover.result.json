@@ -1,0 +1,12 @@
+{
+  "name": "discover",
+  "command": "go run ./cmd/tv discover",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:19:00.1735329+08:00",
+  "finishedAt": "2026-04-27T10:19:00.7568434+08:00",
+  "stdout": "research\\implementation-baseline\\cli-discover.stdout.json",
+  "stderr": "research\\implementation-baseline\\cli-discover.stderr.txt",
+  "stdoutValidJson": true,
+  "stderrValidJson": false,
+  "parseError": null
+}

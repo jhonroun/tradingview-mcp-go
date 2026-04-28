@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-04-27T09:58:05.3023203Z",
+  "reason": "before_pine_set_source",
+  "source_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+  "script_name": "EMA Slope Angle + MACD (Michael) v3",
+  "script_type": "strategy",
+  "pine_version": "6",
+  "line_count": 540,
+  "char_count": 33307,
+  "source_file": "EMA_Slope_Angle___MACD__Michael__v3.pine"
+}

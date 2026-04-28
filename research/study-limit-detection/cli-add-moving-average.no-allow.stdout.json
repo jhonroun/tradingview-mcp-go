@@ -1,0 +1,25 @@
+{
+  "action": "add",
+  "currentStudies": [
+    {
+      "id": "5C13zY",
+      "name": "Moving Average"
+    },
+    {
+      "id": "Vvzmzg",
+      "name": "Помошник RSI - True ADX"
+    },
+    {
+      "id": "cfyrsD",
+      "name": "Volume"
+    }
+  ],
+  "entityId": "5C13zY",
+  "name": "Moving Average",
+  "status": "ok",
+  "study": {
+    "id": "5C13zY",
+    "name": "Moving Average"
+  },
+  "success": true
+}

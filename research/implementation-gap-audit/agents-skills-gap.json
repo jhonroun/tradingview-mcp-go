@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-04-27",
+  "summary": {
+    "existing_skills_updated": 11,
+    "new_skills_added": 7,
+    "skills_with_ru_variants": 18,
+    "agents": 3,
+    "agent_client_variants": ["root", "codex", "cline", "windsurf", "gemini", "cursor", "continue"],
+    "ru_agent_variants_created": true
+  },
+  "closed_gaps": [
+    "stale 78/82 current-tool-count assumptions in active EN/RU docs",
+    "missing data_get_indicator_history guidance",
+    "missing data_get_orders guidance",
+    "missing pine_restore_source guidance",
+    "missing bidAskAvailable=false guidance",
+    "missing Strategy Equity plot and loaded_chart_bars caveat",
+    "missing source/reliability/reliableForTradingLogic policy in agents",
+    "missing Russian variants for agents and skills"
+  ],
+  "remaining_limitations": [
+    "TradingView internal paths are undocumented and can change",
+    "full native Strategy Tester bar-by-bar equity is not exposed by the verified report path",
+    "study-limit live cap was not reproduced in the current account/session"
+  ]
+}

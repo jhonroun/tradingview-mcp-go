@@ -1,0 +1,12 @@
+{
+  "name": "status",
+  "command": "go run ./cmd/tv status",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:18:53.2741852+08:00",
+  "finishedAt": "2026-04-27T10:18:53.8455926+08:00",
+  "stdout": "research\\implementation-baseline\\cli-status.stdout.json",
+  "stderr": "research\\implementation-baseline\\cli-status.stderr.txt",
+  "stdoutValidJson": true,
+  "stderrValidJson": false,
+  "parseError": null
+}

@@ -1,0 +1,29 @@
+{
+  "captured_at": "2026-04-27T17:08:57.1818802+08:00",
+  "get_source": {
+    "success": true,
+    "source_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+    "hash": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+    "script_name": "EMA Slope Angle + MACD (Michael) v3",
+    "script_type": "strategy",
+    "pine_version": "6",
+    "line_count": 540,
+    "char_count": 33307
+  },
+  "set_source": {
+    "success": true,
+    "source_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+    "backup_created": true,
+    "backup_path": "research/pine-source-safety/session-20260427T090856.798216000Z/backup.json",
+    "backup_source_path": "research/pine-source-safety/session-20260427T090856.798216000Z/EMA_Slope_Angle___MACD__Michael__v3.pine",
+    "backup_source_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765"
+  },
+  "restore": {
+    "success": true,
+    "restored": true,
+    "verified": true,
+    "expected_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+    "actual_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+    "pre_restore_backup_path": "research/pine-source-safety/session-20260427T090857.135170000Z/backup.json"
+  }
+}

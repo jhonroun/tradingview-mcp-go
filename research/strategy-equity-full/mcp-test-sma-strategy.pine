@@ -1,0 +1,17 @@
+//@version=5
+strategy("MCP Test SMA Strategy", overlay=true)
+
+fast = ta.sma(close, 10)
+slow = ta.sma(close, 20)
+
+longCondition = ta.crossover(fast, slow)
+exitCondition = ta.crossunder(fast, slow)
+
+if longCondition
+    strategy.entry("Long", strategy.long)
+
+if exitCondition
+    strategy.close("Long")
+
+plot(fast, "Fast SMA")
+plot(slow, "Slow SMA")

@@ -1,0 +1,267 @@
+{
+  "captured_at": "2026-04-27T06:08:43.0244492+08:00",
+  "status": {
+    "success": true,
+    "connected": true,
+    "targetUrl": "https://ru.tradingview.com/chart/N2gRlFvI/",
+    "targetId": "202CD1AABDC1E8AE8A45A701E78DF8B0"
+  },
+  "chart_state": {
+    "chartType": 1,
+    "exchange": "RUS",
+    "indicators": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "bzUmEv",
+        "name": "Help system for trade"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "pane_count": 2,
+    "resolution": "1D",
+    "studies": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "bzUmEv",
+        "name": "Help system for trade"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "success": true,
+    "symbol": "RUS:NG1!",
+    "ticker": "NG1!",
+    "timeframe": "1D",
+    "type": "1"
+  },
+  "tradingview_internal": {
+    "activeStrategySource": null,
+    "activeStudies": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "bzUmEv",
+        "name": "Help system for trade"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "activeStudyCount": 3,
+    "backtesting": {
+      "activeStrategy": null,
+      "allStrategies": [],
+      "error": null,
+      "isEmpty": true,
+      "meta": null,
+      "reportIsNull": true,
+      "reportKeys": [],
+      "reportType": null,
+      "status": null
+    },
+    "dataSources": [
+      {
+        "ctor": "zc",
+        "has_data": false,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": false,
+        "has_reportData": false,
+        "id": "BpuvP1",
+        "index": 0,
+        "meta_id": null,
+        "name": null
+      },
+      {
+        "ctor": "gs",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": false,
+        "has_reportData": false,
+        "id": "92ZYoI",
+        "index": 1,
+        "meta_id": null,
+        "name": null
+      },
+      {
+        "ctor": "L",
+        "has_data": false,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": false,
+        "has_reportData": false,
+        "id": "PublishedChartsTimeline",
+        "index": 2,
+        "meta_id": null,
+        "name": null
+      },
+      {
+        "ctor": "Os",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": true,
+        "has_reportData": false,
+        "id": "bzUmEv",
+        "index": 3,
+        "is_price_study": true,
+        "meta_id": "Script$USER;694ab400c92c475989a40bdd09f001c7@tv-scripting",
+        "name": "Help system for trade"
+      },
+      {
+        "ctor": "a",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": true,
+        "has_reportData": false,
+        "id": "MKXrUt",
+        "index": 4,
+        "is_price_study": false,
+        "meta_id": "Volume@tv-basicstudies",
+        "name": "Volume"
+      },
+      {
+        "ctor": "k",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": true,
+        "has_reportData": false,
+        "id": "ESD$TV_DIVIDENDS",
+        "index": 5,
+        "is_price_study": true,
+        "meta_id": "Dividends@tv-basicstudies",
+        "name": "Dividends"
+      },
+      {
+        "ctor": "E",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": true,
+        "has_reportData": false,
+        "id": "ESD$TV_SPLITS",
+        "index": 6,
+        "is_price_study": true,
+        "meta_id": "Splits@tv-basicstudies",
+        "name": "Splits"
+      },
+      {
+        "ctor": "B",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": true,
+        "has_reportData": false,
+        "id": "ESD$TV_EARNINGS",
+        "index": 7,
+        "is_price_study": true,
+        "meta_id": "Earnings@tv-basicstudies",
+        "name": "Earnings"
+      },
+      {
+        "ctor": "k",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": true,
+        "has_reportData": false,
+        "id": "ESD$TV_ROLLDATES",
+        "index": 8,
+        "is_price_study": true,
+        "meta_id": "BarSetContinuousRollDates@tv-corestudies",
+        "name": "Dates calculator for continuous"
+      },
+      {
+        "ctor": "B",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": false,
+        "has_reportData": false,
+        "id": "futures_contract_expiration",
+        "index": 9,
+        "meta_id": null,
+        "name": null
+      },
+      {
+        "ctor": "G",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": false,
+        "has_reportData": false,
+        "id": "latestUpdates",
+        "index": 10,
+        "meta_id": null,
+        "name": null
+      },
+      {
+        "ctor": "Z",
+        "has_data": false,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": false,
+        "has_reportData": false,
+        "id": "ChartEventsSource",
+        "index": 11,
+        "meta_id": null,
+        "name": null
+      },
+      {
+        "ctor": "Os",
+        "has_data": true,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": true,
+        "has_reportData": false,
+        "id": "Vvzmzg",
+        "index": 12,
+        "is_price_study": false,
+        "meta_id": "Script$USER;db7fc27c08544131b136bdc28e8b2595@tv-scripting",
+        "name": "Помошник RSI - True ADX"
+      },
+      {
+        "ctor": "l",
+        "has_data": false,
+        "has_equityData": false,
+        "has_ordersData": false,
+        "has_performance": false,
+        "has_reportData": false,
+        "id": "t87O53",
+        "index": 13,
+        "meta_id": null,
+        "name": null
+      }
+    ],
+    "dataSourcesCount": 14,
+    "hasTradingView": true,
+    "hasTradingViewApi": true,
+    "interval": null,
+    "strategySources": [],
+    "strategySourcesLength": 0,
+    "symbol": "RUS:NG1!"
+  },
+  "pine_editor_backup": {
+    "success": true,
+    "line_count": 540,
+    "char_count": 33307,
+    "sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765"
+  }
+}

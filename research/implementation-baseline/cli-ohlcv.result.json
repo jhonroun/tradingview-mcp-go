@@ -1,0 +1,12 @@
+{
+  "name": "ohlcv",
+  "command": "go run ./cmd/tv ohlcv --count 10 --summary",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:19:01.8354159+08:00",
+  "finishedAt": "2026-04-27T10:19:02.4058166+08:00",
+  "stdout": "research\\implementation-baseline\\cli-ohlcv.stdout.json",
+  "stderr": "research\\implementation-baseline\\cli-ohlcv.stderr.txt",
+  "stdoutValidJson": true,
+  "stderrValidJson": false,
+  "parseError": null
+}

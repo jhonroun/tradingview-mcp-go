@@ -31,11 +31,13 @@ type EvaluateParams struct {
 	Expression    string `json:"expression"`
 	ReturnByValue bool   `json:"returnByValue"`
 	AwaitPromise  bool   `json:"awaitPromise,omitempty"`
+	Timeout       int64  `json:"timeout,omitempty"`
 }
 
 // RemoteObject is a CDP Runtime.RemoteObject.
 type RemoteObject struct {
 	Type        string          `json:"type"`
+	Subtype     string          `json:"subtype,omitempty"`
 	Value       json.RawMessage `json:"value,omitempty"`
 	Description string          `json:"description,omitempty"`
 }

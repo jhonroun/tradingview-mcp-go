@@ -77,3 +77,23 @@ func TestRegisterToolsP6Names(t *testing.T) {
 		t.Errorf("registered %d tools, want %d", len(reg.List()), len(want))
 	}
 }
+
+func TestChartManageIndicatorSchemaIncludesAllowRemoveAny(t *testing.T) {
+	reg := mcp.NewRegistry()
+	RegisterTools(reg)
+
+	for _, tool := range reg.List() {
+		if tool.Name != "chart_manage_indicator" {
+			continue
+		}
+		prop, ok := tool.InputSchema.Properties["allow_remove_any"]
+		if !ok {
+			t.Fatal("chart_manage_indicator schema missing allow_remove_any")
+		}
+		if prop.Type != "boolean" {
+			t.Fatalf("allow_remove_any type = %q, want boolean", prop.Type)
+		}
+		return
+	}
+	t.Fatal("chart_manage_indicator not registered")
+}

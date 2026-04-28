@@ -1,0 +1,142 @@
+{
+  "coverage": "loaded_chart_bars",
+  "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+  "reliableForTradingLogic": true,
+  "source": "tradingview_study_model",
+  "studies": [
+    {
+      "name": "Помошник RSI - True ADX",
+      "entity_id": "Vvzmzg",
+      "plot_count": 6,
+      "plots": [
+        {
+          "name": "DI+",
+          "plot_id": "plot_4",
+          "type": "line",
+          "current": 15.545741865281482,
+          "values": [
+            15.545741865281482
+          ],
+          "value_index": 5,
+          "source": "tradingview_study_model",
+          "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+          "reliableForTradingLogic": true
+        },
+        {
+          "name": "DI-",
+          "plot_id": "plot_5",
+          "type": "line",
+          "current": 29.819614317930682,
+          "values": [
+            29.819614317930682
+          ],
+          "value_index": 6,
+          "source": "tradingview_study_model",
+          "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+          "reliableForTradingLogic": true
+        },
+        {
+          "name": "ADX",
+          "plot_id": "plot_6",
+          "type": "line",
+          "current": 26.293855814935608,
+          "values": [
+            26.293855814935608
+          ],
+          "value_index": 7,
+          "source": "tradingview_study_model",
+          "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+          "reliableForTradingLogic": true
+        },
+        {
+          "name": "RSI",
+          "plot_id": "plot_7",
+          "type": "line",
+          "current": 31.141247635850746,
+          "values": [
+            31.141247635850746
+          ],
+          "value_index": 8,
+          "source": "tradingview_study_model",
+          "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+          "reliableForTradingLogic": true
+        },
+        {
+          "name": "RSI - зона перепроданности",
+          "plot_id": "plot_8",
+          "type": "line",
+          "current": 70,
+          "values": [
+            70
+          ],
+          "value_index": 9,
+          "source": "tradingview_study_model",
+          "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+          "reliableForTradingLogic": true
+        },
+        {
+          "name": "RSI - зона перекупленности",
+          "plot_id": "plot_10",
+          "type": "line",
+          "current": 30,
+          "values": [
+            30
+          ],
+          "value_index": 11,
+          "source": "tradingview_study_model",
+          "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+          "reliableForTradingLogic": true
+        }
+      ],
+      "current_bar_index": 299,
+      "time": 1777096800,
+      "total_bars": 400,
+      "coverage": "loaded_chart_bars",
+      "source": "tradingview_study_model",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "reliableForTradingLogic": true
+    },
+    {
+      "name": "Volume",
+      "entity_id": "cfyrsD",
+      "plot_count": 2,
+      "plots": [
+        {
+          "name": "Volume",
+          "plot_id": "vol",
+          "type": "line",
+          "current": 23122,
+          "values": [
+            23122
+          ],
+          "value_index": 1,
+          "source": "tradingview_study_model",
+          "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+          "reliableForTradingLogic": true
+        },
+        {
+          "name": "Volume MA",
+          "plot_id": "vol_ma",
+          "type": "line",
+          "current": 773583.75,
+          "values": [
+            773583.75
+          ],
+          "value_index": 3,
+          "source": "tradingview_study_model",
+          "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+          "reliableForTradingLogic": true
+        }
+      ],
+      "current_bar_index": 299,
+      "time": 1777096800,
+      "total_bars": 400,
+      "coverage": "loaded_chart_bars",
+      "source": "tradingview_study_model",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "reliableForTradingLogic": true
+    }
+  ],
+  "study_count": 2,
+  "success": true
+}

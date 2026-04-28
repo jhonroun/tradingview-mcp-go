@@ -1,0 +1,88 @@
+{
+  "captured_at": "2026-04-27T11:22:17.7038665+08:00",
+  "tool_count": 84,
+  "has_data_get_orders": true,
+  "chart": {
+    "chartType": 1,
+    "exchange": "RUS",
+    "indicators": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      },
+      {
+        "id": "cfyrsD",
+        "name": "Volume"
+      }
+    ],
+    "pane_count": 3,
+    "resolution": "1D",
+    "studies": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      },
+      {
+        "id": "cfyrsD",
+        "name": "Volume"
+      }
+    ],
+    "success": true,
+    "symbol": "RUS:NG1!",
+    "ticker": "NG1!",
+    "timeframe": "1D",
+    "type": "1"
+  },
+  "strategy_results": {
+    "active_strategy_id": "",
+    "active_strategy_name": "",
+    "error": "No TradingView strategy is loaded on the active chart.",
+    "reliability": "reliable_backtesting_report_unstable_internal_path",
+    "reliableForTradingLogic": false,
+    "source": "tradingview_backtesting_api",
+    "status": "no_strategy_loaded",
+    "strategy_loaded": false,
+    "strategy_source_count": 0,
+    "strategy_sources": [],
+    "success": false
+  },
+  "trades": {
+    "active_strategy_id": "",
+    "active_strategy_name": "",
+    "error": "No TradingView strategy is loaded on the active chart.",
+    "reliability": "reliable_backtesting_report_unstable_internal_path",
+    "reliableForTradingLogic": false,
+    "source": "tradingview_backtesting_api",
+    "status": "no_strategy_loaded",
+    "strategy_loaded": false,
+    "strategy_source_count": 0,
+    "strategy_sources": [],
+    "success": false
+  },
+  "orders": {
+    "active_strategy_id": "",
+    "active_strategy_name": "",
+    "error": "No TradingView strategy is loaded on the active chart.",
+    "reliability": "reliable_backtesting_report_unstable_internal_path",
+    "reliableForTradingLogic": false,
+    "source": "tradingview_backtesting_api",
+    "status": "no_strategy_loaded",
+    "strategy_loaded": false,
+    "strategy_source_count": 0,
+    "strategy_sources": [],
+    "success": false
+  },
+  "equity": {
+    "active_strategy_id": "",
+    "active_strategy_name": "",
+    "error": "No TradingView strategy is loaded on the active chart.",
+    "reliability": "reliable_backtesting_report_unstable_internal_path",
+    "reliableForTradingLogic": false,
+    "source": "tradingview_backtesting_api",
+    "status": "no_strategy_loaded",
+    "strategy_loaded": false,
+    "strategy_source_count": 0,
+    "strategy_sources": [],
+    "success": false
+  }
+}

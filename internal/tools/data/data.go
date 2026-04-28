@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"sort"
+	"strings"
 	"time"
 
 	"github.com/jhonroun/tradingview-mcp-go/internal/cdp"
@@ -16,6 +18,7 @@ import (
 const (
 	maxOHLCVBars = 500
 	maxTrades    = 20
+	maxOrders    = 50
 )
 
 // ---------- helpers ----------
@@ -159,17 +162,17 @@ func GetOhlcv(count int, summary bool) (map[string]interface{}, error) {
 			tail = tail[len(tail)-5:]
 		}
 		return map[string]interface{}{
-			"success":   true,
-			"bar_count": len(bars),
-			"period":    map[string]interface{}{"from": first.Time, "to": last.Time},
-			"open":      first.Open,
-			"close":     last.Close,
-			"high":      round2(hi),
-			"low":       round2(lo),
-			"range":     round2(hi - lo),
-			"change":    chg,
-			"change_pct": chgPct,
-			"avg_volume": math.Round(volSum / n),
+			"success":     true,
+			"bar_count":   len(bars),
+			"period":      map[string]interface{}{"from": first.Time, "to": last.Time},
+			"open":        first.Open,
+			"close":       last.Close,
+			"high":        round2(hi),
+			"low":         round2(lo),
+			"range":       round2(hi - lo),
+			"change":      chg,
+			"change_pct":  chgPct,
+			"avg_volume":  math.Round(volSum / n),
 			"last_5_bars": tail,
 		}, nil
 	}
@@ -224,12 +227,12 @@ func GetQuote(symbol string) (map[string]interface{}, error) {
 		try {
 			var bidEl = document.querySelector('[class*="bid"] [class*="price"], [class*="dom-"] [class*="bid"]');
 			var askEl = document.querySelector('[class*="ask"] [class*="price"], [class*="dom-"] [class*="ask"]');
-			if (bidEl) { var b = parseFloat(bidEl.textContent.replace(/[^0-9.\-]/g, '')); if (!isNaN(b)) quote.bid = b; }
-			if (askEl) { var a = parseFloat(askEl.textContent.replace(/[^0-9.\-]/g, '')); if (!isNaN(a)) quote.ask = a; }
+			if (bidEl) quote.bid_display_value = bidEl.textContent.trim();
+			if (askEl) quote.ask_display_value = askEl.textContent.trim();
 		} catch(e) {}
 		try {
 			var hdr = document.querySelector('[class*="headerRow"] [class*="last-"]');
-			if (hdr) { var hdrPrice = parseFloat(hdr.textContent.replace(/[^0-9.\-]/g, '')); if (!isNaN(hdrPrice)) quote.header_price = hdrPrice; }
+			if (hdr) quote.header_price_display_value = hdr.textContent.trim();
 		} catch(e) {}
 		if (ext.description) quote.description = ext.description;
 		if (ext.exchange)    quote.exchange    = ext.exchange;
@@ -251,14 +254,101 @@ func GetQuote(symbol string) (map[string]interface{}, error) {
 	if q["last"] == nil && q["close"] == nil {
 		return nil, fmt.Errorf("could not retrieve quote; the chart may still be loading")
 	}
+	if s, ok := q["bid_display_value"].(string); ok {
+		if v, ok := ParseDisplayNumber(s); ok {
+			q["bid"] = v
+			q["bid_source"] = SourceTradingViewUIDOM
+			q["bid_reliability"] = ReliabilityDisplayValueLocalizedUIString
+		}
+	}
+	if s, ok := q["ask_display_value"].(string); ok {
+		if v, ok := ParseDisplayNumber(s); ok {
+			q["ask"] = v
+			q["ask_source"] = SourceTradingViewUIDOM
+			q["ask_reliability"] = ReliabilityDisplayValueLocalizedUIString
+		}
+	}
+	if s, ok := q["header_price_display_value"].(string); ok {
+		if v, ok := ParseDisplayNumber(s); ok {
+			q["header_price"] = v
+			q["header_price_source"] = SourceTradingViewUIDOM
+			q["header_price_reliability"] = ReliabilityDisplayValueLocalizedUIString
+		}
+	}
 	// Sentinel guarantees: bid/ask/change/change_pct are always numeric.
 	for _, key := range []string{"bid", "ask", "change", "change_pct"} {
 		if q[key] == nil {
 			q[key] = float64(0)
 		}
 	}
+	markQuoteBidAskAvailability(q)
 	q["success"] = true
 	return q, nil
+}
+
+func markQuoteBidAskAvailability(q map[string]interface{}) {
+	bid, bidNumber := numberValue(q["bid"])
+	ask, askNumber := numberValue(q["ask"])
+	bidAvailable := bidNumber && bid > 0
+	askAvailable := askNumber && ask > 0
+
+	q["bidAvailable"] = bidAvailable
+	q["askAvailable"] = askAvailable
+	q["bidAskAvailable"] = bidAvailable && askAvailable
+
+	if bidAvailable && askAvailable {
+		if q["bid_source"] == nil {
+			q["bid_source"] = "tradingview_quote"
+		}
+		if q["ask_source"] == nil {
+			q["ask_source"] = "tradingview_quote"
+		}
+		return
+	}
+
+	q["sourceLimitation"] = "tradingview_bid_ask_unavailable"
+	q["warning"] = "TradingView did not expose usable bid/ask for this symbol; bid and ask are zero sentinels and must not be treated as executable quotes."
+	if isMOEXFuturesQuote(q) {
+		q["sourceLimitation"] = "tradingview_moex_futures_bid_ask_unavailable"
+		q["warning"] = "TradingView did not expose usable bid/ask for this MOEX futures symbol; bid and ask are zero sentinels and must not be treated as executable quotes."
+	}
+	if !bidAvailable {
+		q["bid_source"] = "tradingview_unavailable"
+	}
+	if !askAvailable {
+		q["ask_source"] = "tradingview_unavailable"
+	}
+}
+
+func isMOEXFuturesQuote(q map[string]interface{}) bool {
+	exchange := lowerString(q["exchange"])
+	symbol := lowerString(q["symbol"])
+	typ := lowerString(q["type"])
+	return exchange == "rus" && (typ == "futures" || strings.Contains(symbol, "!"))
+}
+
+func lowerString(v interface{}) string {
+	s, _ := v.(string)
+	return strings.ToLower(strings.TrimSpace(s))
+}
+
+func numberValue(v interface{}) (float64, bool) {
+	switch n := v.(type) {
+	case float64:
+		return n, !math.IsNaN(n) && !math.IsInf(n, 0)
+	case float32:
+		f := float64(n)
+		return f, !math.IsNaN(f) && !math.IsInf(f, 0)
+	case int:
+		return float64(n), true
+	case int64:
+		return float64(n), true
+	case json.Number:
+		f, err := n.Float64()
+		return f, err == nil && !math.IsNaN(f) && !math.IsInf(f, 0)
+	default:
+		return 0, false
+	}
 }
 
 // ---------- Study values ----------
@@ -266,90 +356,117 @@ func GetQuote(symbol string) (map[string]interface{}, error) {
 // StudyPlot is one output line of an indicator (e.g. "RSI", "Signal", "Histogram").
 // values[0] is the current bar; the array holds only what dataWindowView exposes.
 type StudyPlot struct {
-	Name    string    `json:"name"`
-	Current *float64  `json:"current"`
-	Values  []float64 `json:"values"`
+	Name                    string    `json:"name"`
+	PlotID                  string    `json:"plot_id,omitempty"`
+	Type                    string    `json:"type,omitempty"`
+	Current                 *float64  `json:"current"`
+	Values                  []float64 `json:"values"`
+	ValueIndex              int       `json:"value_index,omitempty"`
+	IsHidden                bool      `json:"is_hidden,omitempty"`
+	DisplayValue            string    `json:"display_value,omitempty"`
+	Source                  string    `json:"source,omitempty"`
+	Reliability             string    `json:"reliability,omitempty"`
+	ReliableForTradingLogic bool      `json:"reliableForTradingLogic"`
 }
 
 // StudyResult is one indicator entry in data_get_study_values.
 type StudyResult struct {
-	Name      string      `json:"name"`
-	EntityID  string      `json:"entity_id"`
-	PlotCount int         `json:"plot_count"`
-	Plots     []StudyPlot `json:"plots"`
+	Name                    string      `json:"name"`
+	EntityID                string      `json:"entity_id"`
+	PlotCount               int         `json:"plot_count"`
+	Plots                   []StudyPlot `json:"plots"`
+	CurrentBarIndex         *int        `json:"current_bar_index,omitempty"`
+	Time                    *int64      `json:"time,omitempty"`
+	TotalBars               int         `json:"total_bars,omitempty"`
+	Coverage                string      `json:"coverage,omitempty"`
+	Source                  string      `json:"source,omitempty"`
+	Reliability             string      `json:"reliability,omitempty"`
+	ReliableForTradingLogic bool        `json:"reliableForTradingLogic"`
+}
+
+type rawStudyPlot struct {
+	Name         string `json:"name"`
+	DisplayValue string `json:"display_value"`
+}
+
+type rawStudyResult struct {
+	Name      string         `json:"name"`
+	EntityID  string         `json:"entity_id"`
+	PlotCount int            `json:"plot_count"`
+	Plots     []rawStudyPlot `json:"plots"`
 }
 
 func GetStudyValues() (map[string]interface{}, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	const expr = `(function() {
-		var chart = window.TradingViewApi._activeChartWidgetWV.value()._chartWidget;
-		var model = chart.model();
-		var sources = model.model().dataSources();
-		var results = [];
-		for (var si = 0; si < sources.length; si++) {
-			var s = sources[si];
-			if (!s.metaInfo) continue;
-			try {
-				var meta = s.metaInfo();
-				var name = meta.description || meta.shortDescription || '';
-				if (!name) continue;
-				var entityId = '';
-				try { entityId = String(typeof s.id === 'function' ? s.id() : (s.id || '')); } catch(e) {}
-				var plots = [];
-				try {
-					var dwv = s.dataWindowView();
-					if (dwv) {
-						var items = dwv.items();
-						if (items) {
-							for (var i = 0; i < items.length; i++) {
-								var item = items[i];
-								if (item._value && item._value !== '∅' && item._title) {
-									var numStr = String(item._value).replace(/,/g, '');
-									var numVal = parseFloat(numStr);
-									var current = isFinite(numVal) ? numVal : null;
-									plots.push({
-										name: item._title,
-										current: current,
-										values: current !== null ? [current] : []
-									});
-								}
-							}
-						}
-					}
-				} catch(e) {}
-				if (plots.length > 0) {
-					results.push({
-						name: name,
-						entity_id: entityId,
-						plot_count: plots.length,
-						plots: plots
-					});
-				}
-			} catch(e) {}
-		}
-		return results;
-	})()`
-
 	raw, err := withSession(ctx, func(c *cdp.Client) (json.RawMessage, error) {
-		return c.Evaluate(ctx, expr, false)
+		return c.Evaluate(ctx, buildStudyModelJS(studyModelQuery{}, 0, false, true), false)
 	})
 	if err != nil {
 		return nil, err
 	}
-	var studies []StudyResult
-	if err := json.Unmarshal(raw, &studies); err != nil {
+	var result struct {
+		Studies []StudyResult `json:"studies"`
+	}
+	if err := json.Unmarshal(raw, &result); err != nil {
 		return nil, fmt.Errorf("parse study values: %w", err)
 	}
-	if studies == nil {
-		studies = []StudyResult{}
+	if result.Studies == nil {
+		result.Studies = []StudyResult{}
 	}
 	return map[string]interface{}{
-		"success":     true,
-		"study_count": len(studies),
-		"studies":     studies,
+		"success":                 true,
+		"study_count":             len(result.Studies),
+		"source":                  SourceTradingViewStudyModel,
+		"reliability":             ReliabilityPineRuntimeUnstableInternal,
+		"reliableForTradingLogic": reliableForTradingLogicFromStudyModel,
+		"coverage":                "loaded_chart_bars",
+		"studies":                 result.Studies,
 	}, nil
+}
+
+func normalizeRawStudyResults(rawStudies []rawStudyResult) []StudyResult {
+	if rawStudies == nil {
+		return []StudyResult{}
+	}
+	studies := make([]StudyResult, 0, len(rawStudies))
+	for _, rawStudy := range rawStudies {
+		plots := normalizeRawStudyPlots(rawStudy.Plots)
+		studies = append(studies, StudyResult{
+			Name:                    rawStudy.Name,
+			EntityID:                rawStudy.EntityID,
+			PlotCount:               len(plots),
+			Plots:                   plots,
+			Source:                  SourceTradingViewUIDataWindow,
+			Reliability:             ReliabilityDisplayValueLocalizedUIString,
+			ReliableForTradingLogic: reliableForTradingLogicFromDisplayStrings,
+		})
+	}
+	return studies
+}
+
+func normalizeRawStudyPlots(rawPlots []rawStudyPlot) []StudyPlot {
+	if rawPlots == nil {
+		return []StudyPlot{}
+	}
+	plots := make([]StudyPlot, 0, len(rawPlots))
+	for _, rawPlot := range rawPlots {
+		plot := StudyPlot{
+			Name:                    rawPlot.Name,
+			DisplayValue:            rawPlot.DisplayValue,
+			Source:                  SourceTradingViewUIDataWindow,
+			Reliability:             ReliabilityDisplayValueLocalizedUIString,
+			ReliableForTradingLogic: reliableForTradingLogicFromDisplayStrings,
+			Values:                  []float64{},
+		}
+		if current, ok := ParseDisplayNumber(rawPlot.DisplayValue); ok {
+			plot.Current = &current
+			plot.Values = []float64{current}
+		}
+		plots = append(plots, plot)
+	}
+	return plots
 }
 
 // ---------- Pine graphics ----------
@@ -395,8 +512,8 @@ func GetPineLines(studyFilter string, verbose bool) (map[string]interface{}, err
 	}
 
 	type lineRaw struct {
-		Y1 *float64 `json:"y1"`
-		Y2 *float64 `json:"y2"`
+		Y1 *float64    `json:"y1"`
+		Y2 *float64    `json:"y2"`
 		X1 interface{} `json:"x1"`
 		X2 interface{} `json:"x2"`
 		St interface{} `json:"st"`
@@ -404,10 +521,10 @@ func GetPineLines(studyFilter string, verbose bool) (map[string]interface{}, err
 		Ci interface{} `json:"ci"`
 	}
 	type studyOut struct {
-		Name             string        `json:"name"`
-		TotalLines       int           `json:"total_lines"`
-		HorizontalLevels []float64     `json:"horizontal_levels"`
-		AllLines         interface{}   `json:"all_lines,omitempty"`
+		Name             string      `json:"name"`
+		TotalLines       int         `json:"total_lines"`
+		HorizontalLevels []float64   `json:"horizontal_levels"`
+		AllLines         interface{} `json:"all_lines,omitempty"`
 	}
 
 	studies := make([]studyOut, 0, len(raw))
@@ -427,12 +544,18 @@ func GetPineLines(studyFilter string, verbose bool) (map[string]interface{}, err
 			}
 			if verbose {
 				var y1, y2 *float64
-				if v.Y1 != nil { r2 := round2(*v.Y1); y1 = &r2 }
-				if v.Y2 != nil { r2 := round2(*v.Y2); y2 = &r2 }
+				if v.Y1 != nil {
+					r2 := round2(*v.Y1)
+					y1 = &r2
+				}
+				if v.Y2 != nil {
+					r2 := round2(*v.Y2)
+					y2 = &r2
+				}
 				allLines = append(allLines, map[string]interface{}{
 					"id": item.ID, "y1": y1, "y2": y2, "x1": v.X1, "x2": v.X2,
 					"horizontal": v.Y1 != nil && v.Y2 != nil && *v.Y1 == *v.Y2,
-					"style": v.St, "width": v.W, "color": v.Ci,
+					"style":      v.St, "width": v.W, "color": v.Ci,
 				})
 			}
 		}
@@ -476,11 +599,11 @@ func GetPineLabels(studyFilter string, maxLabels int, verbose bool) (map[string]
 	}
 
 	type labelRaw struct {
-		T  string   `json:"t"`
-		Y  *float64 `json:"y"`
-		X  interface{} `json:"x"`
-		Yl interface{} `json:"yl"`
-		Sz interface{} `json:"sz"`
+		T   string      `json:"t"`
+		Y   *float64    `json:"y"`
+		X   interface{} `json:"x"`
+		Yl  interface{} `json:"yl"`
+		Sz  interface{} `json:"sz"`
 		Tci interface{} `json:"tci"`
 		Ci  interface{} `json:"ci"`
 	}
@@ -499,7 +622,10 @@ func GetPineLabels(studyFilter string, maxLabels int, verbose bool) (map[string]
 			var v labelRaw
 			_ = json.Unmarshal(item.Raw, &v)
 			var price *float64
-			if v.Y != nil { r2 := round2(*v.Y); price = &r2 }
+			if v.Y != nil {
+				r2 := round2(*v.Y)
+				price = &r2
+			}
 			if v.T == "" && price == nil {
 				continue
 			}
@@ -611,8 +737,8 @@ func GetPineBoxes(studyFilter string, verbose bool) (map[string]interface{}, err
 	}
 
 	type boxRaw struct {
-		Y1 *float64 `json:"y1"`
-		Y2 *float64 `json:"y2"`
+		Y1 *float64    `json:"y1"`
+		Y2 *float64    `json:"y2"`
 		X1 interface{} `json:"x1"`
 		X2 interface{} `json:"x2"`
 		C  interface{} `json:"c"`
@@ -624,10 +750,10 @@ func GetPineBoxes(studyFilter string, verbose bool) (map[string]interface{}, err
 		Low  float64 `json:"low"`
 	}
 	type studyOut struct {
-		Name       string        `json:"name"`
-		TotalBoxes int           `json:"total_boxes"`
-		Zones      []zone        `json:"zones"`
-		AllBoxes   interface{}   `json:"all_boxes,omitempty"`
+		Name       string      `json:"name"`
+		TotalBoxes int         `json:"total_boxes"`
+		Zones      []zone      `json:"zones"`
+		AllBoxes   interface{} `json:"all_boxes,omitempty"`
 	}
 
 	studies := make([]studyOut, 0, len(raw))
@@ -674,310 +800,43 @@ func GetPineBoxes(studyFilter string, verbose bool) (map[string]interface{}, err
 // ---------- Indicator ----------
 
 func GetIndicator(entityID string) (map[string]interface{}, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	expr := fmt.Sprintf(`(function() {
-		var sid = %s;
-		var api = `+tv.ChartAPI+`;
-		var study = api.getStudyById(sid);
-		if (!study) return { error: 'Study not found: ' + sid };
-		var result = { entity_id: sid, name: '', visible: null, inputs: {}, plots: [] };
-		try { result.visible = study.isVisible(); } catch(e) {}
-		// Name from metaInfo
-		try {
-			var meta = study.metaInfo ? study.metaInfo() : null;
-			if (meta) result.name = meta.description || meta.shortDescription || '';
-		} catch(e) {}
-		// Inputs: convert array of {id, value} → key→value map, filter oversized strings
-		try {
-			var rawInputs = study.getInputValues();
-			var inputs = {};
-			if (rawInputs && rawInputs.length) {
-				for (var i = 0; i < rawInputs.length; i++) {
-					var inp = rawInputs[i];
-					if (!inp || !inp.id || inp.value === undefined) continue;
-					var val = inp.value;
-					if (typeof val === 'string' && val.length > 500) continue;
-					if (typeof val === 'string' && inp.id === 'text' && val.length > 200) continue;
-					if (typeof val === 'string' && val.length > 200) val = val.substring(0, 200) + '...(truncated)';
-					inputs[inp.id] = val;
-				}
-			}
-			result.inputs = inputs;
-		} catch(e) { result.inputs = {}; }
-		// Plots: read current values from dataWindowView of this source
-		try {
-			var chart = window.TradingViewApi._activeChartWidgetWV.value()._chartWidget;
-			var sources = chart.model().model().dataSources();
-			for (var si = 0; si < sources.length; si++) {
-				var s = sources[si];
-				var sId = String(typeof s.id === 'function' ? s.id() : (s.id || ''));
-				if (sId !== sid) continue;
-				var plots = [];
-				var dwv = s.dataWindowView ? s.dataWindowView() : null;
-				if (dwv) {
-					var items = dwv.items ? dwv.items() : null;
-					if (items) {
-						for (var pi = 0; pi < items.length; pi++) {
-							var item = items[pi];
-							if (item._value && item._value !== '∅' && item._title) {
-								var numVal = parseFloat(String(item._value).replace(/,/g, ''));
-								var cur = isFinite(numVal) ? numVal : null;
-								plots.push({ name: item._title, current: cur, values: cur !== null ? [cur] : [] });
-							}
-						}
-					}
-				}
-				result.plots = plots;
-				break;
-			}
-		} catch(e) {}
-		return result;
-	})()`, tv.SafeString(entityID))
-
-	raw, err := withSession(ctx, func(c *cdp.Client) (json.RawMessage, error) {
-		return c.Evaluate(ctx, expr, false)
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	var data map[string]interface{}
-	if err := json.Unmarshal(raw, &data); err != nil {
-		return nil, fmt.Errorf("parse indicator: %w", err)
-	}
-	if errMsg, ok := data["error"].(string); ok {
-		return nil, fmt.Errorf("%s", errMsg)
-	}
-
-	// Ensure contract fields always present even if JS didn't set them.
-	if _, ok := data["inputs"]; !ok {
-		data["inputs"] = map[string]interface{}{}
-	}
-	if _, ok := data["plots"]; !ok {
-		data["plots"] = []interface{}{}
-	}
-	if _, ok := data["name"]; !ok {
-		data["name"] = ""
-	}
-
-	data["success"] = true
-	data["entity_id"] = entityID
-	return data, nil
+	return GetIndicatorByQuery(entityID, "")
 }
 
 // ---------- Strategy ----------
 
-const strategySourcesJS = tv.ChartAPI + `._chartWidget.model().model().dataSources()`
-
 func GetStrategyResults() (map[string]interface{}, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-
-	const expr = `(function() {
-		try {
-			var chart = ` + tv.ChartAPI + `._chartWidget;
-			var sources = chart.model().model().dataSources();
-			var strat = null;
-			for (var i = 0; i < sources.length; i++) {
-				var s = sources[i];
-				if (s.metaInfo && s.metaInfo().is_price_study === false && (s.reportData || s.performance)) { strat = s; break; }
-			}
-			if (!strat) return {metrics: {}, source: 'internal_api', error: 'No strategy found on chart. Add a strategy indicator first.'};
-			var metrics = {};
-			if (strat.reportData) {
-				var rd = typeof strat.reportData === 'function' ? strat.reportData() : strat.reportData;
-				if (rd && typeof rd === 'object') {
-					if (typeof rd.value === 'function') rd = rd.value();
-					if (rd) { var keys = Object.keys(rd); for (var k = 0; k < keys.length; k++) { var val = rd[keys[k]]; if (val !== null && val !== undefined && typeof val !== 'function') metrics[keys[k]] = val; } }
-				}
-			}
-			if (Object.keys(metrics).length === 0 && strat.performance) {
-				var perf = strat.performance();
-				if (perf && typeof perf.value === 'function') perf = perf.value();
-				if (perf && typeof perf === 'object') { var pkeys = Object.keys(perf); for (var p = 0; p < pkeys.length; p++) { var pval = perf[pkeys[p]]; if (pval !== null && pval !== undefined && typeof pval !== 'function') metrics[pkeys[p]] = pval; } }
-			}
-			return {metrics: metrics, source: 'internal_api'};
-		} catch(e) { return {metrics: {}, source: 'internal_api', error: e.message}; }
-	})()`
-
-	raw, err := withSession(ctx, func(c *cdp.Client) (json.RawMessage, error) {
-		return c.Evaluate(ctx, expr, false)
-	})
-	if err != nil {
-		return nil, err
-	}
-	var result struct {
-		Metrics map[string]interface{} `json:"metrics"`
-		Source  string                 `json:"source"`
-		Error   string                 `json:"error,omitempty"`
-	}
-	if err := json.Unmarshal(raw, &result); err != nil {
-		return nil, fmt.Errorf("parse strategy results: %w", err)
-	}
-	out := map[string]interface{}{
-		"success":      true,
-		"metric_count": len(result.Metrics),
-		"source":       result.Source,
-		"metrics":      result.Metrics,
-	}
-	if result.Error != "" {
-		out["error"] = result.Error
-	}
-	return out, nil
+	return evaluateStrategyReport(strategyReportModeSummary, 0)
 }
 
-func GetTrades(maxTrades int) (map[string]interface{}, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
+func GetTrades(maxTradeCount int) (map[string]interface{}, error) {
+	return evaluateStrategyReport(strategyReportModeTrades, clampStrategyLimit(maxTradeCount, maxTrades, maxTrades))
+}
 
-	limit := maxTrades
-	if limit <= 0 {
-		limit = 20
-	}
-	if limit > maxTrades {
-		limit = maxTrades
-	}
-
-	expr := fmt.Sprintf(`(function() {
-		try {
-			var chart = `+tv.ChartAPI+`._chartWidget;
-			var sources = chart.model().model().dataSources();
-			var strat = null;
-			for (var i = 0; i < sources.length; i++) {
-				var s = sources[i];
-				if (s.metaInfo && s.metaInfo().is_price_study === false && (s.ordersData || s.reportData)) { strat = s; break; }
-			}
-			if (!strat) return {trades: [], source: 'internal_api', error: 'No strategy found on chart.'};
-			var orders = null;
-			if (strat.ordersData) { orders = typeof strat.ordersData === 'function' ? strat.ordersData() : strat.ordersData; if (orders && typeof orders.value === 'function') orders = orders.value(); }
-			if (!orders || !Array.isArray(orders)) {
-				if (strat._orders) orders = strat._orders;
-				else if (strat.tradesData) { orders = typeof strat.tradesData === 'function' ? strat.tradesData() : strat.tradesData; if (orders && typeof orders.value === 'function') orders = orders.value(); }
-			}
-			if (!orders || !Array.isArray(orders)) return {trades: [], source: 'internal_api', error: 'ordersData() returned non-array.'};
-			var result = [];
-			for (var t = 0; t < Math.min(orders.length, %d); t++) {
-				var o = orders[t];
-				if (typeof o === 'object' && o !== null) {
-					var trade = {};
-					var okeys = Object.keys(o);
-					for (var k = 0; k < okeys.length; k++) { var v = o[okeys[k]]; if (v !== null && v !== undefined && typeof v !== 'function' && typeof v !== 'object') trade[okeys[k]] = v; }
-					result.push(trade);
-				}
-			}
-			return {trades: result, source: 'internal_api'};
-		} catch(e) { return {trades: [], source: 'internal_api', error: e.message}; }
-	})()`, limit)
-
-	raw, err := withSession(ctx, func(c *cdp.Client) (json.RawMessage, error) {
-		return c.Evaluate(ctx, expr, false)
-	})
-	if err != nil {
-		return nil, err
-	}
-	var result struct {
-		Trades []interface{} `json:"trades"`
-		Source string        `json:"source"`
-		Error  string        `json:"error,omitempty"`
-	}
-	if err := json.Unmarshal(raw, &result); err != nil {
-		return nil, fmt.Errorf("parse trades: %w", err)
-	}
-	if result.Trades == nil {
-		result.Trades = []interface{}{}
-	}
-	out := map[string]interface{}{
-		"success":     true,
-		"trade_count": len(result.Trades),
-		"source":      result.Source,
-		"trades":      result.Trades,
-	}
-	if result.Error != "" {
-		out["error"] = result.Error
-	}
-	return out, nil
+func GetOrders(maxOrderCount int) (map[string]interface{}, error) {
+	return evaluateStrategyReport(strategyReportModeOrders, clampStrategyLimit(maxOrderCount, maxOrders, maxOrders))
 }
 
 func GetEquity() (map[string]interface{}, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-
-	const expr = `(function() {
-		try {
-			var chart = ` + tv.ChartAPI + `._chartWidget;
-			var sources = chart.model().model().dataSources();
-			var strat = null;
-			for (var i = 0; i < sources.length; i++) {
-				var s = sources[i];
-				if (s.metaInfo && s.metaInfo().is_price_study === false && (s.reportData || s.performance)) { strat = s; break; }
-			}
-			if (!strat) return {data: [], source: 'internal_api', error: 'No strategy found on chart.'};
-			var data = [];
-			if (strat.equityData) {
-				var eq = typeof strat.equityData === 'function' ? strat.equityData() : strat.equityData;
-				if (eq && typeof eq.value === 'function') eq = eq.value();
-				if (Array.isArray(eq)) data = eq;
-			}
-			if (data.length === 0 && strat.bars) {
-				var bars = typeof strat.bars === 'function' ? strat.bars() : strat.bars;
-				if (bars && typeof bars.lastIndex === 'function') {
-					var end = bars.lastIndex(); var start = bars.firstIndex();
-					for (var i = start; i <= end; i++) { var v = bars.valueAt(i); if (v) data.push({time: v[0], equity: v[1], drawdown: v[2] || null}); }
-				}
-			}
-			if (data.length === 0) {
-				var perfData = {};
-				if (strat.performance) {
-					var perf = strat.performance();
-					if (perf && typeof perf.value === 'function') perf = perf.value();
-					if (perf && typeof perf === 'object') { var pkeys = Object.keys(perf); for (var p = 0; p < pkeys.length; p++) { if (/equity|drawdown|profit|net/i.test(pkeys[p])) perfData[pkeys[p]] = perf[pkeys[p]]; } }
-				}
-				if (Object.keys(perfData).length > 0) return {data: [], equity_summary: perfData, source: 'internal_api', note: 'Full equity curve not available; equity summary returned.'};
-			}
-			return {data: data, source: 'internal_api'};
-		} catch(e) { return {data: [], source: 'internal_api', error: e.message}; }
-	})()`
-
-	raw, err := withSession(ctx, func(c *cdp.Client) (json.RawMessage, error) {
-		return c.Evaluate(ctx, expr, false)
-	})
-	if err != nil {
-		return nil, err
-	}
-	var result struct {
-		Data          []interface{}          `json:"data"`
-		EquitySummary map[string]interface{} `json:"equity_summary,omitempty"`
-		Source        string                 `json:"source"`
-		Note          string                 `json:"note,omitempty"`
-		Error         string                 `json:"error,omitempty"`
-	}
-	if err := json.Unmarshal(raw, &result); err != nil {
-		return nil, fmt.Errorf("parse equity: %w", err)
-	}
-	if result.Data == nil {
-		result.Data = []interface{}{}
-	}
-	out := map[string]interface{}{
-		"success":     true,
-		"data_points": len(result.Data),
-		"source":      result.Source,
-		"data":        result.Data,
-	}
-	if result.EquitySummary != nil {
-		out["equity_summary"] = result.EquitySummary
-	}
-	if result.Note != "" {
-		out["note"] = result.Note
-	}
-	if result.Error != "" {
-		out["error"] = result.Error
-	}
-	return out, nil
+	return evaluateStrategyReport(strategyReportModeEquity, maxOHLCVBars)
 }
 
 // ---------- DOM / Depth ----------
+
+type rawDepthLevel struct {
+	PriceDisplayValue string `json:"price_display_value"`
+	SizeDisplayValue  string `json:"size_display_value,omitempty"`
+}
+
+type depthLevel struct {
+	Price                   float64 `json:"price"`
+	Size                    float64 `json:"size"`
+	PriceDisplayValue       string  `json:"price_display_value,omitempty"`
+	SizeDisplayValue        string  `json:"size_display_value,omitempty"`
+	Source                  string  `json:"source"`
+	Reliability             string  `json:"reliability"`
+	ReliableForTradingLogic bool    `json:"reliableForTradingLogic"`
+}
 
 func GetDepth() (map[string]interface{}, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -997,27 +856,24 @@ func GetDepth() (map[string]interface{}, error) {
 			var priceEl = row.querySelector('[class*="price"]');
 			var sizeEl  = row.querySelector('[class*="size"], [class*="volume"], [class*="qty"]');
 			if (!priceEl) continue;
-			var price = parseFloat(priceEl.textContent.replace(/[^0-9.\-]/g, ''));
-			var size  = sizeEl ? parseFloat(sizeEl.textContent.replace(/[^0-9.\-]/g, '')) : 0;
-			if (isNaN(price)) continue;
+			var level = {
+				price_display_value: priceEl.textContent.trim(),
+				size_display_value: sizeEl ? sizeEl.textContent.trim() : ''
+			};
 			var rowClass = row.className || '';
 			var rowHTML  = row.innerHTML  || '';
-			if (/bid|buy/i.test(rowClass)  || /bid|buy/i.test(rowHTML))  bids.push({ price: price, size: size });
-			else if (/ask|sell/i.test(rowClass) || /ask|sell/i.test(rowHTML)) asks.push({ price: price, size: size });
-			else if (i < rows.length / 2) asks.push({ price: price, size: size });
-			else bids.push({ price: price, size: size });
+			if (/bid|buy/i.test(rowClass)  || /bid|buy/i.test(rowHTML))  bids.push(level);
+			else if (/ask|sell/i.test(rowClass) || /ask|sell/i.test(rowHTML)) asks.push(level);
+			else if (i < rows.length / 2) asks.push(level);
+			else bids.push(level);
 		}
 		if (bids.length === 0 && asks.length === 0) {
 			var cells = domPanel.querySelectorAll('[class*="cell"], td');
 			var prices = [];
-			cells.forEach(function(c) { var val = parseFloat(c.textContent.replace(/[^0-9.\-]/g, '')); if (!isNaN(val) && val > 0) prices.push(val); });
+			cells.forEach(function(c) { var val = c.textContent.trim(); if (val) prices.push(val); });
 			if (prices.length > 0) return { found: true, raw_values: prices.slice(0, 50), bids: [], asks: [], note: 'Could not classify bid/ask levels.' };
 		}
-		bids.sort(function(a, b) { return b.price - a.price; });
-		asks.sort(function(a, b) { return a.price - b.price; });
-		var spread = null;
-		if (asks.length > 0 && bids.length > 0) spread = +(asks[0].price - bids[0].price).toFixed(6);
-		return { found: true, bids: bids, asks: asks, spread: spread };
+		return { found: true, bids: bids, asks: asks };
 	})()`
 
 	raw, err := withSession(ctx, func(c *cdp.Client) (json.RawMessage, error) {
@@ -1027,13 +883,12 @@ func GetDepth() (map[string]interface{}, error) {
 		return nil, err
 	}
 	var result struct {
-		Found     bool          `json:"found"`
-		Bids      []interface{} `json:"bids"`
-		Asks      []interface{} `json:"asks"`
-		Spread    *float64      `json:"spread"`
-		RawValues []interface{} `json:"raw_values,omitempty"`
-		Note      string        `json:"note,omitempty"`
-		Error     string        `json:"error,omitempty"`
+		Found     bool            `json:"found"`
+		Bids      []rawDepthLevel `json:"bids"`
+		Asks      []rawDepthLevel `json:"asks"`
+		RawValues []string        `json:"raw_values,omitempty"`
+		Note      string          `json:"note,omitempty"`
+		Error     string          `json:"error,omitempty"`
 	}
 	if err := json.Unmarshal(raw, &result); err != nil {
 		return nil, fmt.Errorf("parse depth: %w", err)
@@ -1041,27 +896,74 @@ func GetDepth() (map[string]interface{}, error) {
 	if !result.Found {
 		return nil, fmt.Errorf("%s", coalesce(result.Error, "DOM panel not found"))
 	}
-	if result.Bids == nil {
-		result.Bids = []interface{}{}
-	}
-	if result.Asks == nil {
-		result.Asks = []interface{}{}
+	bids := normalizeDepthLevels(result.Bids)
+	asks := normalizeDepthLevels(result.Asks)
+	sort.Slice(bids, func(i, j int) bool { return bids[i].Price > bids[j].Price })
+	sort.Slice(asks, func(i, j int) bool { return asks[i].Price < asks[j].Price })
+	var spread *float64
+	if len(asks) > 0 && len(bids) > 0 {
+		v := round6(asks[0].Price - bids[0].Price)
+		spread = &v
 	}
 	out := map[string]interface{}{
-		"success":    true,
-		"bid_levels": len(result.Bids),
-		"ask_levels": len(result.Asks),
-		"spread":     result.Spread,
-		"bids":       result.Bids,
-		"asks":       result.Asks,
+		"success":                 true,
+		"bid_levels":              len(bids),
+		"ask_levels":              len(asks),
+		"spread":                  spread,
+		"source":                  SourceTradingViewUIDOM,
+		"reliability":             ReliabilityDisplayValueLocalizedUIString,
+		"reliableForTradingLogic": reliableForTradingLogicFromDisplayStrings,
+		"bids":                    bids,
+		"asks":                    asks,
 	}
 	if result.RawValues != nil {
-		out["raw_values"] = result.RawValues
+		out["raw_values"] = parseDisplayNumberStrings(result.RawValues)
+		out["raw_display_values"] = result.RawValues
 	}
 	if result.Note != "" {
 		out["note"] = result.Note
 	}
 	return out, nil
+}
+
+func normalizeDepthLevels(raw []rawDepthLevel) []depthLevel {
+	if raw == nil {
+		return []depthLevel{}
+	}
+	levels := make([]depthLevel, 0, len(raw))
+	for _, r := range raw {
+		price, ok := ParseDisplayNumber(r.PriceDisplayValue)
+		if !ok {
+			continue
+		}
+		size := 0.0
+		if parsedSize, ok := ParseDisplayNumber(r.SizeDisplayValue); ok {
+			size = parsedSize
+		}
+		levels = append(levels, depthLevel{
+			Price:                   price,
+			Size:                    size,
+			PriceDisplayValue:       r.PriceDisplayValue,
+			SizeDisplayValue:        r.SizeDisplayValue,
+			Source:                  SourceTradingViewUIDOM,
+			Reliability:             ReliabilityDisplayValueLocalizedUIString,
+			ReliableForTradingLogic: reliableForTradingLogicFromDisplayStrings,
+		})
+	}
+	return levels
+}
+
+func parseDisplayNumberStrings(values []string) []float64 {
+	if values == nil {
+		return []float64{}
+	}
+	out := make([]float64, 0, len(values))
+	for _, v := range values {
+		if parsed, ok := ParseDisplayNumber(v); ok && parsed > 0 {
+			out = append(out, parsed)
+		}
+	}
+	return out
 }
 
 // ---------- small helpers ----------
@@ -1113,6 +1015,8 @@ func joinStr(parts []string, sep string) string {
 	}
 	return r
 }
+
+func round6(v float64) float64 { return math.Round(v*1_000_000) / 1_000_000 }
 
 // ---------- RegisterTools ----------
 
@@ -1274,22 +1178,57 @@ func RegisterTools(reg *mcp.Registry) {
 
 	reg.Register(mcp.ToolDef{
 		Name:        "data_get_indicator",
-		Description: "Get indicator/study info and input values by entity ID",
+		Description: "Get real indicator/study values from the TradingView study model by entity ID or name",
 		Schema: mcp.InputSchema{
 			Type: "object",
 			Properties: map[string]mcp.PropertySchema{
 				"entity_id": {Type: "string", Description: "Study entity ID (from chart_get_state)"},
+				"name":      {Type: "string", Description: "Study name or plot title substring to match when entity_id is omitted"},
 			},
-			Required: []string{"entity_id"},
 		},
 		Handler: func(args json.RawMessage) (interface{}, error) {
 			var p struct {
 				EntityID string `json:"entity_id"`
+				Name     string `json:"name"`
 			}
-			if err := json.Unmarshal(args, &p); err != nil || p.EntityID == "" {
-				return map[string]interface{}{"success": false, "error": "entity_id is required"}, nil
+			if err := json.Unmarshal(args, &p); err != nil {
+				return map[string]interface{}{"success": false, "error": err.Error()}, nil
 			}
-			result, err := GetIndicator(p.EntityID)
+			if p.EntityID == "" && p.Name == "" {
+				return map[string]interface{}{"success": false, "error": "entity_id or name is required"}, nil
+			}
+			result, err := GetIndicatorByQuery(p.EntityID, p.Name)
+			if err != nil {
+				return map[string]interface{}{"success": false, "error": err.Error()}, nil
+			}
+			return result, nil
+		},
+	})
+
+	reg.Register(mcp.ToolDef{
+		Name:        "data_get_indicator_history",
+		Description: "Get historical indicator/study values from the TradingView study model for loaded chart bars",
+		Schema: mcp.InputSchema{
+			Type: "object",
+			Properties: map[string]mcp.PropertySchema{
+				"entity_id": {Type: "string", Description: "Study entity ID (from chart_get_state)"},
+				"name":      {Type: "string", Description: "Study name or plot title substring to match when entity_id is omitted"},
+				"max_bars":  {Type: "number", Description: "Maximum loaded chart bars to return (default 500, max 500)"},
+			},
+		},
+		Handler: func(args json.RawMessage) (interface{}, error) {
+			var p struct {
+				EntityID string `json:"entity_id"`
+				Name     string `json:"name"`
+				MaxBars  int    `json:"max_bars"`
+			}
+			if err := json.Unmarshal(args, &p); err != nil {
+				return map[string]interface{}{"success": false, "error": err.Error()}, nil
+			}
+			if p.EntityID == "" && p.Name == "" {
+				return map[string]interface{}{"success": false, "error": "entity_id or name is required"}, nil
+			}
+			result, err := GetIndicatorHistory(p.EntityID, p.Name, p.MaxBars)
 			if err != nil {
 				return map[string]interface{}{"success": false, "error": err.Error()}, nil
 			}
@@ -1325,6 +1264,28 @@ func RegisterTools(reg *mcp.Registry) {
 			}
 			_ = json.Unmarshal(args, &p)
 			result, err := GetTrades(p.MaxTrades)
+			if err != nil {
+				return map[string]interface{}{"success": false, "error": err.Error()}, nil
+			}
+			return result, nil
+		},
+	})
+
+	reg.Register(mcp.ToolDef{
+		Name:        "data_get_orders",
+		Description: "Get filled order list from Strategy Tester",
+		Schema: mcp.InputSchema{
+			Type: "object",
+			Properties: map[string]mcp.PropertySchema{
+				"max_orders": {Type: "number", Description: "Maximum orders to return (max 50)"},
+			},
+		},
+		Handler: func(args json.RawMessage) (interface{}, error) {
+			var p struct {
+				MaxOrders int `json:"max_orders"`
+			}
+			_ = json.Unmarshal(args, &p)
+			result, err := GetOrders(p.MaxOrders)
 			if err != nil {
 				return map[string]interface{}{"success": false, "error": err.Error()}, nil
 			}

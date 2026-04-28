@@ -1,0 +1,27 @@
+{
+  "date": "2026-04-27",
+  "os": "Windows",
+  "symbol": "RUS:NG1!",
+  "statuses": {
+    "pine": {
+      "status": "live_tested",
+      "evidence": "after-pine-get.stdout.json",
+      "scope": "pine_get_source read path; previous pine-source-safety research covers backup/restore smoke"
+    },
+    "strategy": {
+      "status": "partial",
+      "evidence": "after-mcp-indicator-strategy.output.jsonl ids 4-7",
+      "scope": "strategy tools returned structured no_strategy_loaded on current chart; loaded-strategy extraction was previously researched, but not re-mutated in this pass"
+    },
+    "replay": {
+      "status": "partial",
+      "evidence": "after-replay-status.stdout.json",
+      "scope": "replay_status read path live-tested; full replay workflow/trade state remains unverified in this pass"
+    },
+    "replay_trade": {
+      "status": "unverified",
+      "evidence": "not executed",
+      "scope": "mutating replay trade workflow intentionally not run"
+    }
+  }
+}

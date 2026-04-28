@@ -1,0 +1,145 @@
+{
+  "result": [
+    {
+      "aria": "Настройки редактора…",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 0,
+      "text": "Настройки редактора…",
+      "w": 261,
+      "x": 997,
+      "y": 118
+    },
+    {
+      "aria": "Новое окно",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 1,
+      "text": "Новое окно",
+      "w": 261,
+      "x": 997,
+      "y": 187
+    },
+    {
+      "aria": "Новая вкладка",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 2,
+      "text": "Новая вкладка",
+      "w": 261,
+      "x": 997,
+      "y": 219
+    },
+    {
+      "aria": null,
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 3,
+      "text": "Режим профилировщика",
+      "w": 261,
+      "x": 997,
+      "y": 288
+    },
+    {
+      "aria": null,
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 4,
+      "text": "Логи Pine",
+      "w": 261,
+      "x": 997,
+      "y": 320
+    },
+    {
+      "aria": "[object Object]",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 5,
+      "text": "Информация о релизах",
+      "w": 261,
+      "x": 997,
+      "y": 365
+    },
+    {
+      "aria": null,
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 6,
+      "text": "Помощь",
+      "w": 261,
+      "x": 997,
+      "y": 397
+    },
+    {
+      "aria": "Сохранить скрипт",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 7,
+      "text": "Сохранить скриптCtrl + S",
+      "w": 328,
+      "x": 777,
+      "y": 118
+    },
+    {
+      "aria": "Копировать…",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 8,
+      "text": "Копировать…",
+      "w": 328,
+      "x": 777,
+      "y": 150
+    },
+    {
+      "aria": "Переименовать…",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 9,
+      "text": "Переименовать…",
+      "w": 328,
+      "x": 777,
+      "y": 182
+    },
+    {
+      "aria": "История версий…",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 10,
+      "text": "История версий…",
+      "w": 328,
+      "x": 777,
+      "y": 214
+    },
+    {
+      "aria": "Конвертировать в v6…",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 11,
+      "text": "Конвертировать в v6…",
+      "w": 328,
+      "x": 777,
+      "y": 259
+    },
+    {
+      "aria": null,
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 12,
+      "text": "Создать новый",
+      "w": 328,
+      "x": 777,
+      "y": 304
+    },
+    {
+      "aria": "Открыть скрипт…",
+      "className": "button-HZXWyU6m",
+      "h": 32,
+      "i": 13,
+      "text": "Открыть скрипт…Ctrl + O",
+      "w": 328,
+      "x": 777,
+      "y": 514
+    }
+  ],
+  "success": true
+}

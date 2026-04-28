@@ -1,0 +1,12 @@
+{
+  "name": "quote",
+  "command": "go run ./cmd/tv quote",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:19:01.3057163+08:00",
+  "finishedAt": "2026-04-27T10:19:01.8196513+08:00",
+  "stdout": "research\\implementation-baseline\\cli-quote.stdout.json",
+  "stderr": "research\\implementation-baseline\\cli-quote.stderr.txt",
+  "stdoutValidJson": true,
+  "stderrValidJson": false,
+  "parseError": null
+}

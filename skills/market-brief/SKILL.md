@@ -107,3 +107,18 @@ To brief multiple symbols, iterate:
 - `change` and `change_pct` compare the last completed bar to the one before it — not to a session open.
 - If `last_bar` is missing from the response, the chart is still loading; retry after 2 s.
 - For after-hours or pre-market symbols, `volume` may be zero or low — note this in the brief.
+
+## Current MCP Contract Notes
+
+- Current Go registry: 85 MCP tools; original Node parity baseline: 78 tools.
+- Use aggregate tools for speed, then verify critical indicator values with study-model tools.
+- Trading-logic conclusions require reliable values from `tradingview_study_model` or a clearly marked backtesting/equity source.
+- For unavailable bid/ask, report the limitation instead of calculating a spread from zero values.
+## Release 1.2 Data Guards
+
+- Run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path-dependent tool returns unavailable statuses.
+- Treat `coverage: loaded_chart_bars` as chart-loaded coverage only, including strategy equity from `data_get_equity`.
+- Use the optional history-load workflow only as best effort: expand/scroll the chart range, wait for bars to load, repeat the data call, and compare `loaded_bar_count` / `data_points`.
+- Keep derived equity conditional; do not present it as native Strategy Tester equity or as unqualified `reliableForTradingLogic:true` data.
+- Do not pursue full native bar-by-bar Strategy Tester equity until TradingView exposes a stable report field.
+

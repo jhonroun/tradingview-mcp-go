@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-04-28",
+  "current_go_tool_count": 85,
+  "historical_node_parity_tool_count": 78,
+  "items": [
+    {
+      "area": "implementation-baseline",
+      "status": "implemented_live_smoked",
+      "evidence": "research/implementation-baseline/README.md",
+      "notes": "Baseline captured actual starting count as 82, not requested 78."
+    },
+    {
+      "area": "cdp-evaluate-await",
+      "status": "implemented_and_tested",
+      "code": "internal/cdp/client.go",
+      "evidence": "research/cdp-evaluate-await/README.md"
+    },
+    {
+      "area": "locale-display-number-parser",
+      "status": "implemented_and_tested",
+      "code": "internal/tools/data/display_number.go",
+      "evidence": "research/locale-display-number-parser/README.md"
+    },
+    {
+      "area": "indicator-study-model",
+      "status": "implemented_live_smoked",
+      "code": "internal/tools/data/study_model.go",
+      "evidence": "research/indicator-study-model/README.md"
+    },
+    {
+      "area": "strategy-backtesting-api",
+      "status": "implemented_live_smoked",
+      "code": "internal/tools/data/strategy_model.go",
+      "evidence": "research/implementation-final/live-mcp-strategy-smoke.output.jsonl"
+    },
+    {
+      "area": "strategy-equity-extraction",
+      "status": "implemented_live_smoked",
+      "code": "internal/tools/data/strategy_model.go",
+      "evidence": "research/implementation-final/live-mcp-strategy-smoke.output.jsonl",
+      "limitation": "coverage is loaded_chart_bars, not guaranteed full backtest history"
+    },
+    {
+      "area": "pine-source-safety",
+      "status": "implemented_live_smoked",
+      "code": "internal/tools/pine/safety.go",
+      "evidence": "research/implementation-final/live-pine-restore-original.json"
+    },
+    {
+      "area": "study-limit-detection",
+      "status": "implemented_and_tested",
+      "code": "internal/tools/chart/study_limit.go",
+      "evidence": "research/study-limit-detection/README.md",
+      "limitation": "live cap was not reproduced in current account/session"
+    },
+    {
+      "area": "known-issues-closure",
+      "status": "implemented_live_smoked",
+      "evidence": "research/known-issues-closure/README.md"
+    },
+    {
+      "area": "implementation-final",
+      "status": "implemented_live_smoked",
+      "evidence": "research/implementation-final/README.md"
+    },
+    {
+      "area": "tradingview-internal-paths",
+      "status": "implemented_live_smoked",
+      "code": "internal/tools/health/health.go",
+      "evidence": "research/compatibility-probes/tv-discover.json",
+      "notes": "Undocumented TradingView internals cannot be made stable from this repo; tv_discover compatibility_probes now record compatible/available/status/stability/reliability."
+    },
+    {
+      "area": "equity-policy-release-1.2",
+      "status": "documented_limitation",
+      "evidence": "research/compatibility-probes/README.md",
+      "notes": "Equity remains loaded-bars-only; optional history-load workflow is best-effort; derived equity is conditional; full native bar-by-bar Strategy Tester equity is out of scope until TradingView exposes a stable report field."
+    },
+    {
+      "area": "agents-skills-docs",
+      "status": "implemented_and_tested",
+      "evidence": "agents/README.md",
+      "notes": "English and Russian variants created; docs updated to 85 current tools."
+    }
+  ]
+}

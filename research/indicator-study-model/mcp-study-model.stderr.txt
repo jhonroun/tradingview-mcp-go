@@ -1,0 +1,3 @@
+⚠  tradingview-mcp-go  |  Unofficial tool. Not affiliated with TradingView Inc. or Anthropic.
+   Ensure your usage complies with TradingView's Terms of Use.
+

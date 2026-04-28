@@ -8,7 +8,7 @@ GOARCH ?= $(shell go env GOARCH)
 
 EXT := $(if $(filter windows,$(GOOS)),.exe,)
 
-.PHONY: all build build-all install test test-verbose clean release package
+.PHONY: all build build-all install test test-verbose smoke-symbol-search smoke-indicator-input clean release package
 
 all: build
 
@@ -45,6 +45,14 @@ test:
 ## test-verbose
 test-verbose:
 	go test -v ./...
+
+## smoke-symbol-search — verify TradingView symbol search endpoint
+smoke-symbol-search:
+	go run ./cmd/tv symbol-search NG
+
+## smoke-indicator-input — verify indicator input mutation against live TradingView CDP
+smoke-indicator-input:
+	go test ./tests/smoke -run TestIndicatorSetInputsVolumeLength -v -timeout 60s
 
 ## clean — remove bin/
 clean:

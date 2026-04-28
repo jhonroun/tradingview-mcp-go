@@ -1,0 +1,66 @@
+{
+  "captured_at": "2026-04-27T06:20:19.2956219+08:00",
+  "result": {
+    "actions": [
+      {
+        "action": "remove_volume_to_restore_custom_help",
+        "id": "MKXrUt",
+        "ok": true
+      },
+      {
+        "action": "fallback_create_by_name",
+        "ok": true
+      }
+    ],
+    "afterRemoveVolume": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "afterRestoreHelp": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "before": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "restore": {
+      "method": "meta_id",
+      "ok": true,
+      "requested": "Script$USER;694ab400c92c475989a40bdd09f001c7@tv-scripting"
+    }
+  },
+  "final_chart_state": {
+    "chartType": 1,
+    "exchange": "RUS",
+    "indicators": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "pane_count": 2,
+    "resolution": "1D",
+    "studies": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "success": true,
+    "symbol": "RUS:NG1!",
+    "ticker": "NG1!",
+    "timeframe": "1D",
+    "type": "1"
+  }
+}

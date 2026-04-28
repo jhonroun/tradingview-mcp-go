@@ -1,0 +1,525 @@
+{
+  "activeStrategy": {
+    "alertTitle": "MCP Test SMA Strategy",
+    "id": "XTcDfv",
+    "lookaheadFutureData": false,
+    "shortDescription": "MCP Test SMA Strategy",
+    "studyIdString": "StrategyScript@tv-scripting-101!"
+  },
+  "activeStudies": [
+    {
+      "id": "XTcDfv",
+      "name": "MCP Test SMA Strategy"
+    },
+    {
+      "id": "MKXrUt",
+      "name": "Volume"
+    },
+    {
+      "id": "Vvzmzg",
+      "name": "Помошник RSI - True ADX"
+    }
+  ],
+  "allStrategies": [
+    {
+      "alertTitle": "MCP Test SMA Strategy",
+      "id": "XTcDfv",
+      "lookaheadFutureData": false,
+      "shortDescription": "MCP Test SMA Strategy",
+      "studyIdString": "StrategyScript@tv-scripting-101!"
+    }
+  ],
+  "captured_at": "2026-04-26T22:15:31.899Z",
+  "isEmpty": false,
+  "meta": {
+    "_forceOverlayPlotIds": {},
+    "_metainfoVersion": 54,
+    "_serverMetaInfoVersion": 54,
+    "behind_chart": true,
+    "defaults": {
+      "inputs": {
+        "__profile": false,
+        "in_0": 1,
+        "in_1": false,
+        "in_10": 0,
+        "in_11": false,
+        "in_12": "FIFO",
+        "in_13": 0,
+        "in_14": 0,
+        "in_15": "BACKTEST",
+        "in_16": "",
+        "in_17": "order_fills",
+        "in_18": "",
+        "in_19": 2,
+        "in_2": false,
+        "in_20": false,
+        "in_21": false,
+        "in_22": false,
+        "in_23": "",
+        "in_3": 0,
+        "in_4": "fixed",
+        "in_5": 1,
+        "in_6": 1000000,
+        "in_7": "NONE",
+        "in_8": 0,
+        "in_9": "percent",
+        "pineFeatures": "{\"strategy\":1,\"plot\":1,\"ta\":1}",
+        "pineId": "",
+        "pineVersion": "",
+        "text": "bmI9Ks46_dbEFrr/2b/oEL9pYk9XskA==_aDHCT9x2PJAAbLEXqjPJiIPbJwCvyWd0eQIqcYMj4V0pjRSCVuWlVvYHf/+ST90tLTokT3b5V5rlmTQJ5/uOvM41Q9R0Je1XEVUf3LKtigpoTGUNlKkuAXv49Jmm6rl1Y3ZiEdeSJZbhOVQIA9knIYhuxtnS5tk1/Nn2M2fzPTdXOZ4dt9aI/3bwoE4ypbQGpWYlIW2Nmrw4mzxeKTl0NNgO9z2VLLVg5q6nSnfaXUHp3KR6aZ8cZ6RHhXLssDpBdW8dG3bpnFrP4A5NUAgmawoAkgZ6XTQEoMSCe7rPSe69x2iiNSkmA3FsbuGSPxAb2ujRhMU0WHTW7zZ6OapYbYrNZEcNlZu2GheLjJc+Jtv8jlJMWJsOqrZri/L6IlH3lhWUHY2GzSO0AlLh8N2H2T1opyBQ4V7WWke3kVK/pujNrInFzJEQOYvmBzyxfvQ8QFTY/N70U8RBYPWJaNbSjRWSYell0wum2zgXInl7QuEBxpECRltfX13x1qk2WGLhaWicsUIie39CtWrxeY8rJoAn/aLx6H0qfChcMZjodEADeRyHbpEcXtz665YQ4t60bJDRNEaP6IbrKA7UR/cGnuybX8jSrTcGRyhLdxVjYsEezXdS6y9lmCFQkybmPPYPiaPKy6vn7rPIFq1rYdMK9LRys7p8Tcom0DsYeobBfxG26xGSR9PgSmVuJWJzmx0/D+ctmx4qF2TKuNR1hGBeYw1BMKIx/u4dxdiYRmyB4+xFmlZCHKcA+pkGySyC7zopaaFz0cNISkajrKJ9SkQlSxTZVgswbKla8poLu0uvkL6tOsb8OHqEbJd5QpIw+ueYjic6858S8ub3tKIJ3Po4pk6H4JDfmQBu9XVxtc+t8alIK0Q4N/ayew+ELeepfWMtm0mBsx6uBoTtw/mpPa2FQimYNYaaoGKx033v4XT41UvsxczTLP1vvX+YyEYKmR/ri1uXNERP8i8fwj5FmZ7tQ0sEQVyfA8eF2ZoI60VV+hb85SxY5GDT+PFdEZv/OrXpuCdKhM4ZZB1H5IDOHFdJsXDAzP74VwNyMuAr9H7O3pFIzW7Y9nzPsXfJcVe5EMlx2QecBkBpKpYndtMt8irUN8+9eapo7ezzttBqeX4J5LoZWOr1NQcKbSngCFgAGE4VbpzhzgyM+23DUOQNa/4+we3DZaMjK8d72Pz0QLeRn99+J+aiPU2W9go5YL1pDr8SoqGpFrztc5G9ImfT6HCOE7FMcXrvz8tVOUUQearyepMXoXKj9yDHJr20DuK+R/I+7pRL92PxabGki8Yb/2lQlCI6dzbT63uWgs8pjFQiiQQiWyAHW18w7DSLGFyL4pvuXKDIpiVW9F+GQdphewun+2RGGJN38JKKJ5UExdktx2Lu9u9d3L2VGSWjPlpR/hC3p51mm1xqq955KZVYGNRTnBpGlcfyLw4n3HJaNx46cbnI7ypyiH0F5UUl9x5u6CRHjFGlpp7CNkYzceBrDX3sSZ4hrvvsXtyB0rWlivEW5ErtTHgdbRimTJiWnbiYHVAS0qOYBkr9bJYFAjeK4VPWBZvXCDAoBQeq2QXdPfNdglQBPur+xJtUamYLzmaQYR3IWhCWciN/Y2kaful1jydtbJ7NLexFwlT8iRuDhElnl6sZe5IEfF8G9Ypz1ml3v7a1YEIyb/BCWXLtmnkyHynxNYumprcGh+1LP8C4xgLrHycYoYNOUYKCyRWuVwnP9a6wDC8evUpJ8i1aws/xm2F5kP43ZdtT/Kh9lqY3T/1k0KQ0EKz5aHxRr4Ps3jkLNSq3xpBlyo5F/0BvaPM3zTZ2fAzDvxO14nvhJcDjmHjB7cVR7ew+T3r9tSg3VMrY5xnIaFswK/kAe1zWaNsFoIPFGTwpRpBEf32H9alosmtkm/G4PGhscnFhXyguE1hTkbBBLuCQeiU5azuM9/ObGuqmI0X7Rep6RNV7eE54Yxd5xIzQUE0Uvf5OpcbJQyRhDzNPg3z84136ka1yfqpxPwvfo/bkFsn/sYC8Gays4mVBt4JDBlZnrwLAuhNSbrn9YlgPoYd0AEvHOmNFFMD7tTW4ZSKyCks/4LyST05UwkSByd2/34cL82Y8NprXoJUQCVKSE/ZlbFZ9lnzrv+KL1D+7JE9al5Jd+r9WoTT+Uc1veVQoUswnhmIjJMVoMyZ2tfK0ta9pSKKK5OOc5W+Je3E6AS2DwTmogf5U6FgqWgYug7AG0K3ZBxutL6g72mYYj90ILLj6FzfJV1/mNUX7egnSI0/O4dLXelqpRUDHqrI6m/KnsPyKxYdCFGj/vCgXvdWv38miwaN+Y/U6fKTCqALaCE1KHd/2UG84H5sc3sY4UdzU0Fug4CA5NWBf6OQIxlHmFFXLWAQ2ojyeRAtZSxVnH/+lt2IELhryaoXO8pHGLAOJi0cwOsIS1C/Qsuy/4ItXlzfWqAnlGWqFaoz4G3E9nFOrnypWhfkgaV//05JqHvbb3+7wgOmYMkHs89Nw/qg7SXTHNt+R26g="
+      },
+      "strategy": {
+        "orders": {
+          "showLabels": true,
+          "showQty": true,
+          "visible": true
+        }
+      },
+      "styles": {
+        "plot_0": {
+          "color": null,
+          "display": 15,
+          "linestyle": 0,
+          "linewidth": 1,
+          "plottype": 0,
+          "trackPrice": false,
+          "transparency": 0
+        },
+        "plot_1": {
+          "color": null,
+          "display": 15,
+          "linestyle": 0,
+          "linewidth": 1,
+          "plottype": 0,
+          "trackPrice": false,
+          "transparency": 0
+        }
+      }
+    },
+    "description": "MCP Test SMA Strategy",
+    "docs": "",
+    "format": {
+      "type": "inherit"
+    },
+    "fullId": "StrategyScript$USER;0fa42ecf11aa4b0982fa7a057aebb1b1@tv-scripting-101",
+    "graphics": {},
+    "id": "StrategyScript$USER;0fa42ecf11aa4b0982fa7a057aebb1b1@tv-scripting",
+    "inputs": [
+      {
+        "defval": "bmI9Ks46_dbEFrr/2b/oEL9pYk9XskA==_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",
+        "display": 15,
+        "id": "text",
+        "isHidden": true,
+        "name": "ILScript",
+        "type": "text"
+      },
+      {
+        "defval": "",
+        "display": 15,
+        "id": "pineId",
+        "isHidden": true,
+        "name": "pineId",
+        "type": "text"
+      },
+      {
+        "defval": "",
+        "display": 15,
+        "id": "pineVersion",
+        "isHidden": true,
+        "name": "pineVersion",
+        "type": "text"
+      },
+      {
+        "defval": "{\"strategy\":1,\"plot\":1,\"ta\":1}",
+        "display": 15,
+        "id": "pineFeatures",
+        "isFake": true,
+        "isHidden": true,
+        "name": "pineFeatures",
+        "type": "text"
+      },
+      {
+        "defval": 1,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_0",
+        "internalID": "pyramiding",
+        "isFake": true,
+        "max": 1000000,
+        "min": 0,
+        "name": "pyramiding",
+        "tooltip": "Maximum number of successive entries allowed in the same direction",
+        "type": "integer"
+      },
+      {
+        "defval": false,
+        "display": 0,
+        "groupId": "strategy_props",
+        "id": "in_1",
+        "internalID": "calc_on_order_fills",
+        "isFake": true,
+        "name": "Calculate Strategy on Order's Fill(s)",
+        "tooltip": "Triggers an additional intrabar calculation after order fills",
+        "type": "bool"
+      },
+      {
+        "defval": false,
+        "display": 0,
+        "groupId": "strategy_props",
+        "id": "in_2",
+        "internalID": "calc_on_every_tick",
+        "isFake": true,
+        "name": "Calculate Strategy on every Tick(s)",
+        "tooltip": "Recalculates the strategy with each real-time bar update",
+        "type": "bool"
+      },
+      {
+        "defval": 0,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_3",
+        "internalID": "backtest_fill_limits_assumption",
+        "isFake": true,
+        "max": 1000000,
+        "min": 0,
+        "name": "Backtesting Limit Order(s) fill assumption",
+        "tooltip": "Ticks beyond the limit price required for limit order execution",
+        "type": "integer"
+      },
+      {
+        "defval": "fixed",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_4",
+        "internalID": "default_qty_type",
+        "isFake": true,
+        "name": "Default entry/order Qty Type",
+        "options": [
+          "fixed",
+          "cash_per_order",
+          "percent_of_equity"
+        ],
+        "tooltip": "Quantity per trade in the selected unit",
+        "type": "text"
+      },
+      {
+        "defval": 1,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_5",
+        "internalID": "default_qty_value",
+        "isFake": true,
+        "min": 0,
+        "name": "Default entry/order Qty Value",
+        "type": "float"
+      },
+      {
+        "defval": 1000000,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_6",
+        "internalID": "initial_capital",
+        "isFake": true,
+        "min": 0,
+        "name": "Initial Capital",
+        "tooltip": "Starting funds available for the trading strategy",
+        "type": "float"
+      },
+      {
+        "defval": "NONE",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_7",
+        "internalID": "currency",
+        "isFake": true,
+        "name": "Base Currency",
+        "options": [
+          "NONE",
+          "USD",
+          "EUR",
+          "AUD",
+          "GBP",
+          "NZD",
+          "CAD",
+          "CHF",
+          "HKD",
+          "JPY",
+          "NOK",
+          "RUB",
+          "SEK",
+          "SGD",
+          "TRY",
+          "ZAR",
+          "BTC",
+          "ETH",
+          "MYR",
+          "KRW",
+          "USDT",
+          "INR"
+        ],
+        "tooltip": "Currency used in calculations and strategy results",
+        "type": "text"
+      },
+      {
+        "defval": 0,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_8",
+        "internalID": "slippage",
+        "isFake": true,
+        "max": 1000000,
+        "min": 0,
+        "name": "Backtesting slippage for market orders",
+        "tooltip": "Ticks to be added to the fill price of market and stop orders",
+        "type": "integer"
+      },
+      {
+        "defval": "percent",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_9",
+        "internalID": "commission_type",
+        "isFake": true,
+        "name": "Commission Type",
+        "options": [
+          "percent",
+          "cash_per_contract",
+          "cash_per_order"
+        ],
+        "tooltip": "Entry and exit fees to be paid",
+        "type": "text"
+      },
+      {
+        "defval": 0,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_10",
+        "internalID": "commission_value",
+        "isFake": true,
+        "min": 0,
+        "name": "Commission Value",
+        "type": "float"
+      },
+      {
+        "defval": false,
+        "display": 0,
+        "groupId": "strategy_props",
+        "id": "in_11",
+        "internalID": "process_orders_on_close",
+        "isFake": true,
+        "name": "Process orders on bar Close",
+        "tooltip": "Fills market orders on the close of the bar where they are issued",
+        "type": "bool"
+      },
+      {
+        "defval": "FIFO",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_12",
+        "internalID": "close_entries_rule",
+        "isFake": true,
+        "name": "Close entries rule",
+        "options": [
+          "FIFO",
+          "ANY"
+        ],
+        "type": "text"
+      },
+      {
+        "defval": 0,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_13",
+        "internalID": "margin_long",
+        "isFake": true,
+        "min": 0,
+        "name": "Margin Long",
+        "tooltip": "Percentage of the long position the strategy must fund from equity",
+        "type": "float"
+      },
+      {
+        "defval": 0,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_14",
+        "internalID": "margin_short",
+        "isFake": true,
+        "min": 0,
+        "name": "Margin Short",
+        "tooltip": "Percentage of the short position the strategy must fund from equity",
+        "type": "float"
+      },
+      {
+        "defval": "BACKTEST",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_15",
+        "internalID": "run_mode",
+        "isFake": true,
+        "name": "Run mode: 'backtest', 'alert' or something else",
+        "options": [
+          "BACKTEST",
+          "ALERT"
+        ],
+        "type": "text"
+      },
+      {
+        "defval": "",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_16",
+        "internalID": "alert_message",
+        "isFake": true,
+        "name": "Alert message template for run mode 'alert'",
+        "type": "text"
+      },
+      {
+        "defval": "order_fills",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_17",
+        "internalID": "alert_type",
+        "isFake": true,
+        "name": "Alert type for run mode 'alert'",
+        "type": "text"
+      },
+      {
+        "defval": "",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_18",
+        "isFake": true,
+        "name": "exclude_from_report",
+        "type": "text"
+      },
+      {
+        "defval": 2,
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_19",
+        "internalID": "risk_free_rate",
+        "isFake": true,
+        "max": 100,
+        "min": 0,
+        "name": "risk_free_rate",
+        "type": "float"
+      },
+      {
+        "defval": false,
+        "display": 0,
+        "groupId": "strategy_props",
+        "id": "in_20",
+        "internalID": "use_bar_magnifier",
+        "isFake": true,
+        "name": "Use Bar Magnifier",
+        "tooltip": "On historical bars, uses more precise lower timeframe prices for more realistic results",
+        "type": "bool"
+      },
+      {
+        "defval": false,
+        "display": 0,
+        "groupId": "strategy_props",
+        "id": "in_21",
+        "internalID": "fill_orders_on_standard_ohlc",
+        "isFake": true,
+        "name": "Fill orders using standard OHLC",
+        "tooltip": "Forces strategies running on Heikin Ashi charts to fill orders using actual OHLC prices, for more realistic results",
+        "type": "bool"
+      },
+      {
+        "defval": false,
+        "display": 0,
+        "groupId": "strategy_props",
+        "id": "in_22",
+        "isFake": true,
+        "name": "trim_orders",
+        "type": "bool"
+      },
+      {
+        "defval": "",
+        "display": 15,
+        "groupId": "strategy_props",
+        "id": "in_23",
+        "internalID": "__calc_range",
+        "isFake": true,
+        "name": "calc_range",
+        "type": "text"
+      },
+      {
+        "defval": false,
+        "display": 0,
+        "id": "__profile",
+        "isFake": true,
+        "isHidden": true,
+        "migrate": true,
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "isTVScript": true,
+    "isTVScriptStrategy": true,
+    "isTVScriptStub": false,
+    "is_hidden_study": false,
+    "is_price_study": true,
+    "packageId": "tv-scripting",
+    "palettes": {},
+    "pine": {
+      "digest": "c8c5692fb302a46cc9da507eadb65a262d6442a8",
+      "version": "28.0"
+    },
+    "plots": [
+      {
+        "id": "plot_0",
+        "type": "line"
+      },
+      {
+        "id": "plot_1",
+        "type": "line"
+      }
+    ],
+    "productId": "tv-scripting",
+    "scriptIdPart": "USER;0fa42ecf11aa4b0982fa7a057aebb1b1",
+    "shortDescription": "MCP Test SMA Strategy",
+    "shortId": "StrategyScript$USER;0fa42ecf11aa4b0982fa7a057aebb1b1",
+    "stats": {
+      "plot": 2
+    },
+    "styles": {
+      "plot_0": {
+        "histogramBase": 0,
+        "isHidden": false,
+        "joinPoints": false,
+        "title": "Fast SMA"
+      },
+      "plot_1": {
+        "histogramBase": 0,
+        "isHidden": false,
+        "joinPoints": false,
+        "title": "Slow SMA"
+      }
+    },
+    "useVersionFromMetaInfo": false,
+    "usesPrivateLib": false,
+    "version": 101,
+    "warnings": []
+  },
+  "reportIsNull": false,
+  "reportKeys": [
+    "currency",
+    "settings",
+    "buyHold",
+    "buyHoldPercent",
+    "filledOrders",
+    "performance",
+    "trades",
+    "firstTradeIndex",
+    "activeOrders",
+    "runupDrawdownPeriods",
+    "hasRunupData",
+    "hasDrawdownData"
+  ],
+  "reportType": "Object",
+  "status": {
+    "type": 2
+  }
+}

@@ -95,3 +95,19 @@ Count signals:
 - For indicators with multiple lines (Bollinger Bands has Upper/Mid/Lower; MACD has Line/Signal/Histogram),
   `primary_value` returns the first numeric value. Check `values` for all sub-lines if needed.
 - Combine this scan with `market_summary` to get OHLCV context alongside the signal read.
+
+## Current MCP Contract Notes
+
+- Current Go registry: 85 MCP tools; original Node parity baseline: 78 tools.
+- For exact current values, prefer `data_get_indicator` by `entity_id` from `chart_get_state`.
+- For loaded-bar history, use `data_get_indicator_history`; coverage is `loaded_chart_bars`.
+- Trading-logic values should have `source: tradingview_study_model`, `reliability: reliable_pine_runtime_value_unstable_internal_path`, and `reliableForTradingLogic:true`.
+- If a value comes from `tradingview_ui_data_window`, treat it as localized display fallback, not reliable trading data.
+## Release 1.2 Data Guards
+
+- Run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path-dependent tool returns unavailable statuses.
+- Treat `coverage: loaded_chart_bars` as chart-loaded coverage only, including strategy equity from `data_get_equity`.
+- Use the optional history-load workflow only as best effort: expand/scroll the chart range, wait for bars to load, repeat the data call, and compare `loaded_bar_count` / `data_points`.
+- Keep derived equity conditional; do not present it as native Strategy Tester equity or as unqualified `reliableForTradingLogic:true` data.
+- Do not pursue full native bar-by-bar Strategy Tester equity until TradingView exposes a stable report field.
+

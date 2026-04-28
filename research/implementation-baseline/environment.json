@@ -1,0 +1,9 @@
+{
+  "date": "2026-04-27T10:19:50.0634694+08:00",
+  "os": "Microsoft Windows NT 10.0.26200.0",
+  "platform": "windows",
+  "timezone": "North Asia East Standard Time",
+  "goVersion": "go version go1.25.5 windows/amd64",
+  "gitHead": "a6d32bc",
+  "gitBranch": "master"
+}

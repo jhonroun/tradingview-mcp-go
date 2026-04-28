@@ -1,0 +1,12 @@
+{
+  "name": "screenshot",
+  "command": "go run ./cmd/tv screenshot --region chart --filename implementation-baseline-20260427-101853.png",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:19:02.4494879+08:00",
+  "finishedAt": "2026-04-27T10:19:03.436166+08:00",
+  "stdout": "research\\implementation-baseline\\cli-screenshot.stdout.json",
+  "stderr": "research\\implementation-baseline\\cli-screenshot.stderr.txt",
+  "stdoutValidJson": true,
+  "stderrValidJson": false,
+  "parseError": null
+}

@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-04-27T18:03:38.9110865+08:00",
+  "environment": {
+    "os": "Windows",
+    "symbol": "RUS:NG1!",
+    "timeframe": "1D"
+  },
+  "static_regression": {
+    "go_test_exitcode": "0",
+    "go_vet_exitcode": "0",
+    "mcp_tools_count": 85
+  },
+  "mcp_golden_live": {
+    "initialize": true,
+    "tools_list_count": 85,
+    "tools_call_error_isError": true,
+    "tools_call_error_text": "unknown tool: definitely_unknown_tool"
+  },
+  "indicator_current": {
+    "success": true,
+    "source": "tradingview_study_model",
+    "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+    "reliableForTradingLogic": true,
+    "entity_id": "Vvzmzg",
+    "name": "Помошник RSI - True ADX",
+    "plot_count": 6,
+    "total_bars": 400,
+    "sample_plots": [
+      {
+        "name": "DI+",
+        "current": 15.545741865281482,
+        "source": "tradingview_study_model",
+        "reliableForTradingLogic": true
+      },
+      {
+        "name": "DI-",
+        "current": 29.819614317930682,
+        "source": "tradingview_study_model",
+        "reliableForTradingLogic": true
+      },
+      {
+        "name": "ADX",
+        "current": 26.293855814935608,
+        "source": "tradingview_study_model",
+        "reliableForTradingLogic": true
+      },
+      {
+        "name": "RSI",
+        "current": 32.66712485613513,
+        "source": "tradingview_study_model",
+        "reliableForTradingLogic": true
+      }
+    ]
+  },
+  "indicator_history": {
+    "success": true,
+    "source": "tradingview_study_model",
+    "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+    "reliableForTradingLogic": true,
+    "history_count": 5,
+    "coverage": "loaded_chart_bars"
+  },
+  "strategy_results": {
+    "success": true,
+    "status": "ok",
+    "source": "tradingview_backtesting_api",
+    "reliability": "reliable_backtesting_report_unstable_internal_path",
+    "reliableForTradingLogic": true,
+    "strategy_loaded": true,
+    "total_trade_count": 43,
+    "total_order_count": 86,
+    "metric_count": 47
+  },
+  "trades": {
+    "success": true,
+    "status": "ok",
+    "source": "tradingview_backtesting_api",
+    "reliableForTradingLogic": true,
+    "trade_count": 5,
+    "total_trade_count": 43
+  },
+  "orders": {
+    "success": true,
+    "status": "ok",
+    "source": "tradingview_backtesting_api",
+    "reliableForTradingLogic": true,
+    "order_count": 5,
+    "total_order_count": 86
+  },
+  "equity": {
+    "success": true,
+    "status": "ok",
+    "source": "tradingview_strategy_plot",
+    "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+    "reliableForTradingLogic": true,
+    "coverage": "loaded_chart_bars",
+    "data_points": 400,
+    "loaded_bar_count": 400,
+    "warning": "Strategy Equity plot data covers loaded chart bars only, not necessarily the full backtest history.",
+    "plot": {
+      "is_hidden": false,
+      "name": "Strategy Equity",
+      "plot_id": "plot_2",
+      "type": "line",
+      "value_index": 3
+    }
+  },
+  "pine_restore": {
+    "success": true,
+    "restored": true,
+    "verified": true,
+    "expected_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+    "actual_sha256": "e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765",
+    "backup_path": "research/pine-source-safety/session-20260427T095805.302320300Z/backup.json",
+    "pre_restore_backup_path": "research/pine-source-safety/session-20260427T100019.351135700Z/backup.json"
+  },
+  "cleanup_chart": {
+    "success": true,
+    "symbol": "RUS:NG1!",
+    "timeframe": "1D",
+    "studies": [
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      },
+      {
+        "id": "cfyrsD",
+        "name": "Volume"
+      }
+    ]
+  }
+}

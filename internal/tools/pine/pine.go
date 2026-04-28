@@ -103,24 +103,12 @@ func GetSource() (map[string]interface{}, error) {
 		if !ensurePineEditorOpen(ctx, c) {
 			return fmt.Errorf("could not open Pine Editor or Monaco not found in React fiber tree")
 		}
-		raw, err := c.Evaluate(ctx, `(function() {
-			var m = `+findMonaco+`;
-			if (!m) return null;
-			return m.editor.getValue();
-		})()`, false)
+		snapshot, err := readSourceSnapshot(ctx, c)
 		if err != nil {
 			return err
 		}
-		var source string
-		if json.Unmarshal(raw, &source) != nil {
-			return fmt.Errorf("Monaco editor getValue() returned unexpected type")
-		}
-		result = map[string]interface{}{
-			"success":     true,
-			"source":      source,
-			"line_count":  len(strings.Split(source, "\n")),
-			"char_count":  len(source),
-		}
+		result = snapshotToResult(snapshot)
+		result["success"] = true
 		return nil
 	})
 	if err != nil {
@@ -131,32 +119,47 @@ func GetSource() (map[string]interface{}, error) {
 
 // SetSource injects source code into the Monaco editor.
 func SetSource(source string) (map[string]interface{}, error) {
+	return SetSourceWithExpectedHash(source, "")
+}
+
+// SetSourceWithExpectedHash injects source after backing up the current editor.
+func SetSourceWithExpectedHash(source, expectedCurrentSHA256 string) (map[string]interface{}, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-
-	escaped, _ := json.Marshal(source)
 
 	var result map[string]interface{}
 	err := cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
 		if !ensurePineEditorOpen(ctx, c) {
 			return fmt.Errorf("could not open Pine Editor")
 		}
-		raw, err := c.Evaluate(ctx, `(function() {
-			var m = `+findMonaco+`;
-			if (!m) return false;
-			m.editor.setValue(`+string(escaped)+`);
-			return true;
-		})()`, false)
+		before, err := readSourceSnapshot(ctx, c)
 		if err != nil {
+			return fmt.Errorf("read current Pine source before set: %w", err)
+		}
+		if expectedCurrentSHA256 != "" && !strings.EqualFold(expectedCurrentSHA256, before.SourceSHA256) {
+			return fmt.Errorf("current source hash mismatch: expected %s, got %s", expectedCurrentSHA256, before.SourceSHA256)
+		}
+		backup, err := createPineBackup(before, "before_pine_set_source")
+		if err != nil {
+			return fmt.Errorf("create Pine source backup before set: %w", err)
+		}
+		if err := setSourceInEditor(ctx, c, source); err != nil {
 			return err
 		}
-		var ok bool
-		if json.Unmarshal(raw, &ok) != nil || !ok {
-			return fmt.Errorf("Monaco found but setValue() failed")
-		}
+		after := enrichSourceSnapshot(PineSourceSnapshot{Source: source})
 		result = map[string]interface{}{
-			"success":   true,
-			"lines_set": len(strings.Split(source, "\n")),
+			"success":              true,
+			"lines_set":            after.LineCount,
+			"char_count":           after.CharCount,
+			"source_sha256":        after.SourceSHA256,
+			"hash":                 after.SourceSHA256,
+			"script_name":          after.ScriptName,
+			"script_type":          after.ScriptType,
+			"backup_created":       true,
+			"backup":               backupToResult(backup),
+			"backup_path":          backup.ManifestPath,
+			"backup_source_path":   backup.SourcePath,
+			"backup_source_sha256": backup.SourceSHA256,
 		}
 		return nil
 	})
@@ -166,24 +169,149 @@ func SetSource(source string) (map[string]interface{}, error) {
 	return result, nil
 }
 
+// RestoreSource restores a Pine backup and verifies the editor hash afterward.
+func RestoreSource(backupPath, expectedSHA256 string) (map[string]interface{}, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
+	backup, err := loadPineBackup(backupPath, expectedSHA256)
+	if err != nil {
+		return map[string]interface{}{"success": false, "error": err.Error()}, nil
+	}
+
+	var result map[string]interface{}
+	err = cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
+		if !ensurePineEditorOpen(ctx, c) {
+			return fmt.Errorf("could not open Pine Editor")
+		}
+		before, err := readSourceSnapshot(ctx, c)
+		if err != nil {
+			return fmt.Errorf("read current Pine source before restore: %w", err)
+		}
+		beforeBackup, err := createPineBackup(before, "before_pine_restore_source")
+		if err != nil {
+			return fmt.Errorf("create Pine source backup before restore: %w", err)
+		}
+		if err := setSourceInEditor(ctx, c, backup.Source); err != nil {
+			return err
+		}
+		after, err := readSourceSnapshot(ctx, c)
+		if err != nil {
+			return fmt.Errorf("read Pine source after restore: %w", err)
+		}
+		verified := strings.EqualFold(after.SourceSHA256, backup.SourceSHA256)
+		result = map[string]interface{}{
+			"success":                 verified,
+			"restored":                verified,
+			"verified":                verified,
+			"expected_sha256":         backup.SourceSHA256,
+			"actual_sha256":           after.SourceSHA256,
+			"source_sha256":           after.SourceSHA256,
+			"hash":                    after.SourceSHA256,
+			"script_name":             after.ScriptName,
+			"script_type":             after.ScriptType,
+			"backup_path":             backup.BackupPath,
+			"backup_source_path":      backup.SourcePath,
+			"backup_before_restore":   backupToResult(beforeBackup),
+			"pre_restore_backup_path": beforeBackup.ManifestPath,
+		}
+		if !verified {
+			result["error"] = "restore verification failed: editor SHA256 does not match backup SHA256"
+		}
+		return nil
+	})
+	if err != nil {
+		return map[string]interface{}{"success": false, "error": err.Error()}, nil
+	}
+	return result, nil
+}
+
+const pineCompileButtonHelpersJS = `
+    function visible(el) {
+        return !!(el && el.offsetParent !== null);
+    }
+    function normalizeText(text) {
+        text = String(text || '').replace(/\s+/g, ' ').trim();
+        if (!text) return '';
+        var half = Math.floor(text.length / 2);
+        if (half > 0 && text.length % 2 === 0 && text.slice(0, half) === text.slice(half)) {
+            text = text.slice(0, half).trim();
+        }
+        return text.toLowerCase();
+    }
+    function hasLabel(text, labels) {
+        for (var i = 0; i < labels.length; i++) {
+            var label = labels[i].toLowerCase();
+            if (text === label || text.indexOf(label) !== -1) return true;
+        }
+        return false;
+    }
+    var saveAddLabels = [
+        'save and add to chart',
+        'сохранить и добавить на график'
+    ];
+    var addLabels = [
+        'add to chart',
+        'добавить на график'
+    ];
+    var updateLabels = [
+        'update on chart',
+        'обновить на графике'
+    ];
+    function buttonText(btn) {
+        return normalizeText(btn && btn.textContent);
+    }
+    function buttonReturnText(btn, fallback) {
+        var text = String((btn && btn.textContent) || '').replace(/\s+/g, ' ').trim();
+        return text || fallback;
+    }
+`
+
 const compileButtonJS = `(function() {
+` + pineCompileButtonHelpersJS + `
     var btns = document.querySelectorAll('button');
     var fallback = null;
     var saveBtn = null;
     for (var i = 0; i < btns.length; i++) {
-        var text = btns[i].textContent.trim();
-        if (/save and add to chart/i.test(text)) {
-            btns[i].click();
-            return 'Save and add to chart';
+        var btn = btns[i];
+        if (!visible(btn)) continue;
+        var text = buttonText(btn);
+        if (hasLabel(text, saveAddLabels)) {
+            btn.click();
+            return buttonReturnText(btn, 'Save and add to chart');
         }
-        if (!fallback && /^(Add to chart|Update on chart)/i.test(text)) {
-            fallback = btns[i];
+        if (!fallback && (hasLabel(text, addLabels) || hasLabel(text, updateLabels))) {
+            fallback = btn;
         }
-        if (!saveBtn && btns[i].className.indexOf('saveButton') !== -1 && btns[i].offsetParent !== null) {
-            saveBtn = btns[i];
+        if (!saveBtn && String(btn.className).indexOf('saveButton') !== -1) {
+            saveBtn = btn;
         }
     }
-    if (fallback) { fallback.click(); return fallback.textContent.trim(); }
+    if (fallback) { fallback.click(); return buttonReturnText(fallback, 'Add to chart'); }
+    if (saveBtn) { saveBtn.click(); return 'Pine Save'; }
+    return null;
+})()`
+
+const smartCompileButtonJS = `(function() {
+` + pineCompileButtonHelpersJS + `
+    var btns = document.querySelectorAll('button');
+    var addBtn = null;
+    var updateBtn = null;
+    var saveBtn = null;
+    for (var i = 0; i < btns.length; i++) {
+        var btn = btns[i];
+        if (!visible(btn)) continue;
+        var text = buttonText(btn);
+        if (hasLabel(text, saveAddLabels)) {
+            btn.click();
+            return buttonReturnText(btn, 'Save and add to chart');
+        }
+        if (!addBtn && hasLabel(text, addLabels)) addBtn = btn;
+        if (!updateBtn && hasLabel(text, updateLabels)) updateBtn = btn;
+        if (!saveBtn && String(btn.className).indexOf('saveButton') !== -1) saveBtn = btn;
+    }
+    if (addBtn) { addBtn.click(); return buttonReturnText(addBtn, 'Add to chart'); }
+    if (updateBtn) { updateBtn.click(); return buttonReturnText(updateBtn, 'Update on chart'); }
     if (saveBtn) { saveBtn.click(); return 'Pine Save'; }
     return null;
 })()`
@@ -213,6 +341,8 @@ func Compile() (map[string]interface{}, error) {
 			c.DispatchKeyEvent(ctx, cdp.KeyEventParams{Type: "keyUp", Key: "Enter", Code: "Enter"})
 		}
 		time.Sleep(2 * time.Second)
+		markers := getMarkers(ctx, c)
+		counts := markerCounts(markers)
 
 		btn := "keyboard_shortcut"
 		if clicked != nil {
@@ -221,6 +351,13 @@ func Compile() (map[string]interface{}, error) {
 		result = map[string]interface{}{
 			"success":        true,
 			"button_clicked": btn,
+			"compiled":       counts.ErrorCount == 0,
+			"has_errors":     counts.ErrorCount > 0,
+			"error_count":    counts.ErrorCount,
+			"warning_count":  counts.WarningCount,
+			"errors":         counts.Errors,
+			"warnings":       counts.Warnings,
+			"diagnostics":    markers,
 		}
 		return nil
 	})
@@ -243,24 +380,6 @@ func SmartCompile() (map[string]interface{}, error) {
 		return null;
 	})()`
 
-	const smartButtonJS = `(function() {
-		var btns = document.querySelectorAll('button');
-		var addBtn = null;
-		var updateBtn = null;
-		var saveBtn = null;
-		for (var i = 0; i < btns.length; i++) {
-			var text = btns[i].textContent.trim();
-			if (/save and add to chart/i.test(text)) { btns[i].click(); return 'Save and add to chart'; }
-			if (!addBtn && /^add to chart$/i.test(text)) addBtn = btns[i];
-			if (!updateBtn && /^update on chart$/i.test(text)) updateBtn = btns[i];
-			if (!saveBtn && btns[i].className.indexOf('saveButton') !== -1 && btns[i].offsetParent !== null) saveBtn = btns[i];
-		}
-		if (addBtn) { addBtn.click(); return 'Add to chart'; }
-		if (updateBtn) { updateBtn.click(); return 'Update on chart'; }
-		if (saveBtn) { saveBtn.click(); return 'Pine Save'; }
-		return null;
-	})()`
-
 	var result map[string]interface{}
 	err := cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
 		if !ensurePineEditorOpen(ctx, c) {
@@ -275,7 +394,7 @@ func SmartCompile() (map[string]interface{}, error) {
 			}
 		}
 
-		raw, _ := c.Evaluate(ctx, smartButtonJS, false)
+		raw, _ := c.Evaluate(ctx, smartCompileButtonJS, false)
 		var clicked *string
 		if raw != nil {
 			var v interface{}
@@ -291,11 +410,8 @@ func SmartCompile() (map[string]interface{}, error) {
 		}
 		time.Sleep(2500 * time.Millisecond)
 
-		errorsRaw, _ := c.Evaluate(ctx, getMarkersJS(), false)
-		var errors []interface{}
-		if errorsRaw != nil {
-			json.Unmarshal(errorsRaw, &errors)
-		}
+		markers := getMarkers(ctx, c)
+		counts := markerCounts(markers)
 
 		afterRaw, _ := c.Evaluate(ctx, countStudiesJS, false)
 		var studyAdded interface{}
@@ -313,8 +429,13 @@ func SmartCompile() (map[string]interface{}, error) {
 		result = map[string]interface{}{
 			"success":        true,
 			"button_clicked": btn,
-			"has_errors":     len(errors) > 0,
-			"errors":         errors,
+			"compiled":       counts.ErrorCount == 0,
+			"has_errors":     counts.ErrorCount > 0,
+			"error_count":    counts.ErrorCount,
+			"warning_count":  counts.WarningCount,
+			"errors":         counts.Errors,
+			"warnings":       counts.Warnings,
+			"diagnostics":    markers,
 			"study_added":    studyAdded,
 		}
 		return nil
@@ -333,7 +454,19 @@ func getMarkersJS() string {
 		if (!model) return [];
 		var markers = m.env.editor.getModelMarkers({ resource: model.uri });
 		return markers.map(function(mk) {
-			return { line: mk.startLineNumber, column: mk.startColumn, message: mk.message, severity: mk.severity };
+			var sev = mk.severity;
+			var label = sev === 8 ? 'error' : (sev === 4 ? 'warning' : (sev === 2 ? 'info' : 'hint'));
+			return {
+				line: mk.startLineNumber,
+				column: mk.startColumn,
+				end_line: mk.endLineNumber,
+				end_column: mk.endColumn,
+				message: mk.message,
+				severity: sev,
+				severity_label: label,
+				code: mk.code || null,
+				source: mk.source || 'monaco'
+			};
 		});
 	})()`
 }
@@ -354,11 +487,15 @@ func GetErrors() (map[string]interface{}, error) {
 		}
 		var errors []interface{}
 		json.Unmarshal(raw, &errors)
+		counts := markerCounts(errors)
 		result = map[string]interface{}{
-			"success":     true,
-			"has_errors":  len(errors) > 0,
-			"error_count": len(errors),
-			"errors":      errors,
+			"success":       true,
+			"has_errors":    counts.ErrorCount > 0,
+			"error_count":   counts.ErrorCount,
+			"warning_count": counts.WarningCount,
+			"errors":        counts.Errors,
+			"warnings":      counts.Warnings,
+			"diagnostics":   errors,
 		}
 		return nil
 	})
@@ -495,30 +632,31 @@ func NewScript(scriptType string) (map[string]interface{}, error) {
 		t = templates["indicator"]
 		scriptType = "indicator"
 	}
-	escaped, _ := json.Marshal(t)
 
 	var result map[string]interface{}
 	err := cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
 		if !ensurePineEditorOpen(ctx, c) {
 			return fmt.Errorf("could not open Pine Editor")
 		}
-		raw, err := c.Evaluate(ctx, `(function() {
-			var m = `+findMonaco+`;
-			if (!m) return false;
-			m.editor.setValue(`+string(escaped)+`);
-			return true;
-		})()`, false)
+		before, err := readSourceSnapshot(ctx, c)
 		if err != nil {
-			return err
+			return fmt.Errorf("read current Pine source before new script: %w", err)
 		}
-		var ok bool
-		if json.Unmarshal(raw, &ok) != nil || !ok {
-			return fmt.Errorf("Monaco editor not found")
+		backup, err := createPineBackup(before, "before_pine_new")
+		if err != nil {
+			return fmt.Errorf("create Pine source backup before new script: %w", err)
+		}
+		if err := setSourceInEditor(ctx, c, t); err != nil {
+			return err
 		}
 		result = map[string]interface{}{
 			"success":             true,
 			"type":                scriptType,
+			"template_line_count": len(strings.Split(t, "\n")),
 			"action":              "new_script_created",
+			"backup_created":      true,
+			"backup":              backupToResult(backup),
+			"backup_path":         backup.ManifestPath,
 		}
 		return nil
 	})
@@ -539,6 +677,14 @@ func OpenScript(name string) (map[string]interface{}, error) {
 	err := cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
 		if !ensurePineEditorOpen(ctx, c) {
 			return fmt.Errorf("could not open Pine Editor")
+		}
+		before, err := readSourceSnapshot(ctx, c)
+		if err != nil {
+			return fmt.Errorf("read current Pine source before open script: %w", err)
+		}
+		backup, err := createPineBackup(before, "before_pine_open")
+		if err != nil {
+			return fmt.Errorf("create Pine source backup before open script: %w", err)
 		}
 		expr := `(function() {
 			var target = ` + string(escapedName) + `;
@@ -591,6 +737,9 @@ func OpenScript(name string) (map[string]interface{}, error) {
 		result = res
 		result["source"] = "internal_api"
 		result["opened"] = true
+		result["backup_created"] = true
+		result["backup"] = backupToResult(backup)
+		result["backup_path"] = backup.ManifestPath
 		return nil
 	})
 	if err != nil {
@@ -687,7 +836,7 @@ func Check(source string) (map[string]interface{}, error) {
 
 	var payload struct {
 		Result *struct {
-			Errors2   []struct {
+			Errors2 []struct {
 				Start   *struct{ Line, Column int } `json:"start"`
 				End     *struct{ Line, Column int } `json:"end"`
 				Message string                      `json:"message"`
@@ -751,7 +900,7 @@ func Check(source string) (map[string]interface{}, error) {
 	return result, nil
 }
 
-// RegisterTools registers all 12 Pine Script MCP tools.
+// RegisterTools registers all Pine Script MCP tools.
 func RegisterTools(reg *mcp.Registry) {
 	reg.Register(mcp.ToolDef{
 		Name:        "pine_get_source",
@@ -764,20 +913,47 @@ func RegisterTools(reg *mcp.Registry) {
 
 	reg.Register(mcp.ToolDef{
 		Name:        "pine_set_source",
-		Description: "Inject Pine Script source code into the editor",
+		Description: "Backup current Pine source, then inject Pine Script source code into the editor",
 		Schema: mcp.InputSchema{
-			Type:       "object",
-			Properties: map[string]mcp.PropertySchema{"source": {Type: "string", Description: "Pine Script source code to inject"}},
-			Required:   []string{"source"},
+			Type: "object",
+			Properties: map[string]mcp.PropertySchema{
+				"source":                  {Type: "string", Description: "Pine Script source code to inject"},
+				"expected_current_sha256": {Type: "string", Description: "Optional SHA256 guard for the current editor source before overwrite"},
+			},
+			Required: []string{"source"},
 		},
 		Handler: func(args json.RawMessage) (interface{}, error) {
 			var p struct {
-				Source string `json:"source"`
+				Source                string `json:"source"`
+				ExpectedCurrentSHA256 string `json:"expected_current_sha256"`
 			}
 			if err := json.Unmarshal(args, &p); err != nil {
 				return map[string]interface{}{"success": false, "error": err.Error()}, nil
 			}
-			return SetSource(p.Source)
+			return SetSourceWithExpectedHash(p.Source, p.ExpectedCurrentSHA256)
+		},
+	})
+
+	reg.Register(mcp.ToolDef{
+		Name:        "pine_restore_source",
+		Description: "Restore Pine source from a backup manifest or .pine file and verify SHA256",
+		Schema: mcp.InputSchema{
+			Type: "object",
+			Properties: map[string]mcp.PropertySchema{
+				"backup_path":     {Type: "string", Description: "Path to backup.json or .pine backup file"},
+				"expected_sha256": {Type: "string", Description: "Required for .pine files; optional override for backup manifests"},
+			},
+			Required: []string{"backup_path"},
+		},
+		Handler: func(args json.RawMessage) (interface{}, error) {
+			var p struct {
+				BackupPath     string `json:"backup_path"`
+				ExpectedSHA256 string `json:"expected_sha256"`
+			}
+			if err := json.Unmarshal(args, &p); err != nil {
+				return map[string]interface{}{"success": false, "error": err.Error()}, nil
+			}
+			return RestoreSource(p.BackupPath, p.ExpectedSHA256)
 		},
 	})
 

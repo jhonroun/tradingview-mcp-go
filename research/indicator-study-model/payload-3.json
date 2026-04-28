@@ -1,0 +1,110 @@
+{
+  "coverage": "loaded_chart_bars",
+  "current_bar_index": 299,
+  "entity_id": "Vvzmzg",
+  "inputs": {
+    "__profile": false,
+    "in_0": true,
+    "in_1": true,
+    "in_2": true,
+    "in_3": true,
+    "pineFeatures": "{\"indicator\":1,\"plot\":1,\"str\":1,\"ta\":1,\"math\":1,\"table\":1}",
+    "pineId": "USER;db7fc27c08544131b136bdc28e8b2595",
+    "pineVersion": "6.0"
+  },
+  "name": "Помошник RSI - True ADX",
+  "plot_count": 6,
+  "plots": [
+    {
+      "current": 15.545741865281482,
+      "is_hidden": false,
+      "name": "DI+",
+      "plot_id": "plot_4",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "reliableForTradingLogic": true,
+      "source": "tradingview_study_model",
+      "type": "line",
+      "value_index": 5,
+      "values": [
+        15.545741865281482
+      ]
+    },
+    {
+      "current": 29.819614317930682,
+      "is_hidden": false,
+      "name": "DI-",
+      "plot_id": "plot_5",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "reliableForTradingLogic": true,
+      "source": "tradingview_study_model",
+      "type": "line",
+      "value_index": 6,
+      "values": [
+        29.819614317930682
+      ]
+    },
+    {
+      "current": 26.293855814935608,
+      "is_hidden": false,
+      "name": "ADX",
+      "plot_id": "plot_6",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "reliableForTradingLogic": true,
+      "source": "tradingview_study_model",
+      "type": "line",
+      "value_index": 7,
+      "values": [
+        26.293855814935608
+      ]
+    },
+    {
+      "current": 31.141247635850746,
+      "is_hidden": false,
+      "name": "RSI",
+      "plot_id": "plot_7",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "reliableForTradingLogic": true,
+      "source": "tradingview_study_model",
+      "type": "line",
+      "value_index": 8,
+      "values": [
+        31.141247635850746
+      ]
+    },
+    {
+      "current": 70,
+      "is_hidden": false,
+      "name": "RSI - зона перепроданности",
+      "plot_id": "plot_8",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "reliableForTradingLogic": true,
+      "source": "tradingview_study_model",
+      "type": "line",
+      "value_index": 9,
+      "values": [
+        70
+      ]
+    },
+    {
+      "current": 30,
+      "is_hidden": false,
+      "name": "RSI - зона перекупленности",
+      "plot_id": "plot_10",
+      "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+      "reliableForTradingLogic": true,
+      "source": "tradingview_study_model",
+      "type": "line",
+      "value_index": 11,
+      "values": [
+        30
+      ]
+    }
+  ],
+  "reliability": "reliable_pine_runtime_value_unstable_internal_path",
+  "reliableForTradingLogic": true,
+  "source": "tradingview_study_model",
+  "success": true,
+  "time": 1777096800,
+  "total_bars": 400,
+  "visible": true
+}

@@ -1,0 +1,14 @@
+{
+  "command": "go run ./cmd/tvmcp < mcp-data-get-study-values.input.jsonl",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:47:50.2203679+08:00",
+  "finishedAt": "2026-04-27T10:47:56.6566178+08:00",
+  "studyCount": 2,
+  "source": "tradingview_ui_data_window",
+  "reliability": "display_value_localized_ui_string",
+  "hasDisplayValue": true,
+  "parseError": null,
+  "input": "research\\locale-display-number-parser\\mcp-data-get-study-values.input.jsonl",
+  "stdout": "research\\locale-display-number-parser\\mcp-data-get-study-values.output.jsonl",
+  "stderr": "research\\locale-display-number-parser\\mcp-data-get-study-values.stderr.txt"
+}

@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-04-28",
+  "command": "go run ./cmd/tv discover",
+  "exitcode": 0,
+  "success": true,
+  "compatibility_probe_count": 9,
+  "unstable_internal_paths": true,
+  "ok": [
+    "tradingview_api",
+    "active_chart_widget",
+    "chart_model",
+    "data_sources",
+    "study_model_data"
+  ],
+  "unavailable_or_state_blocked": [
+    {
+      "name": "strategy_sources",
+      "status": "no_strategy_loaded",
+      "compatible": true,
+      "available": false
+    },
+    {
+      "name": "active_strategy_source",
+      "status": "no_strategy_loaded",
+      "compatible": true,
+      "available": false
+    },
+    {
+      "name": "backtesting_strategy_api",
+      "status": "no_strategy_loaded",
+      "compatible": true,
+      "available": false
+    },
+    {
+      "name": "strategy_equity_plot",
+      "status": "no_strategy_loaded",
+      "compatible": true,
+      "available": false
+    }
+  ],
+  "equity_policy": {
+    "source": "tradingview_strategy_plot",
+    "coverage": "loaded_chart_bars",
+    "derived_equity": "conditional_not_native",
+    "native_full_bar_by_bar_equity": "not_implemented_until_stable_tradingview_report_field_exists"
+  },
+  "go_test_exitcode": 0,
+  "go_vet_exitcode": 0,
+  "mcp_smoke_exitcode": 0
+}

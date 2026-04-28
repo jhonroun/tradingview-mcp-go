@@ -1,0 +1,15 @@
+{
+  "command": "go run ./cmd/tvmcp < mcp-initialize-tools-list.input.jsonl",
+  "exitCode": 0,
+  "startedAt": "2026-04-27T10:18:04.4978825+08:00",
+  "finishedAt": "2026-04-27T10:18:11.1466764+08:00",
+  "initializeOK": true,
+  "toolsListOK": true,
+  "toolCount": 82,
+  "expectedToolCount": 78,
+  "countMatchesExpected": false,
+  "parseError": null,
+  "input": "research\\implementation-baseline\\mcp-initialize-tools-list.input.jsonl",
+  "stdout": "research\\implementation-baseline\\mcp-initialize-tools-list.output.jsonl",
+  "stderr": "research\\implementation-baseline\\mcp-initialize-tools-list.stderr.txt"
+}

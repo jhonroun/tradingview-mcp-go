@@ -1,0 +1,61 @@
+{
+  "captured_at": "2026-04-27T06:14:35.0322189+08:00",
+  "limit_evidence": {
+    "pine_console": {
+      "entries": [
+        {
+          "message": "Редактор PineСтратегия EMA + MACD (Michael)Добавить на графикДобавить на графикСохраненоСохраненоОпубликовать скриптОпубликовать скрипт17plot(slow, \"Slow SMA\")Нажмите нужное сочетание клавиш, а затем клавишу ВВОД.22:31:58Открыт скрипт «Стратегия EMA + MACD (Michael)»22:48:23Компиляция...22:48:24Скрипт «Angle, slope indicator RUN» сохранён.02:22:45Компиляция...02:22:51Ошибка на 450:4 Strategies without \"calc_on_every_tick = true\" only calculate on confirmed chart bars. In this case, \"barstate.islast\" may not initially return \"true\" on realtime bars, as the last bar is unconfirmed until it closes. If you need to check whether a bar is the latest before it closes, enable \"calc_on_every_tick\" in the \"strategy()\" function. 02:22:51Скрипт «Стратегия EMA + MACD (Michael)» сохранён.02:34:15Компиляция...02:34:17Ошибка на 451:5 No value assigned to the \"start_column\" parameter in table.clear()02:34:17Ошибка на 451:5 No value assigned to the \"start_row\" parameter in table.clear()02:34:17Скрипт «Стратегия EMA + MACD (Michael)» сохранён.02:34:50Компиляция...02:34:54Скрипт «Стратегия EMA + MACD (Michael)» сохранён.02:35:39Компиляция...02:35:47Скрипт «Стратегия EMA + MACD (Michael)» сохранён.02:36:25Компиляция...02:36:30Скрипт «Стратегия EMA + MACD (Michael)» сохранён.02:36:50Компиляция...02:36:55Скрипт «Стратегия EMA + MACD (Michael)» сохранён.02:40:36Компиляция...02:40:42Скрипт «Стратегия EMA + MACD (Michael)» сохранён.02:52:24Компиляция...02:52:29Скрипт «Стратегия EMA + MACD (Michael)» сохранён.02:57:27Компиляция...02:57:34Скрипт «Стратегия EMA + MACD (Michael)» сохранён.03:12:31Компиляция...03:12:36Скрипт «Стратегия EMA + MACD (Michael)» сохранён.03:14:46Компиляция...03:14:51Скрипт «Стратегия EMA + MACD (Michael)» сохранён.03:18:50Компиляция...03:18:54Скрипт «Стратегия EMA + MACD (Michael)» сохранён.18:55:24Компиляция...18:55:26Скрипт «Стратегия EMA + MACD (Michael)» сохранён.18:57:36Компиляция...18:57:43Скрипт «Стратегия EMA + MACD (Michael)» сохранён.06:13:56Компиляция...06:13:58Готово.06:13:58Добавлено на график.28 ∙ Сегодня, 06:13Линия 1, Столбец 1Pine Script® v5",
+          "timestamp": null,
+          "type": "info"
+        },
+        {
+          "message": "Искать инструмент или функциюЗакрыть менюПоиск инструментов рисования, функций и настроек",
+          "timestamp": null,
+          "type": "info"
+        },
+        {
+          "message": "Больше индикаторов, больше торговых возможностейВы применили 2 индикатора — максимальное количество, доступное по вашей подписке.HSfTRSI-ADXНужно больше? Повысьте уровень подписки и используйте до 25 индикаторов на график, чтобы найти новые торговые возможности.Текущая подпискаBasic2РекомендованныеPremium25Улучшить подписку",
+          "timestamp": null,
+          "type": "info"
+        }
+      ],
+      "entry_count": 3,
+      "success": true
+    },
+    "first_add_attempt_file": "03m-save-apply-attempt.json"
+  },
+  "handling": {
+    "after": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "afterCount": 2,
+    "before": [
+      {
+        "id": "MKXrUt",
+        "name": "Volume"
+      },
+      {
+        "id": "bzUmEv",
+        "name": "Help system for trade"
+      },
+      {
+        "id": "Vvzmzg",
+        "name": "Помошник RSI - True ADX"
+      }
+    ],
+    "beforeCount": 3,
+    "limit_detected": true,
+    "removed_indicator": {
+      "id": "bzUmEv",
+      "name": "Help system for trade",
+      "reason": "TradingView Basic limit counted HSfT and RSI-ADX as 2/2 applied indicators; Volume does not appear to count in the limit dialog."
+    }
+  }
+}

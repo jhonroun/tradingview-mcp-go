@@ -3,8 +3,9 @@
 ## Status baseline (2026-04-25)
 
 ```text
-tradingview-mcp-go: parity baseline passed
-78/78 tools implemented
+tradingview-mcp-go: parity baseline passed, stabilization extensions added
+historical Node parity: 78/78 tools implemented
+current Go registry: 85 MCP tools
 CLI implemented
 MCP manual implementation accepted
 critical blockers: none
@@ -17,7 +18,7 @@ critical blockers: none
 Tests that do NOT require TradingView running. Pure protocol coverage.
 
 - [x] `initialize` → correct protocolVersion, serverInfo, capabilities
-- [x] `tools/list` → returns exactly 78 tools, each has name/description/inputSchema
+- [x] `tools/list` → historical parity was 78 tools; current stabilized Go registry returns 85 tools, each has name/description/inputSchema
 - [x] `tools/call` known tool → `{"content":[{"type":"text","text":"..."}],"isError":false}`
 - [x] `tools/call` unknown tool → `{"content":[...],"isError":true}`
 - [x] `tools/call` with bad JSON args → `{"content":[...],"isError":true}`
@@ -90,6 +91,13 @@ New tools to support the HTS integration layer.
 
 Formal response schemas for tools the HTS layer consumes.
 See: [JSON_CONTRACTS.md](JSON_CONTRACTS.md)
+Final readiness audit: [FINAL_AUDIT_REPORT.md](FINAL_AUDIT_REPORT.md)
+See also: [HTS_MARKET_SUMMARY_CONTRACT.md](HTS_MARKET_SUMMARY_CONTRACT.md)
+for the source-aware external HTS MCP -> LLM summary contract.
+See also: [LLM_MARKET_CONTEXT_CONTRACT.md](LLM_MARKET_CONTEXT_CONTRACT.md)
+for compact LLM payloads without raw candles.
+See also: [INSTRUMENT_RESOLVER_CONTRACT.md](INSTRUMENT_RESOLVER_CONTRACT.md)
+for TradingView analysis symbol -> Tinkoff execution instrument mapping.
 
 Priority tools:
 

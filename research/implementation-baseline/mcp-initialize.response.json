@@ -1,0 +1,15 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "protocolVersion": "2024-11-05",
+    "serverInfo": {
+      "name": "tradingview",
+      "version": "2.0.0"
+    },
+    "capabilities": {
+      "tools": {}
+    },
+    "instructions": "TradingView MCP — tools for reading and controlling a live TradingView Desktop chart.\n\nTOOL SELECTION GUIDE:\n\nReading your chart:\n- chart_get_state → get symbol, timeframe, all indicator names + entity IDs (call first)\n- data_get_study_values → get current numeric values from ALL visible indicators (RSI, MACD, BB, EMA, etc.)\n- quote_get → get real-time price snapshot (last, OHLC, volume)\n- data_get_ohlcv → get price bars. ALWAYS pass summary=true unless you need individual bars\n\nReading custom Pine indicator output (line.new/label.new/table.new/box.new drawings):\n- data_get_pine_lines → horizontal price levels from custom indicators (deduplicated, sorted)\n- data_get_pine_labels → text annotations with prices (\"PDH 24550\", \"Bias Long\", etc.)\n- data_get_pine_tables → table data as formatted rows (session stats, analytics dashboards)\n- data_get_pine_boxes → price zones as {high, low} pairs\n- ALWAYS pass study_filter to target a specific indicator by name\n\nScreenshots: capture_screenshot → regions: \"full\", \"chart\", \"strategy_tester\"\nLaunch: tv_launch → auto-detect and start TradingView with CDP on any platform\n\nCONTEXT MANAGEMENT:\n- ALWAYS use summary=true on data_get_ohlcv\n- ALWAYS use study_filter on pine tools when you know which indicator you want\n- Prefer capture_screenshot for visual context over pulling large datasets\n- Call chart_get_state ONCE at start, reuse entity IDs"
+  }
+}

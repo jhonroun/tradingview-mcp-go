@@ -1,0 +1,7 @@
+{
+  "count": 82,
+  "expected": 78,
+  "matchesExpected": false,
+  "namesFile": "mcp-tools-names.json",
+  "responseFile": "mcp-tools-list.response.json"
+}

@@ -49,6 +49,20 @@ func evalJSON(ctx context.Context, c *cdp.Client, expr string) (interface{}, err
 	return v, nil
 }
 
+func evalJSONAwait(ctx context.Context, c *cdp.Client, expr string) (interface{}, error) {
+	raw, err := c.EvaluateWithOptions(ctx, expr, cdp.EvaluateOptions{
+		AwaitPromise:  true,
+		ReturnByValue: true,
+		Timeout:       30 * time.Second,
+	})
+	if err != nil {
+		return nil, err
+	}
+	var v interface{}
+	_ = json.Unmarshal(raw, &v)
+	return v, nil
+}
+
 func evalMap(ctx context.Context, c *cdp.Client, expr string) (map[string]interface{}, error) {
 	v, err := evalJSON(ctx, c, expr)
 	if err != nil {
@@ -679,6 +693,26 @@ func Evaluate(expression string) (map[string]interface{}, error) {
 	var result map[string]interface{}
 	err := cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
 		v, err := evalJSON(ctx, c, expression)
+		if err != nil {
+			return err
+		}
+		result = map[string]interface{}{"success": true, "result": v}
+		return nil
+	})
+	if err != nil {
+		return map[string]interface{}{"success": false, "error": err.Error()}, nil
+	}
+	return result, nil
+}
+
+// EvaluateAwait executes JavaScript and waits for a returned Promise.
+func EvaluateAwait(expression string) (map[string]interface{}, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	var result map[string]interface{}
+	err := cdp.WithSession(ctx, func(c *cdp.Client, _ *cdp.Target) error {
+		v, err := evalJSONAwait(ctx, c, expression)
 		if err != nil {
 			return err
 		}

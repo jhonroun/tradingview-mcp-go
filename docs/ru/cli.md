@@ -467,3 +467,18 @@ tv futures-context
 | `scripts/configure-mcp.sh` | Настройка MCP-конфига для указанного клиента |
 | `scripts/configure-mcp.ps1` | То же для Windows |
 | `scripts/package.sh` | Создать release-архивы для всех платформ |
+
+---
+
+## Текущие data contracts
+
+- Текущий Go MCP registry: `85` tools; историческая Node parity база: `78`.
+- `tv discover` возвращает legacy `paths` и structured `compatibility_probes` для unstable TradingView internals. Повторяйте его после обновлений TradingView Desktop.
+- `data_get_indicator` и `data_get_indicator_history` надёжны для trading logic только при `source: tradingview_study_model` и `reliableForTradingLogic:true`.
+- `data_get_strategy_results`, `data_get_trades`, `data_get_orders` требуют `status: ok` и `source: tradingview_backtesting_api`.
+- `data_get_equity` надёжна только при `source: tradingview_strategy_plot`; `coverage: loaded_chart_bars` не гарантирует full backtest history.
+- Для догрузки истории используйте `chart_set_visible_range` / `chart_scroll_to_date`, дождитесь догрузки баров TradingView, затем повторите equity/history tools и сравните `loaded_bar_count` / `data_points`. Это остаётся best-effort loaded-bars coverage.
+- Derived equity является conditional и не должна называться native Strategy Tester equity.
+- Не реализовывать и не обещать full native bar-by-bar Strategy Tester equity, пока TradingView не exposes стабильный report field.
+- `quote_get` может вернуть `bidAskAvailable:false`; нельзя считать bid/ask spread из zero compatibility values.
+- `pine_set_source` создаёт backup, а `pine_restore_source` проверяет SHA256.

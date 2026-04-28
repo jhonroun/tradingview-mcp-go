@@ -1,0 +1,313 @@
+{
+  "result": [
+    {
+      "aria": "Индикаторы, показатели и стратегии",
+      "className": "button-OhqNVIYA button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible",
+      "dataName": "open-indicators-dialog",
+      "i": 13,
+      "role": null,
+      "tag": "button",
+      "text": "Индикаторы",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Создать оповещение",
+      "className": "button-OhqNVIYA button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible",
+      "dataName": null,
+      "i": 16,
+      "role": null,
+      "tag": "button",
+      "text": "Оповещения",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Все изменения сохранены",
+      "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-comm",
+      "dataName": null,
+      "i": 21,
+      "role": null,
+      "tag": "button",
+      "text": "Без названияСохранить",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Индикаторы, показатели и стратегии",
+      "className": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessi",
+      "dataName": "open-indicators-dialog",
+      "i": 40,
+      "role": null,
+      "tag": "button",
+      "text": "",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Создать оповещение",
+      "className": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessi",
+      "dataName": null,
+      "i": 43,
+      "role": null,
+      "tag": "button",
+      "text": "",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Все изменения сохранены",
+      "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-comm",
+      "dataName": null,
+      "i": 48,
+      "role": null,
+      "tag": "button",
+      "text": "Без названияСохранить",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Индикаторы, показатели и стратегии",
+      "className": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessi",
+      "dataName": "open-indicators-dialog",
+      "i": 67,
+      "role": null,
+      "tag": "button",
+      "text": "",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Создать оповещение",
+      "className": "button-OhqNVIYA button-ptpAHg8E withoutText-ptpAHg8E button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessi",
+      "dataName": null,
+      "i": 70,
+      "role": null,
+      "tag": "button",
+      "text": "",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Все изменения сохранены",
+      "className": "button-Uy_he976 buttonSmallPadding-Uy_he976 button-ptpAHg8E withText-ptpAHg8E button-GwQQdU8S button-IfxMm7Gw apply-comm",
+      "dataName": null,
+      "i": 75,
+      "role": null,
+      "tag": "button",
+      "text": "Без названияСохранить",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Управление графиками",
+      "className": "button-merBkM5y apply-common-tooltip accessible-merBkM5y",
+      "dataName": "save-load-menu",
+      "i": 76,
+      "role": null,
+      "tag": "button",
+      "text": "",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "widgetbar-wrap unselectable",
+      "dataName": "widgetbar-wrap",
+      "i": 170,
+      "role": null,
+      "tag": "div",
+      "text": "99+ПубличныеЛичные PineCoders PineCoders: Hi, You have been banned for 10 minutes from ideas publishing, public chats, commenting, status updates and private messages on our platform because of your v",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Pine",
+      "className": "button-I_wb5FjE button-GwQQdU8S apply-common-tooltip common-tooltip-vertical isInteractive-GwQQdU8S accessible-GwQQdU8S",
+      "dataName": "pine-dialog-button",
+      "i": 177,
+      "role": null,
+      "tag": "button",
+      "text": "",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "widgetbar-pages hidden",
+      "dataName": "widgetbar-pages-with-tabs",
+      "i": 183,
+      "role": null,
+      "tag": "div",
+      "text": "ПубличныеЛичные PineCoders PineCoders: Hi, You have been banned for 10 minutes from ideas publishing, public chats, commenting, status updates and private messages on our platform because of your viol",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Закрыть отчёт по стратегии",
+      "className": "container-yt6RGAn_ button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+      "dataName": null,
+      "i": 184,
+      "role": null,
+      "tag": "button",
+      "text": "Отчёт по стратегии",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Закрыть отчёт по стратегии",
+      "className": "container-yt6RGAn_ button-GwQQdU8S apply-common-tooltip isInteractive-GwQQdU8S accessible-GwQQdU8S",
+      "dataName": null,
+      "i": 185,
+      "role": null,
+      "tag": "button",
+      "text": "Отчёт по стратегии",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "button-D4RPB3ZC small-D4RPB3ZC black-D4RPB3ZC primary-D4RPB3ZC apply-overflow-tooltip apply-overflow-tooltip--check-chil",
+      "dataName": null,
+      "i": 189,
+      "role": null,
+      "tag": "button",
+      "text": "Загрузить стратегию",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN withEndSlot-FujgyDpN",
+      "dataName": "toast-group-expand-button-news-notification",
+      "i": 215,
+      "role": null,
+      "tag": "button",
+      "text": "Больше",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "roundButton-FujgyDpN roundButtonColor-xCeOT7of gray-xCeOT7of quiet-primary-xCeOT7of xsmall-FujgyDpN iconOnly-FujgyDpN wi",
+      "dataName": "toast-group-close-button-news-notification",
+      "i": 216,
+      "role": null,
+      "tag": "button",
+      "text": "",
+      "title": "Закрыть всё",
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "dialog-RY6N1NHl js-dialog visible-RY6N1NHl i-focused dialog-media__desktop-hd",
+      "dataName": "pine-dialog",
+      "i": 230,
+      "role": null,
+      "tag": "div",
+      "text": "Редактор PineСтратегия EMA + MACD (Michael)Добавить на графикДобавить на графикСохранитьСохранитьОпубликовать скриптОпубликовать скрипт17plot(slow, \"Slow SMA\")Нажмите нужное сочетание клавиш, а затем ",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "nameButton-k49p41Es isPressed-k49p41Es",
+      "dataName": null,
+      "i": 232,
+      "role": "button",
+      "tag": "div",
+      "text": "Стратегия EMA + MACD (Michael)",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "saveButton-fF7iXGw2 unsaved-fF7iXGw2 apply-common-tooltip hidden-fF7iXGw2 lightButton-bYDQcOkp withStartSlot-bYDQcOkp gh",
+      "dataName": null,
+      "i": 234,
+      "role": null,
+      "tag": "button",
+      "text": "СохранитьСохранить",
+      "title": "Сохранить скрипт",
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "publishButton-HeHIQL4x apply-common-tooltip lightButton-bYDQcOkp withStartSlot-bYDQcOkp secondary-PVWoXu5j gray-PVWoXu5j",
+      "dataName": null,
+      "i": 235,
+      "role": null,
+      "tag": "button",
+      "text": "Опубликовать скриптОпубликовать скрипт",
+      "title": "Поделитесь своим скриптом с сообществом",
+      "value": null
+    },
+    {
+      "aria": "Editor content;Press Alt+F1 for Accessibility Options.",
+      "className": "inputarea monaco-mouse-cursor-text",
+      "dataName": null,
+      "i": 237,
+      "role": "textbox",
+      "tag": "textarea",
+      "text": "",
+      "title": null,
+      "value": "//@version=5\nstrategy(\"MCP Test SMA Strategy\", overlay=true)\n\nfast = ta.sma(close, 10)\nslow = ta.sma(close, 20)\n\nlongCondition = ta.crossover(fast, slow)\nexitCondition = ta.crossunder(fast, slow)\n\nif longCondition\n"
+    },
+    {
+      "aria": null,
+      "className": "button-vjBbghdv apply-common-tooltip button-vjBbghdv",
+      "dataName": null,
+      "i": 239,
+      "role": "button",
+      "tag": "button",
+      "text": "Несохранённая версия",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Сохранить скрипт",
+      "className": "button-HZXWyU6m",
+      "dataName": null,
+      "i": 243,
+      "role": "menuitem",
+      "tag": "div",
+      "text": "Сохранить скриптCtrl + S",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": null,
+      "className": "button-HZXWyU6m",
+      "dataName": null,
+      "i": 248,
+      "role": "menuitem",
+      "tag": "div",
+      "text": "Создать новый",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Открыть скрипт…",
+      "className": "button-HZXWyU6m",
+      "dataName": null,
+      "i": 249,
+      "role": "menuitem",
+      "tag": "div",
+      "text": "Открыть скрипт…Ctrl + O",
+      "title": null,
+      "value": null
+    },
+    {
+      "aria": "Стратегия",
+      "className": "button-HZXWyU6m",
+      "dataName": null,
+      "i": 251,
+      "role": "menuitem",
+      "tag": "div",
+      "text": "СтратегияCtrl + K, Ctrl + S",
+      "title": null,
+      "value": null
+    }
+  ],
+  "success": true
+}

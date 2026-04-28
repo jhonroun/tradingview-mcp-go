@@ -1,0 +1,9 @@
+{
+  "count": 0,
+  "query": "ZZZ_THIS_SYMBOL_SHOULD_NOT_EXIST_20260427",
+  "reason": "TradingView symbol search API returned no results after applying requested filters.",
+  "results": [],
+  "source": "tradingview_symbol_search_api",
+  "status": "no_results",
+  "success": true
+}

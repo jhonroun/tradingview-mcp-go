@@ -6,6 +6,794 @@
 
 ---
 
+## 2026-04-28 (`Release 1.2 hardening: compatibility probes and equity policy`)
+
+### Added
+
+- `tv_discover` now returns structured `compatibility_probes` while preserving
+  the legacy `paths` object.
+- Compatibility probes cover TradingView API root, active chart widget, chart
+  model, study model data paths, strategy source paths, backtesting API, and
+  explicit Strategy Equity plot availability.
+- `research/compatibility-probes/` documents the probe contract, equity
+  decision, optional history-load workflow, and release evidence.
+
+### Changed
+
+- EN/RU docs, all agents, and all skills now explicitly state that
+  `coverage: loaded_chart_bars` is chart-loaded coverage only.
+- Derived equity is documented as conditional and not native Strategy Tester
+  equity.
+- Full native bar-by-bar Strategy Tester equity is explicitly out of scope
+  until TradingView exposes a stable report field.
+- Optional history loading is documented as best-effort chart range
+  expansion/scrolling followed by repeated data calls and
+  `loaded_bar_count` / `data_points` comparison.
+
+### Verified
+
+- Live `tv discover` passed and saved output under
+  `research/compatibility-probes/`.
+- `go test ./...` passed.
+- `go vet ./...` passed.
+- MCP initialize, `tools/list` count (`85`), and unknown-tool error shape
+  passed; artifacts are in `research/compatibility-probes/`.
+
+## 2026-04-27 (`Gap closure: localized Pine compile, docs, agents, skills`)
+
+### Added
+
+- `research/pine-localized-compile/` live smoke evidence for Russian
+  TradingView Add-to-chart button handling.
+- `research/implementation-gap-audit/` with research/code/docs coverage matrix
+  and agents/skills gap summary.
+- New skills:
+  `study-model-values`, `strategy-backtesting-api`, `strategy-equity-plot`,
+  `pine-safe-edit`, `tradingview-limit-handling`, `regression-smoke`, and
+  `data-quality`.
+- Russian `SKILL.ru.md` variants for all 18 skills.
+- Russian agent variants for root, Codex, Cline, Windsurf, Gemini, Cursor, and
+  Continue wrappers.
+- Russian source prompts:
+  `prompts/market-analyst.ru.md`, `prompts/futures-analyst.ru.md`, and
+  `prompts/performance-analyst.ru.md`.
+
+### Changed
+
+- `pine_compile` and `pine_smart_compile` now share a localized Add-to-chart
+  matcher that recognizes English and Russian labels, including duplicated
+  TradingView text such as `Добавить на графикДобавить на график`.
+- Active EN/RU docs now distinguish current Go registry count (`85`) from the
+  historical Node.js parity baseline (`78`).
+- Existing skills now include current MCP source/reliability/status/coverage
+  contract notes.
+- Agent prompts and all client wrappers were regenerated from updated
+  source-of-truth prompts with explicit data-quality rules.
+- `PLAN.md`, `TODO_codex.md`, and `prompts.md` were reset for the current
+  gap-closure pass.
+
+### Verified
+
+- `go test ./internal/tools/pine` passed.
+- Live Russian UI smoke clicked `Добавить на графикДобавить на график`,
+  returned `study_added:true`, then removed the disposable strategy and
+  restored the original Pine source SHA256.
+- `go test ./...` and `go vet ./...` passed.
+- MCP initialize, `tools/list` count (`85`), and unknown-tool error shape passed;
+  artifacts are in `research/agents-skills-sync/`.
+
+## 2026-04-27 (`Implementation final regression`)
+
+### Verified
+
+- Final regression artifacts were collected in
+  `research/implementation-final/`.
+- `go test ./...` and `go vet ./...` passed with exit code `0`.
+- MCP initialize, `tools/list`, and `tools/call` error shape were verified
+  over stdio JSON-RPC. Current registry count is `85` tools.
+- Live `data_get_indicator` and `data_get_indicator_history` returned
+  RSI/ADX/DI numeric values from `tradingview_study_model` on `RUS:NG1!`.
+- A disposable Pine strategy with
+  `plot(strategy.equity, "Strategy Equity", display=display.data_window)` was
+  added, smoke-tested, and removed.
+- Live `data_get_strategy_results`, `data_get_trades`, and `data_get_orders`
+  returned `status: ok` from `tradingview_backtesting_api`.
+- Live `data_get_equity` returned `400` loaded-bar points from
+  `tradingview_strategy_plot` with `coverage: loaded_chart_bars`.
+- Pine source was restored from SHA256-verified backup after the smoke test.
+
+### Notes
+
+- TradingView internals remain explicitly marked as unstable internal paths.
+- Equity output is not claimed to be full Strategy Tester history unless
+  TradingView has loaded the full chart range.
+- The final smoke exposed a UI localization gap: the Russian
+  `Добавить на график` button had to be clicked directly because the existing
+  compile helper recognizes English Add-to-chart labels.
+
+## 2026-04-27 (`Known issues closure`)
+
+### Changed
+
+- `symbol_search` now returns a structured response for empty results:
+  `status: no_results`, `reason`, `query`, `count: 0`, and `results: []`.
+  The CLI now uses the same response shape instead of printing a bare array.
+- `quote_get` now marks unavailable TradingView bid/ask explicitly with
+  `bidAskAvailable`, `bidAvailable`, `askAvailable`, `sourceLimitation`, and
+  `warning` while preserving numeric `bid`/`ask` sentinel fields for
+  compatibility.
+- MOEX futures quotes such as `RUS:NG1!` with zero/absent bid/ask are marked
+  `sourceLimitation: tradingview_moex_futures_bid_ask_unavailable`.
+- `STATUS.md` and `research/known-issues-closure/` now classify Pine,
+  strategy, and replay verification as `live_tested`, `partial`, or
+  `unverified`.
+
+### Verified
+
+- Before/after evidence is stored in `research/known-issues-closure/`.
+- Live `symbol_search` empty query now returns `status: no_results` with a
+  reason.
+- Live `quote_get` on `RUS:NG1!` returns `bidAskAvailable:false` and a MOEX
+  futures source limitation.
+- Live `data_get_indicator` / `data_get_indicator_history` on study `Vvzmzg`
+  returned RSI/ADX/DI floats from `tradingview_study_model`.
+- Live screenshot with a `.png` filename returned
+  `screenshots\issue-closure-after-redirect.png`, not `.png.png`.
+- `go test ./...` and `go vet ./...` passed.
+
+### Remaining
+
+- Strategy loaded-report extraction remains `partial` in this pass because the
+  current chart returned `no_strategy_loaded`; no chart/Pine mutation was
+  performed.
+- Replay trade workflow remains `unverified`; only `replay_status` was checked.
+
+## 2026-04-27 (`Study limit detection`)
+
+### Added
+
+- `chart_manage_indicator` now accepts optional `allow_remove_any`.
+- `tv manage-indicator add NAME [--inputs JSON_ARRAY] [--allow-remove-any]`
+  and `tv manage-indicator remove ENTITY_ID` CLI helpers.
+- `research/study-limit-detection/` smoke artifacts and README.
+
+### Changed
+
+- Indicator add now verifies that `createStudy` actually produced a new study
+  entity. A no-op add is returned as `success:false` instead of silent success.
+- TradingView study-limit messages are normalized to
+  `status: study_limit_reached` with `currentStudies`, optional `limit`, and
+  a user-facing `suggestion`.
+- Automatic removal is disabled by default. If `allow_remove_any=true` is
+  explicitly passed and a limit is detected, the tool removes the most recent
+  existing study, logs the removal to
+  `research/study-limit-detection/removals.jsonl`, and retries once.
+
+### Verified
+
+- Unit coverage for English/Russian limit-message parsing, non-limit add
+  failures, schema exposure of `allow_remove_any`, and JSONL removal-log
+  writing.
+- Live smoke on `RUS:NG1!` showed the current session did not hit the 2-study
+  limit: `Moving Average` was added as `5C13zY` and explicitly removed during
+  cleanup. Artifacts are in `research/study-limit-detection/`.
+- `go test ./...` and `go vet ./...` passed.
+
+### Pending
+
+- A live `study_limit_reached` response still needs reproduction on an account
+  or chart state where TradingView enforces the study cap.
+
+## 2026-04-27 (`Pine source safety`)
+
+### Added
+
+- `pine_restore_source` MCP tool and `tv pine restore BACKUP_PATH` CLI command.
+- `research/pine-source-safety/` live smoke artifacts and README with the safe
+  workflow: get source, backup, set source, compile, verify, restore.
+
+### Changed
+
+- `pine_get_source` now returns source metadata:
+  `source_sha256`, `hash`, `script_name`, `script_type`, `pine_version`,
+  `line_count`, and `char_count`.
+- `pine_set_source` now creates a backup before writing to Monaco and returns
+  `backup_path`, `backup_source_path`, and `backup_source_sha256`.
+- `pine_set_source` accepts optional `expected_current_sha256` as a write guard;
+  CLI equivalent is `--expected-current-sha256`.
+- `pine_new` and `pine_open` also backup the current editor before replacing
+  its content.
+- `pine_compile`, `pine_smart_compile`, and `pine_get_errors` now return
+  structured diagnostics with `error_count`, `warning_count`, `errors`,
+  `warnings`, and `diagnostics`.
+- MCP registry count is now 85 tools after adding `pine_restore_source`.
+
+### Verified
+
+- Live `tv pine get` returned script metadata for
+  `EMA Slope Angle + MACD (Michael) v3` with SHA256
+  `e675eb546b9f96fb79c1b7cd179d8908e7a77c7fcb4ca798124166042d350765`.
+- Live `tv pine set-file` wrote the same source using
+  `--expected-current-sha256` and created a backup manifest under
+  `research/pine-source-safety/session-*/backup.json`.
+- Live `tv pine restore` restored from the backup manifest and verified the
+  final editor SHA256.
+- `go test ./...` and `go vet ./...` passed.
+
+### Pending
+
+- A disposable strategy was not added/compiled in this pass to avoid mutating
+  chart studies. The safety workflow was verified by writing the same source
+  back into the editor and restoring it from backup.
+
+## 2026-04-27 (`Strategy equity plot extraction`)
+
+### Changed
+
+- `data_get_equity` now first looks for an explicit `Strategy Equity` Pine plot
+  in the active strategy source through `metaInfo().plots` and
+  `metaInfo().styles`.
+- When found, equity is read from
+  `model.strategySources()[0].data().fullRangeIterator()` and returned as
+  `{index, time, equity}` points with `time` normalized to milliseconds.
+- Successful plot extraction is marked with
+  `source: tradingview_strategy_plot`,
+  `coverage: loaded_chart_bars`, and
+  `reliability: reliable_pine_runtime_value_unstable_internal_path`.
+- If the plot is absent, `data_get_equity` returns
+  `status: needs_equity_plot` plus the suggested Pine line:
+  `plot(strategy.equity, "Strategy Equity", display=display.data_window)`.
+- Derived fallback metadata is now explicitly marked as
+  `source: derived_from_ohlcv_and_trades`,
+  `reliableForTradingLogic: false`, with requirements and limitations. Any
+  trade-exit fallback points are marked `coverage: trade_exit_points_only`.
+
+### Verified
+
+- Unit coverage checks the equity JS builder for `fullRangeIterator`,
+  `Strategy Equity`, `needs_equity_plot`, `tradingview_strategy_plot`,
+  `derived_from_ohlcv_and_trades`, and loaded-bar coverage markers.
+- Current live chart has no loaded strategy, so the live MCP smoke returned
+  `status: no_strategy_loaded`; artifacts are in
+  `research/strategy-equity-extraction/`.
+- `go test ./...` and `go vet ./...` passed.
+
+### Pending
+
+- Re-run `data_get_equity` with the disposable strategy from
+  `research/strategy-equity-full/mcp-test-sma-strategy-equity-plot.pine`.
+  This was not done in this implementation pass to avoid mutating the current
+  chart/Pine state.
+
+## 2026-04-27 (`Strategy tools use backtesting API`)
+
+### Added
+
+- `data_get_orders` MCP tool for `report.filledOrders` from TradingView's
+  backtesting report.
+- `research/strategy-backtesting-api/` MCP smoke artifacts for strategy tools.
+
+### Changed
+
+- `data_get_strategy_results`, `data_get_trades`, and `data_get_equity` now use
+  `model.strategySources()`, `model.activeStrategySource()`, and
+  `await window.TradingViewApi.backtestingStrategyApi()`.
+- Strategy extraction no longer detects strategies through
+  `dataSources() + performance`, because ordinary studies can expose
+  `performance`.
+- Strategy tool responses now include explicit statuses:
+  `ok`, `no_strategy_loaded`, `strategy_report_unavailable`,
+  `strategy_report_shape_unverified`, and
+  `tradingview_backtesting_api_unavailable`.
+- `data_get_equity` no longer probes fake strategy source data; dedicated
+  plot-based equity extraction is documented in the later strategy equity
+  entry above.
+- MCP registry count is now 84 tools after adding `data_get_orders`.
+
+### Verified
+
+- Current live chart with ordinary indicators only returns
+  `success:false/status:no_strategy_loaded` for strategy results, trades,
+  orders, and equity.
+- `tools/list` includes `data_get_orders`.
+- `go test ./...` and `go vet ./...` passed.
+
+### Pending
+
+- Re-run the new MCP tools with a live loaded disposable strategy. Earlier
+  research in `research/strategy-live-test/` confirmed the report contains
+  `trades`, `filledOrders`, `performance`, `settings`, and `currency`, but this
+  implementation smoke did not mutate the current chart/Pine state.
+
+## 2026-04-27 (`Indicator study model extraction`)
+
+### Added
+
+- `data_get_indicator_history` MCP tool for loaded-bar indicator history from
+  TradingView's internal study model.
+- `tv indicator-history NAME_OR_ENTITY_ID [--count N]` CLI helper for the same
+  history extraction path.
+- `research/indicator-study-model/` live smoke artifacts for
+  `data_get_study_values`, `data_get_indicator`, and
+  `data_get_indicator_history`.
+
+### Changed
+
+- `data_get_study_values` and `data_get_indicator` now read numeric plot values
+  from `study.data().valueAt(index)` instead of Data Window/UI display strings.
+- Plot values are mapped through `metaInfo().plots` and `metaInfo().styles`;
+  colorer/alertcondition plots and hidden plots are not exposed as numeric
+  study outputs.
+- Study-model responses are marked with
+  `source: tradingview_study_model`,
+  `reliability: reliable_pine_runtime_value_unstable_internal_path`,
+  `reliableForTradingLogic: true`, and `coverage: loaded_chart_bars`.
+- MCP registry count is now 83 tools after adding `data_get_indicator_history`.
+
+### Verified
+
+- Live `RUS:NG1!` 1D RSI/ADX/DI values from study `Vvzmzg` returned raw floats:
+  RSI `31.141247635850746`, ADX `26.293855814935608`,
+  DI+ `15.545741865281482`.
+- History smoke returned 5 loaded bars via `fullRangeIterator()`.
+- `go test ./...` and `go vet ./...` passed.
+
+## 2026-04-27 (`Strategy live extraction test`)
+
+### Added
+
+- `research/strategy-live-test/` — live TradingView Desktop research artifacts
+  for adding `MCP Test SMA Strategy` and reading
+  `window.TradingViewApi.backtestingStrategyApi()` without CSV export.
+- CLI-only `tv ui eval-await` for CDP `Runtime.evaluate` with
+  `awaitPromise=true`; existing MCP `ui_evaluate` behavior is unchanged.
+- CLI-only `tv pine set-file PATH` for restoring large Pine sources without
+  Windows command-line length issues; existing MCP Pine tools are unchanged.
+
+### Verified
+
+- A simple Pine strategy was added after freeing the Basic subscription
+  indicator limit.
+- `backtestingStrategyApi()` saw the active strategy and returned non-null
+  `activeStrategyReportData`.
+- `activeStrategyReportData` contained `trades`, `filledOrders`,
+  `performance`, `buyHold`, and `runupDrawdownPeriods`.
+- Normalized extraction prototype produced 43 trades, 86 filled orders,
+  summary metrics, and a close-to-close equity reconstruction.
+
+### Notes
+
+- Full bar-by-bar strategy equity was not found in `activeStrategyReportData`;
+  current equity reconstruction uses `trades[].cumulativeProfit` plus initial
+  capital at trade exit times.
+- `Help system for trade` was removed to free the Basic limit slot. The test
+  strategy was removed and Pine source was restored exactly, but the removed
+  custom indicator could not be re-added through `createStudy`; `Volume` was
+  re-added instead.
+
+## 2026-04-27 (`Strategy internals research`)
+
+### Added
+
+- `results/strategy-internals-research-2026-04-27.md` - live CDP research of
+  TradingView strategy internals, including exact chart model paths,
+  `model.strategySources()`, `model.activeStrategySource()`, and
+  `TradingViewApi.backtestingStrategyApi()` watched values.
+
+### Confirmed
+
+- The current chart has no loaded strategy:
+  `strategySources().length == 0`, active strategy is `null`, backtesting
+  report data is `null`, and `isStrategyEmpty` is `true`.
+- Ordinary studies expose a `performance` property, so the existing
+  `dataSources()` strategy detector is too broad and can select non-strategy
+  studies.
+
+### Pending
+
+- Verify the concrete `activeStrategyReportData` shape with a known loaded
+  disposable strategy before extracting trades, orders, PnL, and equity as
+  reliable data.
+- Update strategy tools to return explicit `no_strategy_loaded` /
+  `strategy_report_unavailable` statuses instead of empty successful results.
+
+## 2026-04-27 (`Final HTS audit report`)
+
+### Added
+
+- `docs/dev/FINAL_AUDIT_REPORT.md` — final HTS readiness audit with executive
+  summary, readiness matrix, blocking issues, non-blocking issues, next actions,
+  safe-to-use tools, tools requiring work, and decision.
+
+### Decision
+
+- Final research-stage decision: `GO WITH LIMITATIONS`.
+- `tradingview-mcp-go` is suitable as a TradingView chart/context/visual/Pine
+  collection layer, while HTS Go must calculate critical features and Tinkoff
+  must provide execution-grade instrument identity, orderbook, expiration,
+  margin, and trading status.
+
+### Changed
+
+- `STATUS.md` now reflects current evidence: `symbol_search` and screenshot
+  filename are fixed, and indicator-value risk is classified as Data
+  Window/UI text parsing until source flags/history mode are implemented.
+
+## 2026-04-27 (`Instrument Resolver Contract`)
+
+### Added
+
+- `docs/dev/INSTRUMENT_RESOLVER_CONTRACT.md` — draft documentation-only
+  contract for resolving TradingView analysis symbols to concrete Tinkoff
+  execution instruments.
+- Proposed external `InstrumentResolver` and `TinkoffMarketData` interfaces,
+  Go structs, SQLite schema, CLI commands, MCP tools, warning codes, and
+  fail-closed fallback behavior.
+- Explicit rule that TradingView continuous futures are analysis-only, while
+  Tinkoff concrete futures provide execution identity, orderbook bid/ask/spread,
+  expiration, margin, and trading status.
+
+### Boundary
+
+- Resolver storage, Tinkoff API calls, orderbook, margin/status retrieval, and
+  execution readiness stay in the external HTS MCP layer, not in
+  `tradingview-mcp-go`.
+
+## 2026-04-27 (`LLM Market Context Contract`)
+
+### Added
+
+- `docs/dev/LLM_MARKET_CONTEXT_CONTRACT.md` — draft documentation-only
+  contract for compact LLM payloads that avoid raw candles by default.
+- JSON Schema for `instrument_summary`, `market_scan_summary`, `diff_summary`,
+  `trade_review_summary`, shared warning/quality objects, and strict
+  `hts.llm_response.v1` output.
+- Proposed external Go structs and prompt templates for DeepSeek, Qwen, Kimi,
+  Opus, and ChatGPT.
+- Forbidden practices list covering raw candles, canvas coordinates, DOM text
+  numerics, TradingView bid/ask sentinels, continuous futures as execution
+  symbols, unverified Pine output, and free-form LLM responses.
+
+### Boundary
+
+- The document defines the external HTS MCP -> LLM interface only; it does not
+  implement HTS orchestration, broker integration, trading execution, or risk
+  sizing inside `tradingview-mcp-go`.
+
+## 2026-04-27 (`HTS Market Summary Contract`)
+
+### Added
+
+- `docs/dev/HTS_MARKET_SUMMARY_CONTRACT.md` — draft documentation-only
+  contract for TradingView MCP -> external HTS MCP -> LLM market summaries.
+- The contract separates `tradingview_direct`, `hts_go_derived`,
+  `pine_hts_json`, `tinkoff_marketdata`, and `unreliable` source classes.
+- Proposed external Go structs, a JSON example, `data_quality`,
+  `source_trace`, warnings, and a list of fields that must not be sent to an
+  LLM as factual truth.
+
+### Boundary
+
+- Tinkoff integration, execution symbol resolution, risk sizing, and trading
+  decisions remain outside `tradingview-mcp-go`; this repository only documents
+  the contract boundary and TradingView-sourced inputs.
+
+## 2026-04-27 (`Screenshot filename normalization`)
+
+### Fixed
+
+- `capture_screenshot` now appends `.png` only when the requested filename has
+  no extension.
+- Existing `.png` / `.PNG` filenames are preserved, so `foo.png` no longer
+  becomes `foo.png.png`.
+- Non-PNG extensions now return an explicit error instead of being silently
+  rewritten, because the tool always writes PNG content and changing a caller's
+  requested extension can hide mistakes or unexpected output paths.
+
+### Added
+
+- Unit tests for screenshot filename normalization, Windows/path-like names,
+  default generated names, and non-PNG extension rejection.
+
+## 2026-04-26 (`MOEX bid/ask source research`)
+
+### Added
+
+- `results/bid-ask-moex-futures-research-2026-04-26.md` — live research
+  report for why `quote_get` returns `bid:0` / `ask:0` on MOEX natural gas
+  futures.
+
+### Findings
+
+- `RUS:NG1!` and front contract `RUS:NGJ2026` do not expose `bid` / `ask`
+  fields in TradingView `mainSeries().quotes()` in the tested session;
+  quote state reports last-trade/OHLCV fields only.
+- TradingView can expose BBO on other symbols: `NYMEX:NG1!` and
+  `BINANCE:BTCUSDT` had internal `bid`, `ask`, `bid_size`, and `ask_size`.
+- `quote_get` should read internal `mainSeries().quotes().bid/ask` when
+  present and add explicit availability/source fields. For MOEX futures with
+  absent keys, keep numeric fields as compatibility sentinels and mark
+  bid/ask unavailable.
+- HTS should use Tinkoff Invest API orderbook for executable MOEX futures
+  bid/ask/spread, outside this TradingView MCP repository.
+
+## 2026-04-26 (`Strategy filter hypothesis workflow`)
+
+### Added
+
+- `results/strategy-filter-hypothesis-workflow-2026-04-26.md` — architecture
+  for LLM-proposed additional strategy filters as testable hypotheses, not
+  direct strategy edits.
+
+### Findings
+
+- LLM should only propose formalized hypotheses for filters such as ADX,
+  ATR volatility regime, EMA/KAMA trend, RSI zones, volume confirmation,
+  time/session, distance-to-level, no-trade zones, and trend phase filters.
+- Every hypothesis must pass formalization, baseline backtest comparison,
+  out-of-sample/forward testing, and manual acceptance.
+- Existing MCP/CLI tools can collect baseline context, OHLCV summaries,
+  screenshots, Pine source, and prepared Pine outputs, but normalized strategy
+  trades/equity and CLI wrappers for strategy data/input mutation are still
+  missing.
+
+## 2026-04-26 (`Strategy diagnosis LLM data research`)
+
+### Added
+
+- `results/strategy-diagnosis-llm-data-research-2026-04-26.md` — research
+  report defining the minimum structured data an LLM needs to diagnose weak
+  strategy performance through MCP/HTS.
+
+### Findings
+
+- Current MCP is insufficient for reliable strategy diagnosis by itself:
+  source/inputs/OHLCV/chart context are partially available, but normalized
+  trades, equity curve, drawdown curve, robust Strategy Tester metrics, and
+  per-trade regime annotations are not stable.
+- `data_get_strategy_results`, `data_get_trades`, and `data_get_equity` need
+  explicit unavailable/no-strategy statuses before their output can be consumed
+  as evidence by an LLM.
+- Recommended path: MCP collects TradingView data, HTS prepares
+  `strategy_review_summary`, and the LLM receives only compact summaries,
+  failure clusters, top hypotheses, and robustness checks.
+
+### References
+
+- TradingView Strategy Report CSV export and Strategy Report metrics were used
+  as the preferred external source for trades and performance metrics.
+- Pine `strategy.*` trade/equity outputs remain the preferred prepared-script
+  path when source can be edited legally.
+
+## 2026-04-26 (`Indicator input control stabilization`)
+
+### Added
+
+- `results/indicator-input-control-research-2026-04-26.md` — research and
+  implementation report for indicator/strategy input control through MCP.
+- `tests/smoke`: `TestIndicatorSetInputsVolumeLength` mutates built-in
+  `Volume.length`, verifies the value through `data_get_indicator`, and
+  restores the original value.
+- `Makefile`: `smoke-indicator-input` target for the focused live smoke test.
+
+### Changed
+
+- `indicator_set_inputs` now verifies requested input IDs and returns
+  `changed_inputs`, `unchanged_inputs`, `missing_input_ids`,
+  `failed_input_ids`, `changes`, `applied_count`, and `changed_count`.
+- `indicator_set_inputs` now returns `success:false` when none of the requested
+  input IDs exist, instead of reporting fake success.
+- `indicator_set_inputs` masks very large string values in before/after change
+  metadata to avoid echoing internal Pine payloads.
+- `indicator_toggle_visibility` now returns `before_visible`, `visible`,
+  `changed`, `entity_id`, and `source` while preserving `entityId`.
+
+### Verified
+
+- Built-in `Volume.length` changed live from `20` to `21` and was restored to
+  `20`.
+- Custom Pine `Помошник RSI - True ADX` boolean input `in_0` changed live from
+  `true` to `false` and was restored to `true`.
+- `indicator_toggle_visibility` changed `Volume` visibility off and back on.
+- Unknown input id now returns an explicit failure with `missing_input_ids`.
+
+## 2026-04-26 (`Indicator and strategy history research`)
+
+### Added
+
+- `results/indicator-strategy-history-research-2026-04-26.md` — research
+  report on historical calculated indicator values, Strategy Tester history,
+  trades, equity curve, Pine table/label history, UI export, and
+  network/WebSocket feasibility.
+
+### Verified
+
+- Built-in `Volume` history is available through the internal chart study model
+  via `study.data().valueAt(index)`.
+- Custom Pine `Помошник RSI - True ADX` history is available through the same
+  internal model with raw float values for DI+/DI-/ADX/RSI.
+- Current `data_get_pine_tables` can read current table values from the custom
+  RSI/ADX study.
+- Current `data_get_strategy_results`, `data_get_trades`, and
+  `data_get_equity` do not provide usable strategy history in the current chart
+  because no strategy is loaded.
+
+### Findings
+
+- Current public indicator tools expose only Data Window snapshots, not history.
+- A new `data_get_indicator_history` helper/tool should read
+  `study.data().valueAt(index)` and map rows through `metaInfo().plots`.
+- Strategy tools need explicit `no_strategy_loaded` / unavailable statuses and
+  should not treat regular indicator `performance` properties as a strategy.
+- For HTS, prefer internal TradingView study history for applied indicators,
+  prepared Pine `HTS_JSON` for custom strategy/trade state, and Go-side
+  recalculation from OHLCV for deterministic built-ins.
+
+## 2026-04-26 (`TradingView account limits research`)
+
+### Added
+
+- `results/tradingview-account-limits-research-2026-04-26.md` — research
+  report on account/plan detection, indicator-per-chart limits, empirical
+  limit probing, CDP capture of TradingView limit UI, and recommended MCP error
+  contract.
+
+### Verified
+
+- Current TradingView session classified as Basic/free through page state and
+  profile API (`window.pro.isPro() == false`, empty `pro_plan`).
+- Official pricing mapping checked on 2026-04-26: Basic=2, Essential=5,
+  Plus=10, Premium=25, Ultimate=50 indicators per chart.
+- Empirical add probe `chart_manage_indicator add Moving Average` did not add a
+  new study and left chart study count unchanged.
+- TradingView showed a localized limit dialog that CDP can read from the DOM:
+  the current subscription allows 2 applied indicators.
+
+### Findings
+
+- Current `chart_manage_indicator` add behavior is unsafe: it can return
+  `success:true` with an empty `entityId` when TradingView rejected the add.
+- Limit detection should combine plan inference, official plan mapping,
+  before/after study id comparison, and DOM/dialog text capture.
+- If plan is unknown, MCP/HTS should use a conservative fallback and avoid
+  adding more than 2 indicators automatically.
+
+## 2026-04-26 (`Pine source access research`)
+
+### Added
+
+- `results/pine-source-access-research-2026-04-26.md` — research report on
+  Pine source availability for current editor scripts, saved user scripts,
+  open-source publications, protected/invite-only scripts, built-ins, and
+  inputs/outputs without source.
+
+### Verified
+
+- MCP `pine_get_source` live returned `33307` chars / `540` lines from the
+  currently open Pine Editor buffer.
+- `pine_list_scripts` live returned `43` saved scripts through TradingView
+  `pine-facade` page-context credentials.
+- Existing `pine_open` is source-capable for saved user scripts, but mutates the
+  editor buffer after fetching source.
+- `data_get_indicator` can expose inputs and plots without source.
+
+### Findings
+
+- MCP can return Pine source only when TradingView already exposes that source
+  to the current account/session.
+- Protected and invite-only source must remain unavailable for non-author users;
+  MCP should return explicit `source_available:false` and may expose permitted
+  inputs/outputs only.
+- Many Pine-based built-ins expose source through TradingView's normal Pine
+  Editor/source-code UI; non-Pine built-ins do not expose Pine source.
+- LLM-facing source transfer needs explicit source origin/access metadata and
+  optional secret redaction.
+
+## 2026-04-26 (`indicator value source research`)
+
+### Added
+
+- `results/indicator-values-source-research-2026-04-26.md` — live research
+  report covering Data Window, DOM, internal chart model, Pine outputs, plot
+  mapping, strategy state, network/WebSocket feasibility, canvas fallback, and
+  proposed `HTS_JSON` format.
+
+### Findings
+
+- Correct calculated indicator values and history are available in the current
+  TradingView Desktop page through the internal chart widget model:
+  `study.data().valueAt(index)`.
+- The current wrong values are not canvas/Y coordinates in the tested setup.
+  They are formatted Data Window / legend strings parsed incorrectly
+  (`31,35` -> `3135`, `17,27 K` -> `1727`).
+- Observed plot mapping contract: `row[0] = time` and
+  `row[plot_array_index + 1] = value for metaInfo().plots[plot_array_index]`.
+  `colorer`, `alertcondition`, fill, and hidden plots still occupy row slots;
+  filtering must happen after mapping.
+- Data Window and DOM legend are useful display fallbacks, but are rounded,
+  localized, and sometimes scaled.
+- Pine tables/labels are the best deterministic source for custom scripts when
+  they emit a strict machine-readable `HTS_JSON:` payload.
+- Network/WebSocket capture is not recommended as the primary value source;
+  page JS does not expose historical WS payloads.
+- Screenshot/canvas reverse mapping is unnecessary and remains unsafe for
+  numerical decisions.
+
+## 2026-04-26 (`Pine / strategy / replay live audit`)
+
+### Added
+
+- `results/live-pine-strategy-replay-2026-04-26/` — separate live-test result
+  files for all requested Pine, strategy, and replay tools.
+- `results/live-pine-strategy-replay-2026-04-26/SUMMARY.md` — readiness table,
+  blocking issues, safe-to-use list, and tools not safe for HTS without changes.
+
+### Verified
+
+- `pine_get_source` — live CDP/Monaco read OK (`33307` chars, `540` lines).
+- `pine_set_source`, `pine_new`, `pine_open` — live editor mutation works.
+- `pine_list_scripts` — live pine-facade list OK (`43` scripts).
+- `pine_analyze` — offline static analyzer works; explicitly not TradingView API.
+- `pine_check` — TradingView pine-facade `translate_light` API compiled a sample.
+- Replay tools — `replay_start`, `replay_step`, `replay_autoplay`,
+  `replay_status`, and `replay_stop` worked against `RUS:NG1!` 1D.
+
+### Findings
+
+- `pine_compile` is unsafe in the tested UI state: it clicked `Pine Save`,
+  saved a test source over the active saved script, and did not add a study to
+  the chart. The original script was restored from pine-facade version `25.0`
+  and saved back as version `27.0`.
+- `pine_smart_compile` is partial: it returned `has_errors:false` and
+  `study_added:false`, with `button_clicked:"Pine Save"`.
+- `pine_get_console` is a noisy DOM scrape, not a structured compile log.
+- `data_get_strategy_results` and `data_get_equity` returned `success:true`
+  with empty data when no strategy was loaded; they need explicit
+  `no_strategy_loaded` / unavailable status.
+- `data_get_trades` included `error:"No strategy found on chart."` but still
+  used `success:true`.
+- `replay_trade` returned `success:true`, but `position` and `realized_pnl`
+  stayed `null`, so trade execution/state confirmation is weak.
+
+## 2026-04-26 (`symbol_search` stabilization)
+
+### Fixed
+
+- `internal/tools/chart/symbol.go` — fixed `symbol_search` returning `[]`.
+  Root cause: the request sent `type=` / `exchange=` and `search_type=undefined`
+  to TradingView's v3 symbol-search API. The API now rejects any `type` parameter
+  with `forbidden_set_type_with_search_type_api`.
+- `symbol_search` now omits unsupported params, sends `exchange` only when set,
+  and applies `type`/`exchange` filtering client-side after parsing results.
+- HTTP non-2xx responses now return an explicit error with status code and a
+  short body snippet instead of silently parsing into an empty result set.
+- Search result parsing now supports both current v3 object responses
+  (`{"symbols":[...]}`) and legacy array responses.
+- MCP `symbol_search` response includes `source: "tradingview_symbol_search_api"`.
+
+### Added
+
+- Unit coverage for symbol-search URL construction, v3/legacy response parsing,
+  client-side filtering, and `<em>` stripping.
+- `tests/smoke`: `TestSymbolSearch` checks that `NG` returns non-empty results
+  with required fields when live smoke tests are run.
+- `Makefile`: `smoke-symbol-search` target runs `go run ./cmd/tv symbol-search NG`.
+
+### Verified
+
+- `go test ./internal/tools/chart` — PASS.
+- CLI checks:
+  - `go run ./cmd/tv symbol-search NG`
+  - `go run ./cmd/tv symbol-search NG --exchange RUS`
+  - `go run ./cmd/tv symbol-search NG --type futures`
+  - `go run ./cmd/tv symbol-search BTCUSD`
+  - `go run ./cmd/tv symbol-search SBER`
+- Page-context check through `tv ui eval`: TradingView page can reach the same
+  endpoint (`status=200`, 50 results for `NG`), so a CDP fetch fallback is viable
+  if direct host HTTP is blocked later.
+
+---
+
 ## 2026-04-26 (Phase 5)
 
 ### Added

@@ -83,11 +83,58 @@ func (c *Client) EnableDomains(ctx context.Context) error {
 
 // Evaluate executes a JavaScript expression and returns the raw JSON value.
 func (c *Client) Evaluate(ctx context.Context, expression string, awaitPromise bool) (json.RawMessage, error) {
-	raw, err := c.call(ctx, "Runtime.evaluate", EvaluateParams{
-		Expression:    expression,
-		ReturnByValue: true,
+	result, err := c.evaluate(ctx, expression, EvaluateOptions{
 		AwaitPromise:  awaitPromise,
+		ReturnByValue: true,
 	})
+	if err != nil {
+		return nil, err
+	}
+	return result.Result.Value, nil
+}
+
+// EvaluateOptions controls a Runtime.evaluate call.
+type EvaluateOptions struct {
+	AwaitPromise  bool
+	ReturnByValue bool
+	Timeout       time.Duration
+}
+
+// EvaluateWithOptions executes JavaScript with explicit Runtime.evaluate options.
+func (c *Client) EvaluateWithOptions(ctx context.Context, expression string, opts EvaluateOptions) (json.RawMessage, error) {
+	result, err := c.evaluate(ctx, expression, opts)
+	if err != nil {
+		return nil, err
+	}
+	if opts.ReturnByValue || len(result.Result.Value) > 0 {
+		return result.Result.Value, nil
+	}
+	rawResult, err := json.Marshal(result.Result)
+	if err != nil {
+		return nil, fmt.Errorf("marshal evaluate remote object: %w", err)
+	}
+	return rawResult, nil
+}
+
+func (c *Client) evaluate(ctx context.Context, expression string, opts EvaluateOptions) (*EvaluateResult, error) {
+	if opts.Timeout > 0 {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, opts.Timeout)
+		defer cancel()
+	}
+	params := EvaluateParams{
+		Expression:    expression,
+		ReturnByValue: opts.ReturnByValue,
+		AwaitPromise:  opts.AwaitPromise,
+	}
+	if opts.Timeout > 0 {
+		timeoutMS := opts.Timeout.Milliseconds()
+		if timeoutMS == 0 {
+			timeoutMS = 1
+		}
+		params.Timeout = timeoutMS
+	}
+	raw, err := c.call(ctx, "Runtime.evaluate", params)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +149,7 @@ func (c *Client) Evaluate(ctx context.Context, expression string, awaitPromise b
 		}
 		return nil, fmt.Errorf("JS evaluation error: %s", msg)
 	}
-	return result.Result.Value, nil
+	return &result, nil
 }
 
 // ScreenshotClip defines a viewport region for a clipped screenshot.

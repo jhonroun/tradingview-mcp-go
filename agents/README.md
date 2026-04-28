@@ -1,249 +1,131 @@
 # Agents
 
-Agent definitions for the `tradingview-mcp-go` MCP server,
-in native formats for each supported AI client.
+Agent definitions for `tradingview-mcp-go`, in native formats for supported AI clients.
 
-## Quick install (bootstrap)
+Current status:
 
-The bootstrap installer downloads pre-built binaries and optionally configures
-the MCP server for your AI client — no cloning or building required.
-
-### Linux / macOS
-
-```bash
-# Install only
-curl -fsSL https://raw.githubusercontent.com/jhonroun/tradingview-mcp-go/main/scripts/bootstrap.sh | bash
-
-# Install + configure Claude Code
-curl -fsSL https://raw.githubusercontent.com/jhonroun/tradingview-mcp-go/main/scripts/bootstrap.sh | CLIENT=claude bash
-
-# Install + configure Cursor
-curl -fsSL https://raw.githubusercontent.com/jhonroun/tradingview-mcp-go/main/scripts/bootstrap.sh | CLIENT=cursor bash
-```
-
-### Windows (PowerShell)
-
-```powershell
-# Install only
-iwr -useb https://raw.githubusercontent.com/jhonroun/tradingview-mcp-go/main/scripts/bootstrap.ps1 | iex
-
-# Install + configure Claude Code
-.\bootstrap.ps1 -Client claude
-
-# Install + configure Cursor with custom path
-.\bootstrap.ps1 -Client cursor -Prefix "C:\tools\tvmcp"
-```
-
-Supported clients: `claude` · `cursor` · `cline` · `windsurf` · `continue` · `codex` · `gemini`
-
----
-
-```text
-agents/
-  market-analyst.md             ← Claude Code   (Claude Agents SDK)
-  futures-analyst.md            ← Claude Code   (Claude Agents SDK)
-  performance-analyst.md        ← Claude Code   (Claude Agents SDK)
-  cursor/
-    market-analyst.mdc          ← Cursor        (.cursor/rules/)
-    futures-analyst.mdc         ← Cursor        (.cursor/rules/)
-    performance-analyst.mdc     ← Cursor        (.cursor/rules/)
-  cline/
-    market-analyst.md           ← Cline         (.clinerules/)
-    futures-analyst.md          ← Cline         (.clinerules/)
-    performance-analyst.md      ← Cline         (.clinerules/)
-  windsurf/
-    market-analyst.md           ← Windsurf      (.windsurfrules)
-    futures-analyst.md          ← Windsurf      (.windsurfrules)
-    performance-analyst.md      ← Windsurf      (.windsurfrules)
-  continue/
-    market-analyst.prompt       ← Continue      (.continue/prompts/)
-    futures-analyst.prompt      ← Continue      (.continue/prompts/)
-    performance-analyst.prompt  ← Continue      (.continue/prompts/)
-  codex/
-    market-analyst.md           ← OpenAI Codex  (AGENTS.md / --instructions)
-    futures-analyst.md          ← OpenAI Codex  (AGENTS.md / --instructions)
-    performance-analyst.md      ← OpenAI Codex  (AGENTS.md / --instructions)
-  gemini/
-    market-analyst.md           ← Gemini CLI    (GEMINI.md / --system)
-    futures-analyst.md          ← Gemini CLI    (GEMINI.md / --system)
-    performance-analyst.md      ← Gemini CLI    (GEMINI.md / --system)
-```
-
-Sources of truth:
-
-- [`prompts/market-analyst.md`](../prompts/market-analyst.md)
-- [`prompts/futures-analyst.md`](../prompts/futures-analyst.md)
-- [`prompts/performance-analyst.md`](../prompts/performance-analyst.md)
-
----
+- Current Go MCP registry: `85` tools.
+- Historical Node.js parity baseline: `78` tools.
+- English and Russian variants are provided for every agent and client wrapper.
+- Source prompts live in `prompts/`.
 
 ## Agents
 
-| Agent | Primary tools | Use for |
-| ----- | ------------- | ------- |
-| `market-analyst` | `chart_context_for_llm`, `market_summary`, `indicator_state` | Live chart reads, indicator briefs, bias |
-| `futures-analyst` | `continuous_contract_context`, `market_summary`, `indicator_state` | Continuous contracts, roll timing, spreads |
-| `performance-analyst` | `data_get_strategy_results`, `data_get_trades`, `data_get_equity` | Strategy backtests, equity curve, trade stats |
+| Agent | EN source | RU source | Use for |
+| --- | --- | --- | --- |
+| `market-analyst` | `prompts/market-analyst.md` | `prompts/market-analyst.ru.md` | Live chart reads, indicator briefs, market bias |
+| `futures-analyst` | `prompts/futures-analyst.md` | `prompts/futures-analyst.ru.md` | Continuous futures, roll context, bid/ask caveats |
+| `performance-analyst` | `prompts/performance-analyst.md` | `prompts/performance-analyst.ru.md` | Strategy results, trades, orders, equity coverage |
 
-All agents are Phase 5-aware: they expect `plots` arrays from `data_get_study_values`, always-present `bid`/`ask`/`change`/`change_pct` in `quote_get`, and `exchange`/`ticker`/`pane_count` in `chart_get_state`.
+All agents are source/reliability aware. They must not treat UI/canvas values, unavailable bid/ask, derived equity, or loaded-bars-only equity as fully reliable trading data.
 
----
+## File Layout
+
+```text
+agents/
+  market-analyst.md
+  market-analyst.ru.md
+  futures-analyst.md
+  futures-analyst.ru.md
+  performance-analyst.md
+  performance-analyst.ru.md
+  cursor/*.mdc / *.ru.mdc
+  cline/*.md / *.ru.md
+  windsurf/*.md / *.ru.md
+  continue/*.prompt / *.ru.prompt
+  codex/*.md / *.ru.md
+  gemini/*.md / *.ru.md
+```
 
 ## Skills
 
-Skills extend agent capabilities with specific workflows. Place them in `skills/` and reference them from agent prompts or call them directly in the AI client.
+Skills are workflow instructions in `skills/<name>/SKILL.md`. Russian variants are in `skills/<name>/SKILL.ru.md`.
 
-| Skill | File | Use for |
-| ----- | ---- | ------- |
-| `llm-context` | `skills/llm-context/SKILL.md` | Single-call LLM context snapshot before analysis |
-| `market-brief` | `skills/market-brief/SKILL.md` | Structured market briefing (price action, volume, indicators) |
-| `indicator-scan` | `skills/indicator-scan/SKILL.md` | Scan multiple indicators across a watchlist |
-| `futures-roll` | `skills/futures-roll/SKILL.md` | Detect and analyze futures roll timing |
-| `chart-analysis` | `skills/chart-analysis/SKILL.md` | Full chart setup analysis with screenshot |
-| `multi-symbol-scan` | `skills/multi-symbol-scan/SKILL.md` | Batch scan across symbols with `batch_run` |
-| `pine-develop` | `skills/pine-develop/SKILL.md` | Pine Script development workflow |
-| `replay-practice` | `skills/replay-practice/SKILL.md` | Historical replay practice sessions |
-| `strategy-report` | `skills/strategy-report/SKILL.md` | Strategy backtest reporting |
-| `json-contracts` | `skills/json-contracts/SKILL.md` | Verify Phase 5 JSON response contracts |
-| `error-handling` | `skills/error-handling/SKILL.md` | Classify and recover from MCP tool errors |
+Current skills:
 
----
+| Skill | Purpose |
+| --- | --- |
+| `chart-analysis` | Full chart setup analysis with data-quality checks |
+| `data-quality` | Verify source/reliability/coverage before using data |
+| `error-handling` | Classify MCP errors and structured statuses |
+| `futures-roll` | Continuous futures roll context |
+| `indicator-scan` | Indicator signal table with study-model validation |
+| `json-contracts` | Validate response fields and contracts |
+| `llm-context` | Build compact LLM-ready market context |
+| `market-brief` | Market brief from price, volume, indicators |
+| `multi-symbol-scan` | Scan multiple symbols |
+| `pine-develop` | Pine development loop |
+| `pine-safe-edit` | Backup/hash/restore-safe Pine editing |
+| `regression-smoke` | Regression and smoke workflow |
+| `replay-practice` | Replay-mode practice |
+| `strategy-backtesting-api` | Strategy Tester report/trades/orders |
+| `strategy-equity-plot` | Explicit Strategy Equity plot workflow |
+| `strategy-report` | Strategy report generation |
+| `study-model-values` | Reliable indicator current/history values |
+| `tradingview-limit-handling` | Study-limit detection and safe recovery |
 
-## Claude Code
+## Install Examples
 
-**Format:** Claude Agents SDK (YAML frontmatter + markdown body)
+### Claude Code
 
 ```bash
 claude --agent agents/market-analyst.md
-claude --agent agents/futures-analyst.md
-claude --agent agents/performance-analyst.md
+claude --agent agents/market-analyst.ru.md
 ```
 
----
-
-## Cursor
-
-**Format:** Cursor Rules (`.mdc` with YAML frontmatter)
-
-**Install** (project-level):
+### Cursor
 
 ```bash
 mkdir -p .cursor/rules
 cp agents/cursor/market-analyst.mdc .cursor/rules/
-cp agents/cursor/futures-analyst.mdc .cursor/rules/
-cp agents/cursor/performance-analyst.mdc .cursor/rules/
+cp agents/cursor/market-analyst.ru.mdc .cursor/rules/
 ```
 
-**Use:** Type `@market-analyst`, `@futures-analyst`, or `@performance-analyst` in Cursor chat,
-or Cursor applies the rule automatically when the description matches your request (`alwaysApply: false`).
-
-**Global install:** Cursor → Settings → Rules for AI → paste the file body.
-
----
-
-## Cline
-
-**Format:** Cline rules (plain markdown, no frontmatter)
-
-**Install** (project-level):
+### Cline
 
 ```bash
 mkdir -p .clinerules
 cp agents/cline/market-analyst.md .clinerules/
-cp agents/cline/futures-analyst.md .clinerules/
-cp agents/cline/performance-analyst.md .clinerules/
+cp agents/cline/market-analyst.ru.md .clinerules/
 ```
 
-Cline loads all `.md` files from `.clinerules/` automatically.
-
-**Global install:** VS Code → Extensions → Cline → Settings → Custom Instructions → paste the file content.
-
----
-
-## Windsurf
-
-**Format:** Windsurf rules (plain markdown)
-
-**Install** (project-level, append to rules file):
+### Windsurf
 
 ```bash
 cat agents/windsurf/market-analyst.md >> .windsurfrules
-cat agents/windsurf/futures-analyst.md >> .windsurfrules
-cat agents/windsurf/performance-analyst.md >> .windsurfrules
+cat agents/windsurf/market-analyst.ru.md >> .windsurfrules
 ```
 
-**Global install:** Windsurf → Settings → AI Rules → paste the file content.
-
----
-
-## Continue
-
-**Format:** Continue prompt template (`.prompt` file)
-
-**Install:**
+### Continue
 
 ```bash
 mkdir -p .continue/prompts
 cp agents/continue/market-analyst.prompt .continue/prompts/
-cp agents/continue/futures-analyst.prompt .continue/prompts/
-cp agents/continue/performance-analyst.prompt .continue/prompts/
+cp agents/continue/market-analyst.ru.prompt .continue/prompts/
 ```
 
-**Use:** In Continue chat, type `/market-analyst`, `/futures-analyst`, or `/performance-analyst`.
-
----
-
-## OpenAI Codex CLI
-
-**Format:** Markdown instruction file (`AGENTS.md` convention)
-
-**Option 1 — project AGENTS.md** (one agent at a time):
+### Codex
 
 ```bash
-cp agents/codex/market-analyst.md AGENTS.md
-codex "What is the current chart setup?"
+codex --instructions "$(cat agents/codex/market-analyst.md)" "Analyze the current chart"
+codex --instructions "$(cat agents/codex/market-analyst.ru.md)" "Разбери текущий график"
 ```
 
-**Option 2 — inline flag:**
+### Gemini
 
 ```bash
-codex --instructions "$(cat agents/codex/futures-analyst.md)" \
-      "Analyze NG1! roll timing"
+gemini --system "$(cat agents/gemini/market-analyst.md)" "Analyze the current chart"
+gemini --system "$(cat agents/gemini/market-analyst.ru.md)" "Разбери текущий график"
 ```
 
-**Option 3 — environment variable:**
+## Data Reliability Rules
 
-```bash
-export CODEX_SYSTEM_PROMPT="$(cat agents/codex/performance-analyst.md)"
-codex "Analyze the current TradingView strategy"
-```
-
----
-
-## Gemini CLI
-
-**Format:** Markdown instruction file (`GEMINI.md` convention)
-
-**Option 1 — project GEMINI.md** (one agent at a time):
-
-```bash
-cp agents/gemini/market-analyst.md GEMINI.md
-gemini "What is AAPL doing on the daily?"
-```
-
-**Option 2 — inline flag:**
-
-```bash
-gemini --system "$(cat agents/gemini/futures-analyst.md)" \
-       "Check ES1! roll status"
-```
-
----
-
-## Any other MCP client
-
-1. Open the relevant file under `prompts/`
-2. Copy the body (starting from "You are a …")
-3. Paste it as the **system prompt** / **instructions** / **custom rules** in your client's settings
-
-The MCP tools are provided by the running `tvmcp` server — the agents work regardless of which AI model or client you use, as long as it is connected to `tvmcp` via MCP.
+- Run `tv discover` and inspect `compatibility_probes` after TradingView Desktop updates or when an internal-path-dependent tool returns unavailable statuses.
+- `tradingview_study_model`: reliable numeric indicator values, unstable internal path.
+- `tradingview_backtesting_api`: reliable strategy report when `status: ok`, unstable internal path.
+- `tradingview_strategy_plot`: reliable equity plot values for `coverage: loaded_chart_bars`.
+- `tradingview_ui_data_window`: localized display fallback, not reliable for trading logic.
+- `bidAskAvailable:false`: bid/ask spread unavailable.
+- Derived equity is conditional and must not be presented as native full Strategy Tester equity.
+- Optional history loading is best-effort: expand/scroll chart range, repeat the data call, compare `loaded_bar_count` / `data_points`, and keep `coverage: loaded_chart_bars`.
+- Full native bar-by-bar Strategy Tester equity is not a release target until TradingView exposes a stable report field.
